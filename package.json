@@ -1,0 +1,43 @@
+{
+  "name": "@sanjivinsmoke95/ui-kit",
+  "version": "1.0.0",
+  "description": "A themeable React + Tailwind UI kit: dark/blue/light/warm themes, cards and KPI tiles, forms, overlays, tables, SVG charts, app-shell layout and a command palette.",
+  "type": "module",
+  "private": true,
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./styles.css": "./src/styles/kit.css",
+    "./fonts.css": "./src/styles/fonts.css",
+    "./tailwind-preset": "./src/tailwind-preset.js"
+  },
+  "bin": { "ui-kit": "./bin/ui-kit.mjs" },
+  "files": ["src", "bin", "README.md"],
+  "scripts": {
+    "dev": "vite --config playground/vite.config.js",
+    "build": "vite build --config playground/vite.config.js",
+    "preview": "vite preview --config playground/vite.config.js"
+  },
+  "dependencies": { "clsx": "^2.1.1" },
+  "peerDependencies": {
+    "framer-motion": ">=11",
+    "lucide-react": ">=0.400",
+    "react": ">=18",
+    "react-dom": ">=18",
+    "tailwindcss": ">=3.4 <4"
+  },
+  "devDependencies": {
+    "@fontsource-variable/geist": "^5.1.0",
+    "@fontsource-variable/geist-mono": "^5.1.0",
+    "@fontsource/anton": "^5.1.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "framer-motion": "^11.11.9",
+    "lucide-react": "^0.460.0",
+    "postcss": "^8.4.49",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.15",
+    "vite": "^5.4.11"
+  }
+}

@@ -1,0 +1,398 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   DESIGN TOKENS
+   Colors are space-separated RGB triplets so Tailwind can apply alpha.
+   Presets are selected with <html data-theme="dark|blue|light|warm"> (see <ThemeProvider>).
+   The accent can be overridden at runtime (see hooks/useTheme.jsx).
+   ========================================================================== */
+:root {
+  /* Radius — the only four values used in the product */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-card: 24px;          /* cards: large, soft corners */
+  --card-line: 0.11;            /* card border: this much of the text colour */
+  --card-fill: 0.025;           /* card fill: nearly transparent */
+  --card-tint: 0.34;
+  --card-border: 0.34;
+  --card-sheen: 0.05;
+
+  /* Pastel card tones (theme-independent; always paired with --ink text) */
+  --tone-peach: 251 220 203;
+  --tone-mint: 205 235 221;
+  --tone-sky: 210 227 248;
+  --tone-lilac: 224 216 245;
+  --tone-butter: 245 233 184;
+  --ink: 31 27 22;
+
+  /* Semantic data colors: use them consistently (blue = normal, purple = network/relations, teal = time, orange = warning, red = alert). Flat colors only. */
+  --sem-blue: 96 135 240;
+  --sem-purple: 167 139 250;
+  --sem-teal: 61 185 165;
+  --sem-orange: 232 164 80;
+  --sem-red: 226 98 112;
+  --risk-normal: 96 135 240;
+  --risk-watch: 232 164 80;
+  --risk-elevated: 238 130 88;
+  --risk-review: 226 98 112;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 150ms;
+  --dur: 200ms;
+
+  /* Layers */
+  --z-nav: 30;
+  --z-overlay: 50;
+  --z-modal: 60;
+  --z-toast: 80;
+  --z-tooltip: 90;
+
+  /* Layout */
+  --w-sidebar: 244px;
+  --w-content: 1200px;
+  --w-prose: 680px;
+  --h-topbar: 56px;
+}
+
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: 9 9 11;
+  --surface: 17 17 19;
+  --surface-2: 24 24 27;
+  --line: 39 39 42;
+  --fg: 250 250 250;
+  --fg-2: 161 161 170;
+  --fg-3: 124 124 134;
+  --accent: 124 58 237;
+  --accent-text: 167 139 250;
+  --accent-fg: 255 255 255;
+  --accent-2: 34 211 238;
+  --success: 52 211 153;
+  --warning: 251 191 36;
+  --danger: 248 113 113;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 16px rgb(0 0 0 / 0.35);
+  --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(255 255 255 / 0.04);
+  --scrim: 0 0 0 / 0.6;
+  --glow-2: 0; /* opacity of the secondary hero glow; only the blue theme turns it on */
+}
+
+
+/* Blue + Dark — deep navy, electric blue, restrained violet. */
+[data-theme='blue'] {
+  color-scheme: dark;
+  --bg: 7 10 16;
+  --surface: 13 17 28;
+  --surface-2: 17 24 39;
+  --line: 30 41 59;
+  --fg: 248 250 252;
+  --fg-2: 148 163 184;
+  --fg-3: 117 133 156;
+  --accent: 37 99 235;
+  --accent-text: 96 165 250;
+  --accent-fg: 255 255 255;
+  --accent-2: 139 92 246;
+  --success: 52 211 153;
+  --warning: 251 191 36;
+  --danger: 248 113 113;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+  --shadow-md: 0 4px 16px rgb(0 0 0 / 0.45);
+  --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.65), 0 0 0 1px rgb(96 165 250 / 0.08);
+  --scrim: 3 6 14 / 0.7;
+  --glow-2: 0.14;
+}
+/* A single soft blue wash at the top of every page for depth. */
+[data-theme='blue'] body {
+  background-image: radial-gradient(ellipse 70% 360px at 50% -80px, rgb(37 99 235 / 0.14), transparent 70%);
+  background-repeat: no-repeat;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --card-line: 0.14;
+  --card-fill: 0.03;
+  --card-tint: 0.12;
+  --card-border: 0.28;
+  --card-sheen: 0.7;
+  --bg: 250 250 250;
+  --surface: 255 255 255;
+  --surface-2: 244 244 245;
+  --line: 228 228 231;
+  --fg: 24 24 27;
+  --fg-2: 82 82 91;
+  --fg-3: 113 113 122;
+  --accent: 79 70 229;
+  --accent-text: 67 56 202;
+  --accent-fg: 255 255 255;
+  --accent-2: 8 145 178;
+  --success: 5 150 105;
+  --warning: 180 83 9;
+  --danger: 220 38 38;
+  --shadow-sm: 0 1px 2px rgb(24 24 27 / 0.06);
+  --shadow-md: 0 4px 16px rgb(24 24 27 / 0.08);
+  --shadow-pop: 0 12px 40px rgb(24 24 27 / 0.14), 0 0 0 1px rgb(24 24 27 / 0.04);
+  --scrim: 24 24 27 / 0.4;
+}
+
+[data-theme='warm'] {
+  color-scheme: light;
+  --card-line: 0.14;
+  --card-fill: 0.03;
+  --card-tint: 0.14;
+  --card-border: 0.3;
+  --card-sheen: 0.7;
+  --bg: 250 247 242;
+  --surface: 255 253 249;
+  --surface-2: 245 240 232;
+  --line: 231 223 211;
+  --fg: 41 37 36;
+  --fg-2: 87 83 78;
+  --fg-3: 120 113 108;
+  --accent: 194 65 12;
+  --accent-text: 154 52 18;
+  --accent-fg: 255 255 255;
+  --accent-2: 13 148 136;
+  --success: 21 128 61;
+  --warning: 161 98 7;
+  --danger: 185 28 28;
+  --shadow-sm: 0 1px 2px rgb(41 37 36 / 0.06);
+  --shadow-md: 0 4px 16px rgb(41 37 36 / 0.08);
+  --shadow-pop: 0 12px 40px rgb(41 37 36 / 0.14), 0 0 0 1px rgb(41 37 36 / 0.04);
+  --scrim: 41 37 36 / 0.4;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    transition: background-color var(--dur) var(--ease);
+  }
+  ::selection {
+    background: rgb(var(--accent) / 0.3);
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent-text));
+    outline-offset: 2px;
+  }
+  button, [role='button'], a { -webkit-tap-highlight-color: transparent; }
+  button:disabled { cursor: not-allowed; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--line));
+    border-radius: 9999px;
+    border: 3px solid rgb(var(--bg));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   TYPOGRAPHY — three weights only (400 / 500 / 600)
+   ========================================================================== */
+@layer components {
+  /* Display face (Anton): poster-scale, uppercase, used sparingly for the loudest text only. */
+  .t-display {
+    font-family: theme('fontFamily.display');
+    font-size: clamp(3.25rem, 10vw, 9rem);
+    line-height: 0.92;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+  }
+  .t-h1 {
+    font-family: theme('fontFamily.display');
+    font-size: clamp(2rem, 1.4rem + 1.6vw, 2.75rem);
+    line-height: 1;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+  }
+  .t-section {
+    font-family: theme('fontFamily.display');
+    font-size: 1.375rem;
+    line-height: 1;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .t-h2 { font-size: 1.125rem; line-height: 1.35; font-weight: 600; letter-spacing: -0.012em; }
+  .t-h3 { font-size: 0.9375rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.006em; }
+  .t-body { font-size: 0.9375rem; line-height: 1.65; }
+  .t-small { font-size: 0.8125rem; line-height: 1.5; }
+  .t-caption { font-size: 0.75rem; line-height: 1.4; }
+  .t-label {
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .t-eyebrow {
+    font-size: 0.6875rem;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .t-mono {
+    font-family: theme('fontFamily.mono');
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  /* Form controls ------------------------------------------------------- */
+  .control {
+    @apply w-full rounded-md border border-line bg-surface px-3 text-[0.875rem] text-fg
+      placeholder:text-fg-3 transition hover:border-fg-3/50
+      focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .control[aria-invalid='true'] { @apply border-danger focus:ring-danger/25; }
+
+  /* Subtle page backdrops ------------------------------------------------ */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgb(var(--line) / 0.55) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--line) / 0.55) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 75%);
+  }
+  .hairline { @apply border-line; border-width: 1px; }
+}
+
+/* History card tones on dark themes: deep tinted glass instead of pastel, with light ink. */
+[data-theme='dark'],
+[data-theme='blue'] {
+  --tone-peach: 52 33 30;
+  --tone-mint: 14 52 54;
+  --tone-sky: 17 38 84;
+  --tone-lilac: 38 33 82;
+  --tone-butter: 50 42 22;
+  --ink: 241 245 249;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes rotate-in {
+  from { opacity: 0; transform: translateY(60%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer utilities {
+  .animate-float { animation: float 7s ease-in-out infinite; }
+  .animate-rotate-in { animation: rotate-in 0.32s var(--ease) both; }
+  .animate-marquee { animation: marquee 32s linear infinite; }
+  .scrollbar-none { scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+/* ---- Component classes used by the kit: .card, .stat-card, .pill, .ctl (inputs), .label, .kbd, .skeleton, ... ---- */
+@layer components {
+  /* Cards: large radius, a hairline border and an almost transparent fill, no colour wash: the page shows through.
+     `--tint` (set with a tone-* class) is only used for small accents: a visual inside the card, and the border on hover. */
+  .card {
+    border-radius: var(--radius-card);
+    border: 1px solid rgb(var(--fg) / var(--card-line));
+    background: rgb(var(--fg) / var(--card-fill));
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+  .tone-accent { --tint: var(--accent-text); }
+  .tone-purple { --tint: var(--sem-purple); }
+  .tone-blue { --tint: var(--sem-blue); }
+  .tone-teal { --tint: var(--sem-teal); }
+  .tone-orange { --tint: var(--sem-orange); }
+  .tone-red { --tint: var(--sem-red); }
+  .tone-green { --tint: var(--success); }
+
+  /* KPI card: plain label with a round arrow button, a big display number, a one-line description, then a small visual. */
+  .stat-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0.8rem 0.95rem;
+    border-radius: 18px;
+    color: rgb(var(--fg));
+    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  a.stat-card:hover {
+    transform: translateY(-2px);
+    border-color: rgb(var(--tint, var(--accent-text)) / 0.5);
+  }
+  .card-orb {
+    display: inline-flex;
+    height: 1.65rem;
+    width: 1.65rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border: 1px solid rgb(var(--fg) / 0.2);
+    background: transparent;
+    color: rgb(var(--fg) / 0.85);
+    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  a.stat-card:hover .card-orb { background: rgb(var(--tint, var(--accent-text)) / 0.16); border-color: rgb(var(--tint, var(--accent-text)) / 0.5); }
+  .pill {
+    display: inline-flex;
+    height: 1.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid rgb(var(--fg) / 0.14);
+    background: transparent;
+    padding: 0 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgb(var(--fg) / 0.85);
+    white-space: nowrap;
+  }
+  .ctl { @apply control h-9; }
+  textarea.ctl { @apply h-auto min-h-[96px] py-2.5 leading-relaxed; }
+  .ctl-error { @apply border-danger focus:border-danger focus:ring-danger/25; }
+  .label { @apply mb-1.5 block text-[0.8125rem] font-medium text-fg-2; }
+  .prose-note { @apply whitespace-pre-wrap break-words text-[0.9375rem] leading-relaxed text-fg; }
+  .insight { @apply text-[1.1875rem] font-medium leading-[1.6] tracking-[-0.01em] text-fg; }
+  .skeleton { @apply animate-pulse rounded-md bg-surface-2; }
+  .kbd { @apply rounded-sm border border-line bg-surface px-1.5 py-0.5 font-mono text-[0.6875rem] text-fg-2; }
+}
+a { color: rgb(var(--accent-text)); }
+a:hover { text-decoration: underline; text-underline-offset: 2px; }
+a.no-underline, a[class*='hover:no-underline'] { text-decoration: none; }
+input[type='datetime-local']::-webkit-calendar-picker-indicator,
+input[type='date']::-webkit-calendar-picker-indicator { filter: invert(0.75); }
+.scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: rgb(var(--line)); border-radius: 8px; }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.animate-rise { animation: rise 180ms ease-out both; }
+@keyframes reveal { from { opacity: 0; clip-path: inset(0 0 100% 0); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
+.animate-reveal { animation: reveal 260ms ease-out both; }

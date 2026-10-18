@@ -1,0 +1,100 @@
+import { useId } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { cn } from '../utils/cn';
+
+/**
+ * Controlled tabs with a sliding underline.
+ * items: [{ id, label, count? }]. Pair with <TabPanel> for animated content.
+ */
+export function Tabs({ items, value, onChange, className, label = 'Sections' }) {
+  const group = useId();
+
+  const onKeyDown = (e) => {
+    const i = items.findIndex((t) => t.id === value);
+    const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: items.length - 1 }[e.key];
+    if (next === undefined) return;
+    e.preventDefault();
+    const target = items[(next + items.length) % items.length];
+    onChange(target.id);
+    document.getElementById(`${group}-${target.id}`)?.focus();
+  };
+
+  return (
+    <div role="tablist" aria-label={label} onKeyDown={onKeyDown} className={cn('flex gap-1 overflow-x-auto border-b border-line scrollbar-none', className)}>
+      {items.map((t) => {
+        const active = t.id === value;
+        return (
+          <button
+            key={t.id}
+            id={`${group}-${t.id}`}
+            role="tab"
+            type="button"
+            aria-selected={active}
+            tabIndex={active ? 0 : -1}
+            onClick={() => onChange(t.id)}
+            className={cn(
+              'relative -mb-px flex h-10 shrink-0 items-center gap-2 px-3 text-[0.875rem] font-medium transition-colors',
+              active ? 'text-fg' : 'text-fg-3 hover:text-fg-2',
+            )}
+          >
+            {t.label}
+            {t.count !== undefined && <span className="t-mono text-fg-3">{t.count}</span>}
+            {active && (
+              <motion.span layoutId={`${group}-underline`} className="absolute inset-x-2 bottom-0 h-px bg-fg" transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }} />
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/** Fades content when `id` changes. */
+export function TabPanel({ id, children, className }) {
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={id}
+        role="tabpanel"
+        className={className}
+        initial={{ opacity: 0, y: 4 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.15 }}
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+/**
+ * Compact pill selector for filters (not for page sections).
+ * Pass `items` ([{ id, label }]) or `options` (strings, or [{ value, label, toggle? }]). With `toggle`, clicking the active option clears it (onChange(null)).
+ */
+export function Segmented({ items, options, value, onChange, label, size = 'md', className }) {
+  const list = (items ?? options ?? []).map((o) => (typeof o === 'string' ? { id: o, label: o } : { id: o.id ?? o.value, label: o.label, toggle: o.toggle }));
+  return (
+    <div role="radiogroup" aria-label={label} className={cn('inline-flex flex-wrap rounded-md border border-line bg-surface p-0.5', className)}>
+      {list.map((t) => {
+        const active = value === t.id;
+        return (
+          <button
+            key={t.id}
+            role="radio"
+            type="button"
+            aria-checked={active}
+            onClick={() => onChange(active && t.toggle ? null : t.id)}
+            className={cn(
+              'rounded-sm font-medium transition',
+              size === 'sm' ? 'h-6 px-2.5 text-[0.75rem]' : 'h-7 px-3 text-[0.8125rem]',
+              active ? 'bg-surface-2 text-fg shadow-sm ring-1 ring-line' : 'text-fg-3 hover:text-fg-2',
+            )}
+          >
+            {t.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
