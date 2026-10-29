@@ -4,7 +4,8 @@
  */
 export default function PageHeader({ title, accentIndex, description, actions }) {
   const lines = Array.isArray(title) ? title : null;
-  const words = lines ? null : title.split(' ');
+  const plain = typeof title === 'string';
+  const words = lines || !plain ? null : title.split(' ');
   const accentWord = !lines && words.length > 1 ? words.pop() : null;
 
   return (
@@ -15,6 +16,7 @@ export default function PageHeader({ title, accentIndex, description, actions })
             ? lines.map((l, i) => (
                 <span key={l} className={`block ${i === (accentIndex ?? lines.length - 1) ? 'text-accent-text' : ''}`}>{l}</span>
               ))
+            : !plain ? title
             : (
               <>
                 {words.join(' ')}

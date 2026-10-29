@@ -5,7 +5,7 @@ import { cn } from '../utils/cn';
 
 /**
  * Menu popover. `trigger` is a render function receiving trigger props.
- * items: [{ label, icon, onClick, to, danger, separator }]
+ * items: [{ label, icon, onClick, to, danger, active }, { heading }, { separator: true }]  (add `id` if two labels repeat)
  * `children` can replace the item list with custom content (used for notifications).
  */
 export default function Dropdown({ trigger, items = [], align = 'right', width = 'w-56', label = 'Menu', children }) {
@@ -22,23 +22,25 @@ export default function Dropdown({ trigger, items = [], align = 'right', width =
     const onKey = (e) => {
       if (e.key === 'Escape') {
         close();
-        rootRef.current?.querySelector('button')?.focus();
-      }
+        rootRef.current?.querySelector('[aria-haspopup]')?.focus();
+      } else if (e.key === 'Tab' && !children) close();                 // a menu is one tab stop: tabbing away dismisses it
     };
-    document.addEventListener('mousedown', onDown);
+    document.addEventListener('pointerdown', onDown);
     document.addEventListener('keydown', onKey);
-    menuRef.current?.querySelector('[role="menuitem"]')?.focus();
+    (menuRef.current?.querySelector('[role="menuitem"]') || menuRef.current?.querySelector('input,button,a[href],[tabindex]'))?.focus();
     return () => {
-      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('pointerdown', onDown);
       document.removeEventListener('keydown', onKey);
     };
-  }, [open, close]);
+  }, [open, close, children]);
 
   const onMenuKey = (e) => {
     const nodes = [...menuRef.current.querySelectorAll('[role="menuitem"]')];
     const i = nodes.indexOf(document.activeElement);
     if (e.key === 'ArrowDown') nodes[(i + 1) % nodes.length]?.focus();
     else if (e.key === 'ArrowUp') nodes[(i - 1 + nodes.length) % nodes.length]?.focus();
+    else if (e.key === 'Home') nodes[0]?.focus();
+    else if (e.key === 'End') nodes.at(-1)?.focus();
     else return;
     e.preventDefault();
   };
@@ -55,7 +57,7 @@ export default function Dropdown({ trigger, items = [], align = 'right', width =
             aria-label={label}
             onKeyDown={children ? undefined : onMenuKey}
             className={cn(
-              'absolute top-full z-overlay mt-2 origin-top overflow-hidden rounded-lg border border-line bg-surface p-1 shadow-pop',
+              'absolute top-full z-overlay mt-2 origin-top overflow-hidden rounded-md border border-line bg-surface p-1 shadow-pop',
               align === 'right' ? 'right-0 origin-top-right' : 'left-0 origin-top-left',
               width,
             )}
@@ -70,8 +72,9 @@ export default function Dropdown({ trigger, items = [], align = 'right', width =
               const Tag = item.to ? Link : 'button';
               return (
                 <Tag
-                  key={item.label}
+                  key={item.id ?? `${item.label}-${i}`}
                   role="menuitem"
+                  aria-current={item.active ? 'true' : undefined}
                   to={item.to}
                   type={item.to ? undefined : 'button'}
                   onClick={() => {
@@ -79,7 +82,7 @@ export default function Dropdown({ trigger, items = [], align = 'right', width =
                     close();
                   }}
                   className={cn(
-                    'flex w-full items-center gap-2.5 rounded-sm px-2.5 py-2 text-left text-[0.8125rem] transition-colors focus:bg-surface-2 focus:outline-none hover:bg-surface-2',
+                    'flex min-h-9 w-full items-center gap-2.5 rounded-sm px-2.5 py-2 text-left [@media(pointer:coarse)]:min-h-11 text-[0.8125rem] transition-colors focus:bg-surface-2 focus:outline-none hover:bg-surface-2',
                     item.danger ? 'text-danger' : 'text-fg-2 hover:text-fg focus:text-fg',
                   )}
                 >

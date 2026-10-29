@@ -1,7 +1,7 @@
 {
   "name": "@sanjivinsmoke95/ui-kit",
   "version": "1.0.0",
-  "description": "A themeable React + Tailwind UI kit: dark/blue/light/warm themes, cards and KPI tiles, forms, overlays, tables, SVG charts, app-shell layout and a command palette.",
+  "description": "A themeable React + Tailwind UI kit: Graphite/blue/light/warm themes, cards and KPI tiles, forms, overlays, tables, SVG charts, app-shell layout and a command palette.",
   "type": "module",
   "private": true,
   "main": "./src/index.js",
@@ -11,14 +11,23 @@
     "./fonts.css": "./src/styles/fonts.css",
     "./tailwind-preset": "./src/tailwind-preset.js"
   },
-  "bin": { "ui-kit": "./bin/ui-kit.mjs" },
-  "files": ["src", "bin", "README.md"],
+  "bin": {
+    "ui-kit": "./bin/ui-kit.mjs"
+  },
+  "files": [
+    "src",
+    "bin",
+    "README.md"
+  ],
   "scripts": {
     "dev": "vite --config playground/vite.config.js",
     "build": "vite build --config playground/vite.config.js",
-    "preview": "vite preview --config playground/vite.config.js"
+    "preview": "vite preview --config playground/vite.config.js",
+    "test": "node --test \"test/*.test.mjs\""
   },
-  "dependencies": { "clsx": "^2.1.1" },
+  "dependencies": {
+    "clsx": "^2.1.1"
+  },
   "peerDependencies": {
     "framer-motion": ">=11",
     "lucide-react": ">=0.400",

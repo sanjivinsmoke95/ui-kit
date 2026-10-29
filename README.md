@@ -6,54 +6,71 @@ dependency-free SVG charts, an app shell (sidebar, topbar, mobile tab bar) and a
 
 * **Design tokens, not hard-coded colors.** Every color, radius, shadow and z-index is a CSS variable (`src/styles/kit.css`), so a new theme or brand color needs no component edits.
 * **Router-agnostic.** Nothing imports a router; give `<LinkProvider>` your router's link component (or use plain `<a>`).
-* **Accessible by default.** Focus-visible rings, focus trapping and Esc handling in dialogs/drawers/palette, roving keyboard support in tabs and tables, `prefers-reduced-motion` respected.
+* **Accessible by default.** Focus-visible rings, focus trapping, focus restore and Esc handling in dialogs/drawers/palette, roving keyboard support in tabs, segmented controls, menus and tables, labelled form fields, `prefers-reduced-motion` respected.
 * **Small surface.** Peer deps: `react`, `framer-motion`, `lucide-react`, `tailwindcss@3`; one runtime dep: `clsx`. Charts are plain SVG/CSS (no chart library).
 
-## Use it in a project
+## Quick start (about two minutes)
 
-You **copy** the kit into the project (so you can edit anything), using the included CLI:
+You **copy** the kit into your project, so you can edit anything. Start from the root of an existing React + Vite project:
 
 ```bash
-git clone https://github.com/sanjivinsmoke95/ui-kit.git        # once, anywhere
-node ui-kit/bin/ui-kit.mjs init ../my-app/src/ui-kit            # copy everything
-node ui-kit/bin/ui-kit.mjs add Button Modal DataTable ../my-app/src/ui-kit   # or only some (dependencies are included)
-node ui-kit/bin/ui-kit.mjs list                                 # what is available
+# 1. get the kit once, anywhere
+git clone https://github.com/sanjivinsmoke/ui-kit.git ~/ui-kit
+
+# 2. copy it in: everything, or only some components (their dependencies come along)
+node ~/ui-kit/bin/ui-kit.mjs init src/ui-kit
+node ~/ui-kit/bin/ui-kit.mjs add Button Modal DataTable src/ui-kit
 ```
 
-Then in the project:
+The command ends with **exact next steps for your project** (it reads your `package.json` and only lists what is missing). In short:
 
 ```bash
 npm i clsx framer-motion lucide-react
-npm i -D tailwindcss@3 postcss autoprefixer      # if you do not have Tailwind yet
+npm i -D tailwindcss@3 postcss autoprefixer      # Tailwind 3.4: the kit does not support Tailwind 4 yet
 ```
 
 ```js
-// tailwind.config.js
+// tailwind.config.js   (the content glob MUST cover the copied folder, or the kit's classes are not generated)
 import kit from './src/ui-kit/tailwind-preset.js';
-export default { presets: [kit], content: ['./index.html', './src/**/*.{js,jsx}'] };   // the glob must include the copied kit
+export default { presets: [kit], content: ['./index.html', './src/**/*.{js,jsx}'] };
+```
+
+```js
+// postcss.config.js
+export default { plugins: { tailwindcss: {}, autoprefixer: {} } };
 ```
 
 ```css
-/* src/index.css  (contains the @tailwind directives, tokens and component classes) */
+/* src/index.css: contains the @tailwind directives, every theme token and the component classes */
 @import './ui-kit/styles/kit.css';
-/* optional fonts: npm i @fontsource/anton @fontsource-variable/geist @fontsource-variable/geist-mono, then: */
+/* optional fonts (otherwise system fonts are used): npm i @fontsource/anton @fontsource-variable/geist @fontsource-variable/geist-mono */
 @import './ui-kit/styles/fonts.css';
 ```
 
 ```jsx
-import { ThemeProvider, ToastProvider, LinkProvider } from './ui-kit';
-import { Link as RouterLink } from 'react-router-dom';        // optional: any router
+import { ThemeProvider, ToastProvider, LinkProvider, Button } from './ui-kit';        // after `init`
+// after `add`, import from the copied files instead: import Button from './ui-kit/components/Button';
 
-<ThemeProvider defaultTheme="blue" storageKey="my-app.theme">
+<ThemeProvider defaultTheme="dark" storageKey="my-app.theme">
   <ToastProvider>
-    <LinkProvider component={RouterLink}>   {/* Next.js: component={NextLink} prop="href" */}
+    <LinkProvider component={RouterLink}>   {/* optional. Next.js: component={NextLink} prop="href" */}
       <App />
     </LinkProvider>
   </ToastProvider>
 </ThemeProvider>
 ```
 
-Pull updates later by re-running the same `init`/`add` command (it overwrites the copied files, so keep your edits in a branch or commit first).
+### CLI reference
+
+| Command | Does |
+|---|---|
+| `ui-kit list` | Every file, what it exports, and the npm packages it needs |
+| `ui-kit init <dest>` | Copies the whole kit (including `index.js`, so `import { Button } from './ui-kit'` works) |
+| `ui-kit add <Name...> <dest>` | Copies the named components, everything they import, and the shared `styles/kit.css`, `styles/fonts.css`, `tailwind-preset.js`. Names are file names or export names, any case (`DataTable` lives in `Table.jsx`) |
+| `--dry-run` | Prints what would happen and writes nothing |
+| `--force` | Overwrites files that already exist **and differ** |
+
+**Existing files are never overwritten silently.** Identical files are left alone; files that differ are skipped, listed, and the command exits with code 2. Re-run with `--force` to pull updates (commit your edits first). An unknown name copies nothing and suggests the closest matches. Which provider a component needs (`ToastProvider`, `ThemeProvider`, `CommandPaletteProvider`) is printed after `add`.
 
 ## What's in it
 
@@ -70,7 +87,7 @@ Pull updates later by re-running the same `init`/`add` command (it overwrites th
 | Effects | `Marquee`, `RevealText`, `RotatingText` |
 | Hooks | `useOverlay`, `useHotkey`, `useElementWidth`, `useTheme` |
 
-Run the playground to see all of them live: `npm install && npm run dev` (http://localhost:5190). `npm run build` verifies the whole kit compiles.
+Run the workbench to see all of them live: `npm install && npm run dev` (http://localhost:5190). It has a searchable component catalogue, theme and accent controls, a responsive (phone / tablet) preview, and a copyable JSX snippet for every demo. `npm run build` verifies the kit compiles and `npm test` runs the unit tests (colour and contrast utilities, theme-token contrast, CLI behaviour).
 
 ## Layout example
 
@@ -89,16 +106,19 @@ Run the playground to see all of them live: `npm install && npm run dev` (http:/
 
 ## Theming
 
-* Switch presets with `useTheme().setTheme('light')`; list them with `themes`. They are `[data-theme='…']` blocks in `styles/kit.css`.
-* Change the brand color at runtime: `useTheme().setAccent('#E11D48')` (text/link shade is derived), or set `--accent` / `--accent-text` yourself.
-* Add a theme: add a `[data-theme='mine'] { --bg: …; --surface: …; --fg: …; --accent: … }` block (copy `dark`), then `<ThemeProvider themes={[...themes, { id: 'mine', label: 'Mine', dark: true }]}>`.
-* Card look: `--card-line`, `--card-fill`, `--radius-card`. Card accent tones: `tone-accent|purple|blue|teal|orange|red|green` (safelisted by the preset).
+* Themes: `dark` (**Graphite**, the default: near-black with a signal-cyan accent), `blue`, `light`, `warm`. Switch with `useTheme().setTheme('light')`; list them with `themes`. Each is a `[data-theme='…']` block in `styles/kit.css`.
+* Change the brand colour at runtime: `useTheme().setAccent('#E11D48')`. The link/text shade **and the label colour on filled accents** (white or near-black, whichever is more readable) are derived for you. `setAccent(null)` resets it. Only `#rgb` / `#rrggbb` is accepted; anything else is ignored with a console warning.
+* Saved settings are validated on load: an unknown theme id, a malformed accent, corrupt JSON or blocked storage all fall back to the defaults instead of breaking the page.
+* Add a theme: add a `[data-theme='mine'] { --bg: …; --surface: …; --fg: …; --accent: …; --accent-fg: …; --danger-fg: … }` block (copy `dark`), then `<ThemeProvider themes={[...themes, { id: 'mine', label: 'Mine', dark: true }]}>`. `npm test` checks the contrast of the built-in themes; add yours to `themes` and it is covered too.
+* Shape: the five `--radius-*` variables and `--radius-card` set the whole product's corner style (default: tight, 3 to 8px). Card look: `--card-line`, `--card-fill`. Card accent tones: `tone-accent|purple|blue|teal|orange|red|green`.
+* To avoid a flash of the wrong theme on first paint, set `<html data-theme="dark">` in your `index.html` to your default.
 
 ## Conventions
 
 * Class names are Tailwind utilities over the token palette (`bg-surface`, `text-fg-2`, `border-line`, `text-accent-text`, `bg-sem-purple/10`, …); see `src/tailwind-preset.js`.
 * Typography helpers: `t-display`, `t-h1`, `t-h2`, `t-h3`, `t-body`, `t-small`, `t-caption`, `t-eyebrow`, `t-mono`. Form control class: `ctl`.
-* Keep new components in `src/components`, export them from `src/index.js`, and add a demo to `playground/Gallery.jsx`.
+* Keep new components in `src/components`, export them from `src/index.js`, and add an entry (with a JSX snippet) to the `SECTIONS` list in `playground/Gallery.jsx`.
+* Buttons, icon buttons, segmented controls and menu items grow to a 44px touch target on touch screens (`@media (pointer: coarse)`).
 
 ## Provenance
 

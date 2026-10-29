@@ -9,17 +9,14 @@
    The accent can be overridden at runtime (see hooks/useTheme.jsx).
    ========================================================================== */
 :root {
-  /* Radius — the only four values used in the product */
-  --radius-sm: 8px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-card: 24px;          /* cards: large, soft corners */
+  /* Radius — Precision Futurism: tight, engineered corners. Raise these five values for a softer product. */
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-card: 8px;           /* cards */
   --card-line: 0.11;            /* card border: this much of the text colour */
-  --card-fill: 0.025;           /* card fill: nearly transparent */
-  --card-tint: 0.34;
-  --card-border: 0.34;
-  --card-sheen: 0.05;
+  --card-fill: 0;               /* extra card fill: this much of the text colour, on top of --surface */
 
   /* Pastel card tones (theme-independent; always paired with --ink text) */
   --tone-peach: 251 220 203;
@@ -61,26 +58,28 @@
 
 :root,
 [data-theme='dark'] {
+  /* Graphite + signal cyan: near-black neutrals with a faint cool cast, one electric accent, dark ink on filled accent. */
   color-scheme: dark;
-  --bg: 9 9 11;
-  --surface: 17 17 19;
-  --surface-2: 24 24 27;
-  --line: 39 39 42;
-  --fg: 250 250 250;
-  --fg-2: 161 161 170;
-  --fg-3: 124 124 134;
-  --accent: 124 58 237;
-  --accent-text: 167 139 250;
-  --accent-fg: 255 255 255;
-  --accent-2: 34 211 238;
+  --bg: 8 9 11;
+  --surface: 14 16 19;
+  --surface-2: 21 24 28;
+  --line: 37 41 47;
+  --fg: 244 246 248;
+  --fg-2: 160 168 178;
+  --fg-3: 122 130 141;
+  --accent: 34 211 238;
+  --accent-text: 103 232 249;
+  --accent-fg: 4 18 24;
+  --accent-2: 163 230 53;
   --success: 52 211 153;
   --warning: 251 191 36;
   --danger: 248 113 113;
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
-  --shadow-md: 0 4px 16px rgb(0 0 0 / 0.35);
-  --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(255 255 255 / 0.04);
-  --scrim: 0 0 0 / 0.6;
-  --glow-2: 0; /* opacity of the secondary hero glow; only the blue theme turns it on */
+  --danger-fg: 10 10 10;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.45);
+  --shadow-md: 0 4px 16px rgb(0 0 0 / 0.4);
+  --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(255 255 255 / 0.05);
+  --scrim: 0 0 0 / 0.62;
+  --glow-2: 0;
 }
 
 
@@ -101,25 +100,17 @@
   --success: 52 211 153;
   --warning: 251 191 36;
   --danger: 248 113 113;
+  --danger-fg: 10 10 10;
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
   --shadow-md: 0 4px 16px rgb(0 0 0 / 0.45);
   --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.65), 0 0 0 1px rgb(96 165 250 / 0.08);
   --scrim: 3 6 14 / 0.7;
-  --glow-2: 0.14;
-}
-/* A single soft blue wash at the top of every page for depth. */
-[data-theme='blue'] body {
-  background-image: radial-gradient(ellipse 70% 360px at 50% -80px, rgb(37 99 235 / 0.14), transparent 70%);
-  background-repeat: no-repeat;
+  --glow-2: 0;
 }
 
 [data-theme='light'] {
   color-scheme: light;
   --card-line: 0.14;
-  --card-fill: 0.03;
-  --card-tint: 0.12;
-  --card-border: 0.28;
-  --card-sheen: 0.7;
   --bg: 250 250 250;
   --surface: 255 255 255;
   --surface-2: 244 244 245;
@@ -134,6 +125,13 @@
   --success: 5 150 105;
   --warning: 180 83 9;
   --danger: 220 38 38;
+  --danger-fg: 255 255 255;
+  /* semantic data colours, deepened so they stay readable as text on light surfaces */
+  --sem-blue: 37 99 235;
+  --sem-purple: 109 40 217;
+  --sem-teal: 15 118 110;
+  --sem-orange: 194 65 12;
+  --sem-red: 185 28 28;
   --shadow-sm: 0 1px 2px rgb(24 24 27 / 0.06);
   --shadow-md: 0 4px 16px rgb(24 24 27 / 0.08);
   --shadow-pop: 0 12px 40px rgb(24 24 27 / 0.14), 0 0 0 1px rgb(24 24 27 / 0.04);
@@ -143,17 +141,13 @@
 [data-theme='warm'] {
   color-scheme: light;
   --card-line: 0.14;
-  --card-fill: 0.03;
-  --card-tint: 0.14;
-  --card-border: 0.3;
-  --card-sheen: 0.7;
   --bg: 250 247 242;
   --surface: 255 253 249;
   --surface-2: 245 240 232;
   --line: 231 223 211;
   --fg: 41 37 36;
   --fg-2: 87 83 78;
-  --fg-3: 120 113 108;
+  --fg-3: 114 107 102;
   --accent: 194 65 12;
   --accent-text: 154 52 18;
   --accent-fg: 255 255 255;
@@ -161,6 +155,12 @@
   --success: 21 128 61;
   --warning: 161 98 7;
   --danger: 185 28 28;
+  --danger-fg: 255 255 255;
+  --sem-blue: 37 99 235;
+  --sem-purple: 109 40 217;
+  --sem-teal: 15 118 110;
+  --sem-orange: 194 65 12;
+  --sem-red: 185 28 28;
   --shadow-sm: 0 1px 2px rgb(41 37 36 / 0.06);
   --shadow-md: 0 4px 16px rgb(41 37 36 / 0.08);
   --shadow-pop: 0 12px 40px rgb(41 37 36 / 0.14), 0 0 0 1px rgb(41 37 36 / 0.04);
@@ -176,6 +176,7 @@
     scroll-behavior: smooth;
   }
   body {
+    overflow-x: clip;               /* invisible tooltips / marquees must never create sideways scroll on phones */
     @apply bg-bg font-sans text-fg antialiased;
     font-feature-settings: 'cv11', 'ss01';
     transition: background-color var(--dur) var(--ease);
@@ -187,6 +188,8 @@
     outline: 2px solid rgb(var(--accent-text));
     outline-offset: 2px;
   }
+  /* Form controls draw their own focus ring; skip the outline so the two do not stack. */
+  .control:focus-visible { outline: none; }
   button, [role='button'], a { -webkit-tap-highlight-color: transparent; }
   button:disabled { cursor: not-allowed; }
   ::-webkit-scrollbar { width: 10px; height: 10px; }
@@ -246,10 +249,11 @@
     letter-spacing: 0.02em;
   }
   .t-eyebrow {
+    font-family: theme('fontFamily.mono');
     font-size: 0.6875rem;
     line-height: 1;
     font-weight: 500;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
   .t-mono {
@@ -266,7 +270,8 @@
       focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25
       disabled:cursor-not-allowed disabled:opacity-50;
   }
-  .control[aria-invalid='true'] { @apply border-danger focus:ring-danger/25; }
+  .control[aria-invalid='true'] { @apply border-danger focus:border-danger focus:ring-danger/25; }
+  .control:read-only:not(select):not([type='checkbox']) { @apply bg-surface-2; }
 
   /* Subtle page backdrops ------------------------------------------------ */
   .bg-grid {
@@ -322,9 +327,7 @@
   .card {
     border-radius: var(--radius-card);
     border: 1px solid rgb(var(--fg) / var(--card-line));
-    background: rgb(var(--fg) / var(--card-fill));
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    background: linear-gradient(rgb(var(--fg) / var(--card-fill)), rgb(var(--fg) / var(--card-fill))), rgb(var(--surface));
   }
   .tone-accent { --tint: var(--accent-text); }
   .tone-purple { --tint: var(--sem-purple); }
@@ -340,7 +343,7 @@
     display: flex;
     flex-direction: column;
     padding: 0.8rem 0.95rem;
-    border-radius: 18px;
+    border-radius: var(--radius-card);
     color: rgb(var(--fg));
     transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
@@ -355,7 +358,7 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    border-radius: 9999px;
+    border-radius: var(--radius-sm);
     border: 1px solid rgb(var(--fg) / 0.2);
     background: transparent;
     color: rgb(var(--fg) / 0.85);
@@ -367,7 +370,7 @@
     height: 1.75rem;
     align-items: center;
     gap: 0.5rem;
-    border-radius: 9999px;
+    border-radius: var(--radius-sm);
     border: 1px solid rgb(var(--fg) / 0.14);
     background: transparent;
     padding: 0 0.75rem;
@@ -388,8 +391,10 @@
 a { color: rgb(var(--accent-text)); }
 a:hover { text-decoration: underline; text-underline-offset: 2px; }
 a.no-underline, a[class*='hover:no-underline'] { text-decoration: none; }
-input[type='datetime-local']::-webkit-calendar-picker-indicator,
-input[type='date']::-webkit-calendar-picker-indicator { filter: invert(0.75); }
+[data-theme='dark'] input[type='datetime-local']::-webkit-calendar-picker-indicator,
+[data-theme='dark'] input[type='date']::-webkit-calendar-picker-indicator,
+[data-theme='blue'] input[type='datetime-local']::-webkit-calendar-picker-indicator,
+[data-theme='blue'] input[type='date']::-webkit-calendar-picker-indicator { filter: invert(0.75); }
 .scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
 .scrollbar-thin::-webkit-scrollbar-thumb { background: rgb(var(--line)); border-radius: 8px; }
 @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }

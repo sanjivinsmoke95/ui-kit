@@ -46,6 +46,7 @@ export default {
       success: token('success'),
       warning: token('warning'),
       danger: token('danger'),
+      'danger-fg': token('danger-fg'),
     },
     borderRadius: {
       none: '0',
