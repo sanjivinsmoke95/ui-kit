@@ -4,7 +4,7 @@ import { cn } from '../utils/cn';
 /** Default logo mark: three rising bars. Pass your own element to <Brand mark={...}> to replace it. */
 export function BrandMark({ className }) {
   return (
-    <span className={cn('flex h-7 w-7 items-center justify-center rounded-md bg-accent text-accent-fg', className)}>
+    <span className={cn('flex h-8 w-8 items-center justify-center rounded-xl bg-accent text-accent-fg', className)}>
       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
         <rect x="4" y="13" width="4" height="7" rx="1" opacity="0.6" />
         <rect x="10" y="9" width="4" height="11" rx="1" opacity="0.85" />

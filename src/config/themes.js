@@ -4,6 +4,7 @@
  * `dark: true` marks themes with dark surfaces (used to derive a readable accent-text).
  */
 export const themes = [
+  { id: 'forest', label: 'Forest Light', description: 'Soft, airy, deep green', swatch: ['#EBEEEC', '#FFFFFF', '#1F6B42'] },
   { id: 'dark', label: 'Graphite', description: 'Near-black, signal cyan', dark: true, swatch: ['#08090B', '#15181C', '#22D3EE'] },
   { id: 'blue', label: 'Blue + Dark', description: 'Deep navy, electric blue', dark: true, swatch: ['#070A10', '#111827', '#2563EB'] },
   { id: 'light', label: 'Light Professional', description: 'Crisp and neutral', swatch: ['#FAFAFA', '#FFFFFF', '#4F46E5'] },
@@ -11,6 +12,7 @@ export const themes = [
 ];
 
 export const accentPresets = [
+  { id: 'forest', label: 'Forest', value: '#1F6B42' },
   { id: 'cyan', label: 'Cyan', value: '#22D3EE' },
   { id: 'violet', label: 'Violet', value: '#7C3AED' },
   { id: 'indigo', label: 'Indigo', value: '#4F46E5' },

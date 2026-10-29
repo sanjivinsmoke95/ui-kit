@@ -51,7 +51,7 @@ export default { plugins: { tailwindcss: {}, autoprefixer: {} } };
 import { ThemeProvider, ToastProvider, LinkProvider, Button } from './ui-kit';        // after `init`
 // after `add`, import from the copied files instead: import Button from './ui-kit/components/Button';
 
-<ThemeProvider defaultTheme="dark" storageKey="my-app.theme">
+<ThemeProvider defaultTheme="forest" storageKey="my-app.theme">
   <ToastProvider>
     <LinkProvider component={RouterLink}>   {/* optional. Next.js: component={NextLink} prop="href" */}
       <App />
@@ -106,12 +106,12 @@ Run the workbench to see all of them live: `npm install && npm run dev` (http://
 
 ## Theming
 
-* Themes: `dark` (**Graphite**, the default: near-black with a signal-cyan accent), `blue`, `light`, `warm`. Switch with `useTheme().setTheme('light')`; list them with `themes`. Each is a `[data-theme='…']` block in `styles/kit.css`.
+* Themes: `forest` (**Forest Light**, the default: pale green-grey canvas, white floating panels, deep green accent), `dark` (Graphite), `blue`, `light`, `warm`. Switch with `useTheme().setTheme('light')`; list them with `themes`. Each is a `[data-theme='…']` block in `styles/kit.css`.
 * Change the brand colour at runtime: `useTheme().setAccent('#E11D48')`. The link/text shade **and the label colour on filled accents** (white or near-black, whichever is more readable) are derived for you. `setAccent(null)` resets it. Only `#rgb` / `#rrggbb` is accepted; anything else is ignored with a console warning.
 * Saved settings are validated on load: an unknown theme id, a malformed accent, corrupt JSON or blocked storage all fall back to the defaults instead of breaking the page.
 * Add a theme: add a `[data-theme='mine'] { --bg: …; --surface: …; --fg: …; --accent: …; --accent-fg: …; --danger-fg: … }` block (copy `dark`), then `<ThemeProvider themes={[...themes, { id: 'mine', label: 'Mine', dark: true }]}>`. `npm test` checks the contrast of the built-in themes; add yours to `themes` and it is covered too.
 * Shape: the five `--radius-*` variables and `--radius-card` set the whole product's corner style (default: tight, 3 to 8px). Card look: `--card-line`, `--card-fill`. Card accent tones: `tone-accent|purple|blue|teal|orange|red|green`.
-* To avoid a flash of the wrong theme on first paint, set `<html data-theme="dark">` in your `index.html` to your default.
+* To avoid a flash of the wrong theme on first paint, set `<html data-theme="forest">` in your `index.html` to your default.
 
 ## Conventions
 

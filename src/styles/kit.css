@@ -5,16 +5,16 @@
 /* ==========================================================================
    DESIGN TOKENS
    Colors are space-separated RGB triplets so Tailwind can apply alpha.
-   Presets are selected with <html data-theme="dark|blue|light|warm"> (see <ThemeProvider>).
+   Presets are selected with <html data-theme="forest|dark|blue|light|warm"> (see <ThemeProvider>).
    The accent can be overridden at runtime (see hooks/useTheme.jsx).
    ========================================================================== */
 :root {
   /* Radius — soft, modern corners (shadcn / 21st.dev feel). Lower these values for a sharper product. */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-card: 16px;          /* cards */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-card: 24px;          /* cards */
   --card-line: 0.09;            /* card border: this much of the text colour */
   --card-fill: 0;               /* extra card fill: this much of the text colour, on top of --surface */
 
@@ -106,6 +106,36 @@
   --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.65), 0 0 0 1px rgb(96 165 250 / 0.08);
   --scrim: 3 6 14 / 0.7;
   --glow-2: 0;
+}
+
+/* Forest Light: pale green-grey canvas, white floating panels, deep green accent (the default theme). */
+[data-theme='forest'] {
+  color-scheme: light;
+  --card-line: 0.06;
+  --bg: 234 238 235;
+  --surface: 255 255 255;
+  --surface-2: 243 246 244;
+  --line: 226 232 228;
+  --fg: 17 28 22;
+  --fg-2: 70 84 76;
+  --fg-3: 92 105 97;
+  --accent: 31 107 66;
+  --accent-text: 31 107 66;
+  --accent-fg: 255 255 255;
+  --accent-2: 74 160 108;
+  --success: 22 128 61;
+  --warning: 161 98 7;
+  --danger: 185 28 28;
+  --danger-fg: 255 255 255;
+  --sem-blue: 37 99 235;
+  --sem-purple: 109 40 217;
+  --sem-teal: 15 118 110;
+  --sem-orange: 194 65 12;
+  --sem-red: 185 28 28;
+  --shadow-sm: 0 1px 2px rgb(17 40 28 / 0.04), 0 6px 20px -10px rgb(17 40 28 / 0.12);
+  --shadow-md: 0 2px 4px rgb(17 40 28 / 0.05), 0 14px 32px -14px rgb(17 40 28 / 0.2);
+  --shadow-pop: 0 18px 48px -12px rgb(17 40 28 / 0.28), 0 0 0 1px rgb(17 40 28 / 0.05);
+  --scrim: 17 28 22 / 0.4;
 }
 
 [data-theme='light'] {
@@ -283,6 +313,11 @@
     -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 75%);
   }
   .hairline { @apply border-line; border-width: 1px; }
+  /* Diagonal hatching for "inactive" bars and tracks, as in modern dashboard charts. */
+  .bg-hatch {
+    background-image: repeating-linear-gradient(135deg, rgb(var(--accent) / 0.5) 0 1.5px, transparent 1.5px 6px);
+    background-color: rgb(var(--accent) / 0.06);
+  }
 }
 
 /* History card tones on dark themes: deep tinted glass instead of pastel, with light ink. */
@@ -348,6 +383,13 @@
     color: rgb(var(--fg));
     transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
+  /* Featured KPI: filled with the accent. Pass <StatCard featured />. */
+  .stat-card-featured {
+    color: rgb(var(--accent-fg));
+    border-color: transparent;
+    background: radial-gradient(120% 120% at 100% 0%, rgb(var(--accent-2) / 0.55), transparent 60%), rgb(var(--accent));
+  }
+  .stat-card-featured .card-orb { background: rgb(var(--accent-fg)); color: rgb(var(--accent)); border-color: transparent; }
   a.stat-card:hover {
     transform: translateY(-2px);
     border-color: rgb(var(--tint, var(--accent-text)) / 0.5);

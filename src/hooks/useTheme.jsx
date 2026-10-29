@@ -35,12 +35,12 @@ function applyTheme(themes, theme, accent) {
 
 /**
  * Theme + accent state, remembered in localStorage.
- *   <ThemeProvider defaultTheme="dark" storageKey="my-app.theme">…</ThemeProvider>
+ *   <ThemeProvider defaultTheme="forest" storageKey="my-app.theme">…</ThemeProvider>
  * Pass `themes` to replace the preset list (each: { id, label, dark?, swatch? }; define matching [data-theme] blocks in your CSS).
  * Saved values are validated: an unknown theme id or a malformed accent falls back to the defaults instead of being applied.
  * `setAccent(null)` clears the override.
  */
-export function ThemeProvider({ children, defaultTheme = 'dark', defaultAccent = null, storageKey = 'ui-kit.theme', themes = defaultThemes }) {
+export function ThemeProvider({ children, defaultTheme = 'forest', defaultAccent = null, storageKey = 'ui-kit.theme', themes = defaultThemes }) {
   const [theme, setThemeState] = useState(() => {
     const stored = readStored(storageKey);
     return knownTheme(themes, stored.theme) || knownTheme(themes, defaultTheme) || themes[0]?.id;

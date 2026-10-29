@@ -12,7 +12,7 @@ class Boundary extends Component {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode><Boundary>
-    <ThemeProvider defaultTheme="dark" storageKey="ui-kit.playground.theme">
+    <ThemeProvider defaultTheme="forest" storageKey="ui-kit.playground.theme">
       <ToastProvider>
         <Gallery />
       </ToastProvider>

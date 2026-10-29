@@ -7,22 +7,22 @@ export default function BarChart({ data, height = 200, valueFormat = (v) => v })
   const max = Math.max(...data.map((d) => d.value));
   return (
     <div role="img" aria-label="Bar chart" className="w-full">
-      <div className="flex items-end gap-2 border-b border-line" style={{ height }}>
+      <div className="flex items-end gap-3" style={{ height }}>
         {data.map((d, i) => (
           <div
             key={d.label}
-            className="group relative flex h-full flex-1 items-end"
+            className="group relative flex h-full flex-1 items-end justify-center"
             onPointerEnter={() => setHover(i)}
             onPointerLeave={() => setHover(null)}
           >
             {hover === i && (
-              <span className="t-mono pointer-events-none absolute -top-1 left-1/2 z-10 -translate-x-1/2 -translate-y-full rounded-sm border border-line bg-surface-2 px-1.5 py-0.5 text-fg shadow-md">
+              <span className="t-mono pointer-events-none absolute -top-1 left-1/2 z-10 -translate-x-1/2 -translate-y-full rounded-md border border-line bg-surface-2 px-1.5 py-0.5 text-fg shadow-md">
                 {valueFormat(d.value)}
               </span>
             )}
             <div
-              className={cn('w-full rounded-t-sm transition-colors duration-fast', hover === i ? 'bg-accent' : 'bg-accent/45')}
-              style={{ height: `${(d.value / max) * 100}%` }}
+              className={cn('w-full max-w-[44px] rounded-full transition-colors duration-fast', hover === i || (hover === null && d.value === max) ? 'bg-accent' : 'bg-hatch')}
+              style={{ height: `${Math.max((d.value / max) * 100, 8)}%` }}
             />
           </div>
         ))}

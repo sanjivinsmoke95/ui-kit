@@ -4,8 +4,8 @@ import { cn } from '../utils/cn';
 
 const variants = {
   primary: 'bg-accent text-accent-fg shadow-sm hover:bg-accent/90 active:bg-accent/80',
-  secondary: 'border border-line bg-surface-2 text-fg hover:border-fg-3/50 hover:bg-surface-2/70',
-  outline: 'border border-line text-fg hover:border-fg-3/50 hover:bg-surface-2',
+  secondary: 'border border-line bg-surface text-fg shadow-sm hover:bg-surface-2',
+  outline: 'border border-fg/25 text-fg hover:border-fg/50 hover:bg-surface-2',
   ghost: 'text-fg-2 hover:bg-surface-2 hover:text-fg',
   danger: 'bg-danger text-danger-fg hover:bg-danger/90 active:bg-danger/80',
 };
@@ -18,7 +18,7 @@ const sizes = {
 
 export const buttonStyles = ({ variant = 'secondary', size = 'md', block, className } = {}) =>
   cn(
-    'inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-md font-medium',
+    'inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-full font-medium',
     'transition active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50',
     variants[variant] || variants.secondary,
     sizes[size] || sizes.md,

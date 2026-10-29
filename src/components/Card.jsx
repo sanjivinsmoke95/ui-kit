@@ -55,14 +55,14 @@ export function Pill({ tone = 'neutral', children, className }) {
  *   to    makes the whole card a link      tone  accent | purple | blue | teal | orange | red | green (accent colour on hover)
  *   viz   { type, ...props }               pill / aside are optional extras for cards that need a status chip or a second figure
  */
-export function StatCard({ label, value, delta, trend, icon: Icon, hint, to, tone, arrow, viz, pill, aside, className }) {
+export function StatCard({ label, value, delta, trend, icon: Icon, hint, to, tone, arrow, viz, pill, aside, featured, className }) {
   const positive = delta >= 0;
   const numeric = /\d/.test(String(value));
   const linked = Boolean(to) || arrow;
   const body = (
     <>
       <div className="flex items-start justify-between gap-3">
-        <span className="line-clamp-2 min-w-0 text-[0.8125rem] font-medium leading-tight text-fg-2" title={typeof label === 'string' ? label : undefined}>{label}</span>
+        <span className={cn('line-clamp-2 min-w-0 text-[0.8125rem] font-medium leading-tight', featured ? 'text-accent-fg/85' : 'text-fg-2')} title={typeof label === 'string' ? label : undefined}>{label}</span>
         {(linked || Icon) && <span className="card-orb" aria-hidden>{linked ? <ArrowUpRight className="h-3.5 w-3.5" /> : <Icon className="h-3.5 w-3.5" />}</span>}
       </div>
       <div className="mt-3 flex items-end justify-between gap-3">
@@ -72,12 +72,12 @@ export function StatCard({ label, value, delta, trend, icon: Icon, hint, to, ton
       {(delta !== undefined || hint) && (
         <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem] leading-snug text-fg-2">
           {delta !== undefined && (
-            <span className={cn('inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[0.75rem] font-medium', positive ? 'bg-success/10 text-success' : 'bg-danger/10 text-danger')}>
+            <span className={cn('inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[0.75rem] font-medium', featured ? 'bg-accent-fg/15 text-accent-fg' : positive ? 'bg-success/10 text-success' : 'bg-danger/10 text-danger')}>
               {positive ? <ArrowUpRight className="h-3.5 w-3.5" aria-hidden /> : <ArrowDownRight className="h-3.5 w-3.5" aria-hidden />}
               {Math.abs(delta)}%
             </span>
           )}
-          <span className="line-clamp-2 min-w-0 text-fg-3" title={typeof hint === 'string' ? hint : undefined}>{hint}</span>
+          <span className={cn('line-clamp-2 min-w-0', featured ? 'text-accent-fg/80' : 'text-fg-3')} title={typeof hint === 'string' ? hint : undefined}>{hint}</span>
         </div>
       )}
       {(viz || pill || aside) && (
@@ -98,7 +98,7 @@ export function StatCard({ label, value, delta, trend, icon: Icon, hint, to, ton
       )}
     </>
   );
-  const cls = cn('card stat-card', tone && `tone-${tone}`, className);
+  const cls = cn('card stat-card', featured && 'stat-card-featured', tone && `tone-${tone}`, className);
   return to
     ? <Link to={to} className={cn(cls, 'group no-underline hover:no-underline')}>{body}</Link>
     : <div className={cls}>{body}</div>;

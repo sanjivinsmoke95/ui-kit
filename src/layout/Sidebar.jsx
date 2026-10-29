@@ -15,7 +15,7 @@ const isActive = (item, path) => (item.end ? path === item.to : path === item.to
 export default function Sidebar({ brand, items = [], activePath = '', actions, user, onSignOut, signOutIcon: SignOutIcon, footer, className }) {
   const groups = [...new Set(items.map((n) => n.group || ''))];
   return (
-    <aside className={cn('fixed inset-y-0 left-0 z-nav hidden w-[var(--w-sidebar)] flex-col border-r border-line bg-bg lg:flex', className)}>
+    <aside className={cn('fixed inset-y-3 left-3 z-nav hidden w-[var(--w-sidebar)] flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface shadow-sm lg:flex', className)}>
       <div className="flex h-[var(--h-topbar)] items-center px-5">{brand ?? <Brand />}</div>
       {actions && <div className="flex gap-2 px-3 pb-2 pt-1">{actions}</div>}
       <nav aria-label="Primary" className="flex-1 overflow-y-auto px-3 py-3">
@@ -29,9 +29,9 @@ export default function Sidebar({ brand, items = [], activePath = '', actions, u
                 return (
                   <li key={item.id}>
                     <Link to={item.to} aria-current={active ? 'page' : undefined}
-                      className={cn('group relative flex h-9 items-center gap-3 rounded-md px-3 text-[0.875rem] font-medium transition-colors hover:no-underline',
-                        active ? 'bg-surface-2 text-fg' : 'text-fg-2 hover:bg-surface-2/60 hover:text-fg')}>
-                      {active && <span className="absolute -left-3 top-2 h-5 w-0.5 rounded-full bg-accent" aria-hidden />}
+                      className={cn('group relative flex h-10 items-center gap-3 rounded-xl px-3 text-[0.875rem] font-medium transition-colors hover:no-underline',
+                        active ? 'bg-accent/10 font-semibold text-accent-text' : 'text-fg-2 hover:bg-surface-2 hover:text-fg')}>
+                      {active && <span className="absolute -left-3 top-2.5 h-5 w-1 rounded-full bg-accent" aria-hidden />}
                       {Icon && <Icon className={cn('h-4 w-4', active ? 'text-accent-text' : 'text-fg-3 group-hover:text-fg-2')} aria-hidden />}
                       <span className="flex-1">{item.label}</span>
                       {item.badge > 0 && <span className="rounded-full bg-danger/15 px-1.5 text-[0.6875rem] font-semibold text-danger" aria-label={`${item.badge} pending`}>{item.badge}</span>}

@@ -261,21 +261,21 @@ const SECTIONS = [
   {
     id: 'surfaces', label: 'Cards & KPIs', icon: PanelsTopLeft, demos: [
       { id: 'statcard', name: 'StatCard + StatGroup', kind: 'composition', keywords: 'kpi metric number tile delta trend', desc: 'Clean KPI tiles: label, big number, delta pill and a hint. A mini chart (`viz`) is available but optional.',
-        code: `<StatGroup fit>\n  <StatCard label="Revenue" value={48200} delta={12.5} hint="vs last month" />\n  <StatCard label="Active users" value={1280} delta={-3} hint="vs last week" icon={Activity} />\n</StatGroup>`,
+        code: `<StatGroup fit>\n  <StatCard featured label="Revenue" value={48200} delta={12.5} hint="vs last month" />\n  <StatCard label="Active users" value={1280} delta={-3} hint="vs last week" icon={Activity} />\n</StatGroup>`,
         render: () => (
           <StatGroup fit>
-            <StatCard to="#surfaces" label="Solved today" value={7} delta={16} hint="vs yesterday" />
+            <StatCard featured to="#surfaces" label="Solved today" value={7} delta={16} hint="vs yesterday" />
             <StatCard label="Captured" value={142} delta={12} hint="vs last week" icon={Boxes} />
             <StatCard label="Due for review" value={5} hint="4 of 5 overdue" icon={Bell} />
             <StatCard label="Critical" value={3} delta={-8} hint="of 6 notes" icon={Activity} />
             <StatCard label="Total solved" value={306} delta={4} hint="all time" icon={Star} />
           </StatGroup>
         ) },
-      { id: 'cards', name: 'Card, Section, ItemCard, SpotlightCard', kind: 'primitive', keywords: 'container panel surface border', desc: 'Hairline-bordered containers. Prefer open layouts with dividers; use cards for grouped, scannable content.',
+      { id: 'cards', name: 'Card, Section, ItemCard, SpotlightCard', kind: 'primitive', keywords: 'container panel surface border', desc: 'Rounded, softly shadowed panels for grouped, scannable content.',
         code: `<Card interactive><h3 className="t-h3">Title</h3></Card>\n<Section title="Section" aside={<Button size="sm" variant="ghost">Action</Button>}>…</Section>\n<ItemCard glyph={BarChart3} ext="csv" title="Quarterly report" meta={['12 pages']} to="/report" />`,
         render: () => (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <Card interactive><p className="t-eyebrow text-fg-3">Plain card</p><p className="t-h2 mt-2">Hairline border, flat surface</p><Row className="mt-4"><Pill tone="accent">Pill</Pill><Pill tone="success">Healthy</Pill></Row></Card>
+            <Card interactive><p className="t-eyebrow text-fg-3">Plain card</p><p className="t-h2 mt-2">Soft white panel, big radius</p><Row className="mt-4"><Pill tone="accent">Pill</Pill><Pill tone="success">Healthy</Pill></Row></Card>
             <SpotlightCard className="p-5"><p className="t-eyebrow text-fg-3">Spotlight card</p><p className="t-h2 mt-2">Move your cursor here</p></SpotlightCard>
             <ItemCard glyph={BarChart3} ext="csv" badge={<Badge variant="success">Ready</Badge>} title="Quarterly report" meta={['12 pages', 'Updated today']} stats={[{ icon: Activity, label: '42 views' }]} to="#surfaces" />
             <Section title="Section" aside={<Button size="sm" variant="ghost">Action</Button>}><p className="t-small p-4 text-fg-2">Titled block with an aside.</p></Section>

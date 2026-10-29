@@ -15,7 +15,7 @@ export default function AppShell({ sidebar, topbar, mobileNav, notice, children,
     <div className={cn('min-h-screen', className)}>
       <a href="#main" className="sr-only z-modal rounded-md bg-accent px-3 py-2 text-accent-fg focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
       {sidebar}
-      <div className={sidebar ? 'lg:pl-[var(--w-sidebar)]' : undefined}>
+      <div className={sidebar ? 'lg:pl-[calc(var(--w-sidebar)+0.75rem)]' : undefined}>
         {topbar}
         <main id="main" className={cn('mx-auto w-full max-w-content px-4 pb-28 pt-8 sm:px-6 lg:px-8 lg:pb-16 lg:pt-10', contentClassName)}>
           {notice}

@@ -69,7 +69,7 @@ export const Select = forwardRef(function Select({ className, options = [], inva
 export const SearchInput = forwardRef(function SearchInput({ value, onChange, onClear, className, placeholder = 'Search…', ...props }, ref) {
   return (
     <div className={cn('relative', className)}>
-      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-fg-3" aria-hidden />
+      <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-fg-3" aria-hidden />
       <input
         ref={ref}
         type="search"
@@ -77,7 +77,7 @@ export const SearchInput = forwardRef(function SearchInput({ value, onChange, on
         onChange={onChange}
         placeholder={placeholder}
         aria-label={props['aria-label'] || placeholder}
-        className="control h-10 pl-9 pr-8 [&::-webkit-search-cancel-button]:hidden"
+        className="control h-10 rounded-full pl-10 pr-9 [&::-webkit-search-cancel-button]:hidden"
         {...props}
       />
       {value && (
