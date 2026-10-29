@@ -6,6 +6,7 @@ import { useHotkey } from '../hooks/useHotkey';
 import { useOverlay } from '../hooks/useOverlay';
 import { cn } from '../utils/cn';
 import { Scrim } from '../components/Modal';
+import { Highlight } from '../components/Search';
 
 const PaletteContext = createContext(null);
 /** `const palette = useCommandPalette(); palette.open()` */
@@ -81,7 +82,7 @@ function Palette({ commands, onQuery, placeholder, onClose }) {
                   <div id={`cmd-${c.id}`} role="option" aria-selected={i === index} onMouseMove={() => setIndex(i)} onClick={() => run(c)}
                     className={cn('flex cursor-pointer items-center gap-3 rounded-md px-3 py-2.5 text-[0.875rem]', i === index ? 'bg-surface-2 text-fg' : 'text-fg-2')}>
                     {Icon ? <Icon className="h-4 w-4 text-fg-3" aria-hidden /> : <span className="h-4 w-4" />}
-                    <span className="flex-1">{c.label}</span>
+                    <span className="flex-1"><Highlight text={c.label} query={query} /></span>
                     {i === index && <CornerDownLeft className="h-3.5 w-3.5 text-fg-3" aria-hidden />}
                   </div>
                 </li>

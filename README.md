@@ -81,6 +81,7 @@ import { ThemeProvider, ToastProvider, LinkProvider, Button } from './ui-kit';  
 | Surfaces | `MetricCard`, `TimeTracker`, `Card`, `Section`, `StatCard` + `StatGroup` (KPI tiles with mini visuals), `ItemCard`, `SpotlightCard`, `Pill` |
 | Feedback | `Alert`, `Banner`, `Badge`, `StatusBadge`, `LevelBadge`, `PriorityBars`, `Chip`, `Toast` (`useNotify`), `Skeleton`, `Spinner`, `EmptyState`, `ErrorState`, `LoadingState`, `ProgressBar`, `ProgressCircle` |
 | Overlays | `Modal`, `Drawer`, `ConfirmDialog`, `CommandPaletteProvider` |
+| Search & history | `SearchBox` (ARIA combobox with suggestions + recent searches), `Highlight`, `ResultCard`, `FilterChips`, `HistoryList` (grouped by day, searchable, removable) |
 | Site | `LandingPage`, `LandingNav`, `LandingHero`, `FeatureGrid`, `StepList`, `CompareColumns`, `PricingTable`, `FaqList`, `CtaBand`, `SiteFooter`, `AppWindow` |
 | Navigation | `Tabs`, `TabPanel`, `Breadcrumb`, `Pagination`, `Sidebar`, `Topbar`, `MobileNav`, `AppShell`, `PageHeader`, `ThemeSwitcher` |
 | Data | `Table`, `DataTable` (sortable, mobile rows), `Avatar`, `FileGlyph`, `AnimatedValue` |
@@ -88,7 +89,7 @@ import { ThemeProvider, ToastProvider, LinkProvider, Button } from './ui-kit';  
 | Effects | `InteractiveBackground` (cursor-reactive `dots` / `network` canvas, theme-aware, reduced-motion safe), `Marquee`, `RevealText`, `RotatingText` |
 | Hooks | `useOverlay`, `useHotkey`, `useElementWidth`, `useTheme` |
 
-Run the playground to see all of them live: `npm install && npm run dev` (http://localhost:5190). It is one app with three connected views, switched from the pill at the bottom (or `?page=site|dashboard|components`): a **Site** (marketing page built with `LandingPage`), an interactive **Dashboard**, and the **Components** workbench. The workbench has a searchable component catalogue, theme and accent controls, a responsive (phone / tablet) preview, and a copyable JSX snippet for every demo. `npm run build` verifies the kit compiles and `npm test` runs the unit tests (colour and contrast utilities, theme-token contrast, CLI behaviour).
+Run the playground to see all of them live: `npm install && npm run dev` (http://localhost:5190). It is one app with five connected views (`?page=site|dashboard|search|history|components`) that share one theme, one shell and one history: a **Site** (built with `LandingPage`), an interactive **Dashboard**, a **Search** page, a **History** page and the **Components** workbench. Searching and opening results is recorded in History. The workbench has a searchable component catalogue, theme and accent controls, a responsive (phone / tablet) preview, and a copyable JSX snippet for every demo. `npm run build` verifies the kit compiles and `npm test` runs the unit tests (colour and contrast utilities, theme-token contrast, CLI behaviour).
 
 ## Layout example
 

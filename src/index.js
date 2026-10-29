@@ -15,6 +15,10 @@ export { EmptyState, ErrorState, LoadingState, Skeleton, Spinner } from './compo
 export { Checkbox, Field, Input, SearchInput, Select, Textarea, Toggle } from './components/Field';
 export { default as FileGlyph } from './components/FileGlyph';
 export { default as IconButton } from './components/IconButton';
+export { FilterChips, Highlight, ResultCard, SearchBox } from './components/Search';
+export { default as HistoryList } from './components/History';
+export { highlightParts } from './utils/text';
+export { groupByDay } from './utils/dates';
 export { default as ItemCard } from './components/ItemCard';
 export { default as Modal, Scrim } from './components/Modal';
 export { default as Pagination } from './components/Pagination';

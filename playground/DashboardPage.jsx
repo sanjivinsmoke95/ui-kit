@@ -1,18 +1,8 @@
-import { useMemo, useState } from 'react';
-import { BarChart3, Bell, CalendarDays, FolderKanban, LayoutDashboard, ListTodo, Plus, Settings, Users, Video } from 'lucide-react';
-import {
-  AppShell, Avatar, BarChart, Brand, Button, Card, Dropdown, Field, GaugeChart, IconButton, InteractiveBackground, Input, MobileNav, Modal, PageHeader, Segmented,
-  Select, Sidebar, StatCard, StatGroup, StatusBadge, ThemeSwitcher, TimeTracker, Topbar, useNotify,
-} from '../src';
-
-const NAV = [
-  { id: 'dash', label: 'Dashboard', to: '#', icon: LayoutDashboard, mobile: true, end: true },
-  { id: 'tasks', label: 'Tasks', to: '#tasks', icon: ListTodo, badge: 3, mobile: true },
-  { id: 'cal', label: 'Calendar', to: '#calendar', icon: CalendarDays, mobile: true },
-  { id: 'an', label: 'Analytics', to: '#analytics', icon: BarChart3, mobile: true },
-  { id: 'team', label: 'Team', to: '#team', icon: Users, group: 'More' },
-  { id: 'set', label: 'Settings', to: '#settings', icon: Settings, group: 'More' },
-];
+import { useState } from 'react';
+import { FolderKanban, Plus, Video } from 'lucide-react';
+import { Avatar, BarChart, Button, Card, Field, GaugeChart, Input, Modal, PageHeader, Segmented, Select, StatCard, StatGroup, StatusBadge, TimeTracker, useNotify } from '../src';
+import AppFrame from './AppFrame';
+import { history } from './historyStore';
 
 const RANGES = {
   week: ['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((label, i) => ({ label, value: [5, 9, 6, 12, 4, 8, 3][i] })),
@@ -55,22 +45,13 @@ export default function DashboardPage() {
     if (!name.trim()) return;
     setProjects((ps) => [{ id: Date.now(), name: name.trim(), due: 'Soon', status: 'pending' }, ...ps]);
     notify(`Added “${name.trim()}” (${track})`);
+    history.add({ type: 'action', title: `Added project “${name.trim()}”`, subtitle: `Dashboard · ${track}` });
     setName(''); setAdding(false);
   };
-  const commands = useMemo(() => [], []);
-  void commands;
 
   return (
     <>
-      <InteractiveBackground className="fixed inset-0 z-0 opacity-70" />
-      <AppShell className="relative z-10"
-        sidebar={<Sidebar brand={<Brand name="Donezo" />} items={NAV} activePath="#" user={{ name: 'Totok Michael', subtitle: 'tmichael20@mail.com' }} />}
-        topbar={<Topbar brand={<Brand name="Donezo" />} breadcrumbs={[{ label: 'Workspace' }, { label: 'Dashboard' }]} onSearch={() => notify('Search opens the command palette in the workbench')}
-          right={<><ThemeSwitcher />
-            <Dropdown label="Notifications" width="w-72" trigger={({ open, ...p }) => <IconButton icon={Bell} label="Notifications" tooltip={!open} {...p} />}
-              items={[{ heading: 'Notifications' }, { label: 'Edwin pushed to main', onClick: () => notify('Opened commit') }, { label: 'Meeting at 2:00 PM', onClick: () => notify('Added to calendar') }, { separator: true }, { label: 'Mark all as read', onClick: () => notify('All caught up') }]} />
-            <Avatar name="Totok Michael" /></>} />}
-        mobileNav={<MobileNav items={NAV} activePath="#" />}>
+      <AppFrame page="dashboard" crumb="Dashboard">
         <PageHeader title="Dashboard" description="Plan, prioritize, and accomplish your tasks with ease."
           actions={<><Button variant="primary" leftIcon={Plus} onClick={() => setAdding(true)}>Add project</Button><Button variant="outline" onClick={() => notify('Import started')}>Import data</Button></>} />
 
@@ -133,7 +114,7 @@ export default function DashboardPage() {
 
           <TimeTracker className="lg:col-span-6" running={timerOn} onRunningChange={setTimerOn} onStop={(s) => notify(`Logged ${Math.floor(s / 60)} min ${s % 60}s`)} />
         </div>
-      </AppShell>
+      </AppFrame>
 
       <Modal open={adding} onClose={() => setAdding(false)} title="Add project" description="It starts as pending; click its status to change it."
         footer={<><Button variant="ghost" onClick={() => setAdding(false)}>Cancel</Button><Button variant="primary" onClick={add} disabled={!name.trim()}>Add project</Button></>}>

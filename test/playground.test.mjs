@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 // A production build does not fail on an undefined JSX component, only the browser does. Guard the playground files against that.
-for (const file of ['Gallery.jsx', 'DashboardPage.jsx', 'App.jsx', 'studyvexLanding.jsx', 'main.jsx']) {
+for (const file of ['Gallery.jsx', 'DashboardPage.jsx', 'SearchPage.jsx', 'HistoryPage.jsx', 'AppFrame.jsx', 'App.jsx', 'studyvexLanding.jsx', 'main.jsx']) {
   test(`playground/${file}: every JSX component is imported or defined`, () => {
     const raw = readFileSync(new URL(`../playground/${file}`, import.meta.url), 'utf8');
     // ignore text inside comments, template-literal code samples and quoted strings

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
-  Activity, BarChart3, Bell, Boxes, Check, Copy, Download, Layers, LayoutDashboard, MousePointerClick, PanelsTopLeft, Palette, Plus, RotateCcw, Rows3, Smartphone,
+  Activity, BarChart3, Bell, Boxes, Check, Copy, Download, Layers, LayoutDashboard, Search, MousePointerClick, PanelsTopLeft, Palette, Plus, RotateCcw, Rows3, Smartphone,
   Sparkles, SquarePen, Star, Table2, Type,
 } from 'lucide-react';
 import {
@@ -8,7 +8,7 @@ import {
   ChartLegend, ComparisonView, ConfirmDialog, DataTable, DonutChart, Drawer, GapChart, LandingPage, MetricCard, Dropdown, EmptyState, ErrorState, Field, IconButton, Input, ItemCard, LevelBadge, LineChart, LoadingState,
   Marquee, MobileNav, Modal, PageHeader, Pagination, Pill, PriorityBars, ProgressBar, ProgressChart, ProgressCircle, RevealText, RotatingText, SearchInput, Section, Segmented,
   InteractiveBackground, Select, Sidebar, Skeleton, Sparkline, SpotlightCard, Spinner, StatCard, StatGroup, StatusBadge, TabPanel, Tabs, TagInput, Textarea, ThemeSwitcher, Toggle, Tooltip, Topbar,
-  accentPresets, themes, useCommandPalette, useNotify, useTheme,
+  FilterChips, Highlight, HistoryList, ResultCard, SearchBox, accentPresets, themes, useCommandPalette, useNotify, useTheme,
 } from '../src';
 import { studyvexPage } from './studyvexLanding';
 
@@ -181,6 +181,31 @@ function TableDemo() {
 function TagsDemo() {
   const [tags, setTags] = useState(['hash map', 'two pointers']);
   return <Field label="Tags" hint="Enter or comma adds, Backspace removes, arrows pick a suggestion">{(p) => <TagInput {...p} value={tags} onChange={setTags} suggestions={['hash map', 'two pointers', 'bfs', 'dp', 'greedy']} placeholder="Add a tag" />}</Field>;
+}
+
+
+function SearchDemo() {
+  const [text, setText] = useState('mod');
+  const [filter, setFilter] = useState('all');
+  const items = [['Modal', 'Focus-trapped dialog that restores focus', 'component'], ['Model settings', 'How the theme model works', 'doc'], ['Dropdown', 'Menu that opens a modal-free popover', 'component']];
+  const shown = items.filter(([t, s, k]) => (filter === 'all' || filter === k) && `${t} ${s}`.toLowerCase().includes(text.trim().toLowerCase()));
+  return (
+    <>
+      <SearchBox value={text} onChange={setText} onSubmit={() => {}} placeholder="Try “modal”" suggestions={items.map(([t]) => t)} recent={['button', 'table']} size="lg" shortcut={null} />
+      <FilterChips items={[{ id: 'all', label: 'All', count: items.length }, { id: 'component', label: 'Components', count: 2 }, { id: 'doc', label: 'Docs', count: 1 }]} value={filter} onChange={setFilter} />
+      <ul className="grid gap-3">{shown.map(([t, s, k]) => <li key={t}><ResultCard icon={Boxes} title={t} snippet={s} meta={[k]} query={text} onClick={() => {}} /></li>)}</ul>
+      <p className="t-small text-fg-3">Highlight on its own: <Highlight text="Highlight matched words inside any text" query="matched text" /></p>
+    </>
+  );
+}
+
+function HistoryDemo() {
+  const [items, setItems] = useState(() => [
+    { id: 1, type: 'search', title: 'dark theme', subtitle: '2 results', at: new Date(Date.now() - 5 * 60000).toISOString() },
+    { id: 2, type: 'visit', title: 'DataTable', subtitle: 'Components', at: new Date(Date.now() - 3 * 3600000).toISOString() },
+    { id: 3, type: 'action', title: 'Added a project', subtitle: 'Dashboard', at: new Date(Date.now() - 26 * 3600000).toISOString() },
+  ]);
+  return <HistoryList items={items} onOpen={() => {}} onRemove={(it) => setItems((l) => l.filter((x) => x.id !== it.id))} onClear={() => setItems([])} />;
 }
 
 const SPARK = [3, 5, 4, 7, 6, 9, 8, 12, 10, 14];
@@ -359,6 +384,16 @@ const SECTIONS = [
     ],
   },
   {
+    id: 'search', label: 'Search & history', icon: Search, demos: [
+      { id: 'search', name: 'SearchBox, ResultCard, FilterChips, Highlight', kind: 'composition', keywords: 'find results highlight suggestions recent filter combobox', desc: 'A combobox with suggestions and recent searches, ranked result cards with the matched words highlighted, and count filters. Try the arrow keys.',
+        code: `<SearchBox value={q} onChange={setQ} onSubmit={run} suggestions={suggest(q)} recent={recent} />\n<FilterChips items={[{ id: 'all', label: 'All', count: 12 }]} value={type} onChange={setType} />\n<ResultCard icon={Box} title="Modal" snippet="Focus-trapped dialog" query={q} to="/components#modal" />\n<Highlight text="any text" query="text" />`,
+        render: SearchDemo },
+      { id: 'history', name: 'HistoryList', kind: 'composition', keywords: 'activity recent timeline log undo clear', desc: 'Entries grouped by day with search highlighting, per-row remove and a confirmed "Clear all".',
+        code: `<HistoryList items={[{ id: 1, type: 'search', title: 'dark theme', at: new Date().toISOString() }]}\n  query={q} onOpen={open} onRemove={remove} onClear={clear} />`,
+        render: HistoryDemo },
+    ],
+  },
+  {
     id: 'landing', label: 'Landing page', icon: LayoutDashboard, demos: [
       { id: 'landingpage', name: 'LandingPage (StudyVex example)', kind: 'composition', bare: true, keywords: 'website marketing hero pricing faq footer nav cta', desc: 'A complete marketing site from one config: nav, hero, tracks, steps, comparison, pricing, FAQ, CTA and footer. Also shown full-page under the "Site" view.',
         code: `<LandingPage brand={<Brand name="Acme" />}\n  nav={{ links, actions }} hero={{ badge, title, description, actions, bullets, visual }}\n  features={{ title, items }} steps={{ title, items }} pricing={{ title, tiers }}\n  faq={{ title, items }} cta={{ title, actions }} footer={{ groups, legal, copyright }} />\n// or compose the blocks yourself: LandingNav, LandingHero, FeatureGrid, StepList, CompareColumns, PricingTable, FaqList, CtaBand, SiteFooter`,
@@ -386,7 +421,7 @@ const SECTIONS = [
   },
 ];
 
-const SHORT = { foundations: 'Tokens', actions: 'Actions', forms: 'Forms', surfaces: 'Cards', feedback: 'Feedback', overlays: 'Overlays', data: 'Data', landing: 'Site', app: 'Shell' };
+const SHORT = { foundations: 'Tokens', actions: 'Actions', forms: 'Forms', surfaces: 'Cards', feedback: 'Feedback', overlays: 'Overlays', data: 'Data', landing: 'Site', search: 'Search', app: 'Shell' };
 const NAV = SECTIONS.map((s) => ({ id: s.id, label: s.label, shortLabel: SHORT[s.id], to: `#${s.id}`, icon: s.icon, mobile: ['actions', 'forms', 'surfaces', 'overlays', 'data'].includes(s.id), group: ['foundations', 'actions', 'forms', 'surfaces', 'feedback'].includes(s.id) ? undefined : 'More' }));
 
 /* ----------------------------------------------------------------------------------------------------------------------------
@@ -494,12 +529,19 @@ export default function Gallery() {
 }
 
 /** The kit's own frame, wired to the hash so the sidebar highlights the section in view. */
+const PAGE_LINKS = [
+  { id: 'pg-site', label: 'Website', to: '?page=site', icon: Sparkles, group: 'Pages' },
+  { id: 'pg-dash', label: 'Dashboard', to: '?page=dashboard', icon: LayoutDashboard, group: 'Pages' },
+  { id: 'pg-search', label: 'Search', to: '?page=search', icon: Search, group: 'Pages' },
+  { id: 'pg-history', label: 'History', to: '?page=history', icon: Rows3, group: 'Pages' },
+];
+
 function Shell({ hash, nav, children }) {
   const palette = useCommandPalette();
   const current = NAV.find((n) => n.to === hash);
   return (
     <AppShell className="relative z-10"
-      sidebar={<Sidebar brand={<Brand name="UI Kit" />} items={nav} activePath={hash} footer={<p className="t-caption text-fg-3">Press <kbd className="kbd">⌘K</kbd> to jump anywhere.</p>} />}
+      sidebar={<Sidebar brand={<Brand name="UI Kit" />} items={[...nav, ...PAGE_LINKS]} activePath={hash} footer={<p className="t-caption text-fg-3">Press <kbd className="kbd">⌘K</kbd> to jump anywhere.</p>} />}
       topbar={<Topbar brand={<Brand name="UI Kit" />} breadcrumbs={[{ label: 'Workbench', to: `#${SECTIONS[0].id}` }, { label: current?.label || SECTIONS[0].label }]} onSearch={palette.open} right={<ThemeSwitcher />} />}
       mobileNav={<MobileNav items={nav} activePath={hash} />}>
       {children}
