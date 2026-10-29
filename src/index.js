@@ -54,6 +54,9 @@ export { default as Sidebar } from './layout/Sidebar';
 export { default as ThemeSwitcher } from './layout/ThemeSwitcher';
 export { default as Topbar } from './layout/Topbar';
 
+// ---- landing page blocks
+export { AppWindow, CompareColumns, CtaBand, FaqList, FeatureGrid, GradientText, LandingHero, LandingNav, LandingPage, LandingSection, PricingTable, SectionHeading, SiteFooter, StepList } from './landing/Landing';
+
 // ---- hooks, theming, utilities
 export { useElementWidth } from './hooks/useElementWidth';
 export { useHotkey } from './hooks/useHotkey';

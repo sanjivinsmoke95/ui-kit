@@ -10,6 +10,7 @@ import {
   Select, Sidebar, Skeleton, Sparkline, SpotlightCard, Spinner, StatCard, StatGroup, StatusBadge, TabPanel, Tabs, TagInput, Textarea, ThemeSwitcher, Toggle, Tooltip, Topbar,
   accentPresets, themes, useCommandPalette, useNotify, useTheme,
 } from '../src';
+import { studyvexPage } from './studyvexLanding';
 
 /* ----------------------------------------------------------------------------------------------------------------------------
    Workbench chrome: demo frame, copyable code, page controls. Everything inside a demo is a real, exported kit component.
@@ -64,7 +65,7 @@ function Demo({ demo }) {
         </div>
         <Badge variant={demo.kind === 'composition' ? 'accent' : 'neutral'}>{demo.kind}</Badge>
       </header>
-      <div className="space-y-5 p-5"><Render /></div>
+      <div className={demo.bare ? '' : 'space-y-5 p-5'}><Render /></div>
       <div className="border-t border-line px-5 py-2">
         <button type="button" aria-expanded={showCode} onClick={() => setShowCode((s) => !s)} className="t-eyebrow -mx-1 rounded-sm px-1 py-2 text-fg-3 transition hover:text-fg">
           {showCode ? 'Hide JSX' : 'Show JSX'}
@@ -357,6 +358,13 @@ const SECTIONS = [
     ],
   },
   {
+    id: 'landing', label: 'Landing page', icon: LayoutDashboard, demos: [
+      { id: 'landingpage', name: 'LandingPage (StudyVex example)', kind: 'composition', bare: true, keywords: 'website marketing hero pricing faq footer nav cta', desc: 'A complete marketing site from one config: nav, hero, tracks, steps, comparison, pricing, FAQ, CTA and footer. Also available full-page at /landing.html.',
+        code: `<LandingPage brand={<Brand name="Acme" />}\n  nav={{ links, actions }} hero={{ badge, title, description, actions, bullets, visual }}\n  features={{ title, items }} steps={{ title, items }} pricing={{ title, tiers }}\n  faq={{ title, items }} cta={{ title, actions }} footer={{ groups, legal, copyright }} />\n// or compose the blocks yourself: LandingNav, LandingHero, FeatureGrid, StepList, CompareColumns, PricingTable, FaqList, CtaBand, SiteFooter`,
+        render: () => <div className="max-h-[720px] overflow-y-auto rounded-b-[inherit]"><LandingPage brand={<Brand name="studyvex" />} {...studyvexPage} /></div> },
+    ],
+  },
+  {
     id: 'app', label: 'App shell', icon: LayoutDashboard, demos: [
       { id: 'shell', name: 'AppShell, Sidebar, Topbar, MobileNav, PageHeader', kind: 'composition', keywords: 'layout frame navigation page header command palette', desc: 'This workbench is built with them. Resize the window (or use the responsive preview) to see the sidebar become a bottom tab bar.',
         code: `<CommandPaletteProvider commands={commands}>\n  <AppShell sidebar={<Sidebar brand={<Brand name="Acme" />} items={nav} activePath={path} />}\n    topbar={<Topbar breadcrumbs={crumbs} onSearch={palette.open} right={<ThemeSwitcher />} />}\n    mobileNav={<MobileNav items={nav} activePath={path} />}>\n    <PageHeader title="Reports" actions={<Button variant="primary">New</Button>} />\n  </AppShell>\n</CommandPaletteProvider>`,
@@ -377,7 +385,7 @@ const SECTIONS = [
   },
 ];
 
-const SHORT = { foundations: 'Tokens', actions: 'Actions', forms: 'Forms', surfaces: 'Cards', feedback: 'Feedback', overlays: 'Overlays', data: 'Data', app: 'Shell' };
+const SHORT = { foundations: 'Tokens', actions: 'Actions', forms: 'Forms', surfaces: 'Cards', feedback: 'Feedback', overlays: 'Overlays', data: 'Data', landing: 'Site', app: 'Shell' };
 const NAV = SECTIONS.map((s) => ({ id: s.id, label: s.label, shortLabel: SHORT[s.id], to: `#${s.id}`, icon: s.icon, mobile: ['actions', 'forms', 'surfaces', 'overlays', 'data'].includes(s.id), group: ['foundations', 'actions', 'forms', 'surfaces', 'feedback'].includes(s.id) ? undefined : 'More' }));
 
 /* ----------------------------------------------------------------------------------------------------------------------------
