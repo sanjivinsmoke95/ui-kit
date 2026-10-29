@@ -54,6 +54,10 @@
   --w-content: 1200px;
   --w-prose: 680px;
   --h-topbar: 56px;
+
+  /* Display type: Anton is a condensed caps face. Other display fonts usually want a heavier weight and normal case. */
+  --display-weight: 400;
+  --display-transform: uppercase;
 }
 
 :root,
@@ -270,24 +274,24 @@
     font-family: theme('fontFamily.display');
     font-size: clamp(3.25rem, 10vw, 9rem);
     line-height: 0.92;
-    font-weight: 400;
-    text-transform: uppercase;
+    font-weight: var(--display-weight, 400);
+    text-transform: var(--display-transform, uppercase);
     letter-spacing: -0.005em;
   }
   .t-h1 {
     font-family: theme('fontFamily.display');
     font-size: clamp(2rem, 1.4rem + 1.6vw, 2.75rem);
     line-height: 1;
-    font-weight: 400;
-    text-transform: uppercase;
+    font-weight: var(--display-weight, 400);
+    text-transform: var(--display-transform, uppercase);
     letter-spacing: 0.005em;
   }
   .t-section {
     font-family: theme('fontFamily.display');
     font-size: 1.375rem;
     line-height: 1;
-    font-weight: 400;
-    text-transform: uppercase;
+    font-weight: var(--display-weight, 400);
+    text-transform: var(--display-transform, uppercase);
     letter-spacing: 0.02em;
   }
   .t-h2 { font-size: 1.125rem; line-height: 1.35; font-weight: 600; letter-spacing: -0.012em; }

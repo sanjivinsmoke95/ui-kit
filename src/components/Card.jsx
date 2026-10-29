@@ -68,7 +68,7 @@ export function StatCard({ label, value, unit, delta, trend, icon: Icon, hint, t
       </div>
       <div className="relative mt-5 flex items-end justify-between gap-3">
         <span className="flex items-baseline gap-1.5">
-          <span className="font-display text-[2.75rem] font-normal leading-none tracking-[0.01em] tabular-nums">{numeric ? <AnimatedValue value={value} /> : value}</span>
+          <span className="font-display text-[2.75rem] leading-none tracking-[0.01em] tabular-nums [font-weight:var(--display-weight,400)]">{numeric ? <AnimatedValue value={value} /> : value}</span>
           {unit && <span className={cn('text-[0.9375rem] font-medium', featured ? 'text-accent-fg' : 'text-fg-3')}>{unit}</span>}
         </span>
         {trend && <Sparkline data={trend} className="hidden h-8 w-20 text-accent-text min-[480px]:block" />}
@@ -92,7 +92,7 @@ export function StatCard({ label, value, unit, delta, trend, icon: Icon, hint, t
               {pill ? <Pill tone={pill.tone}>{pill.label}</Pill> : <span />}
               {aside && (
                 <span className="flex items-baseline gap-1.5">
-                  <span className="font-display text-[1.75rem] leading-none tabular-nums">{aside.value}</span>
+                  <span className="font-display text-[1.75rem] leading-none tabular-nums [font-weight:var(--display-weight,400)]">{aside.value}</span>
                   {aside.suffix && <span className="text-[12px] text-fg-3">{aside.suffix}</span>}
                 </span>
               )}

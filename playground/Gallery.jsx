@@ -11,6 +11,7 @@ import {
   FilterChips, Highlight, HistoryList, ResultCard, SearchBox, accentPresets, themes, useCommandPalette, useNotify, useTheme,
 } from '../src';
 import { studyvexPage } from './studyvexLanding';
+import { FONT_OPTIONS, applyFont, savedFont } from './fontOptions';
 
 /* ----------------------------------------------------------------------------------------------------------------------------
    Workbench chrome: demo frame, copyable code, page controls. Everything inside a demo is a real, exported kit component.
@@ -82,6 +83,38 @@ const Label = ({ children }) => <p className="t-eyebrow mb-2 text-fg-3">{childre
 /* ----------------------------------------------------------------------------------------------------------------------------
    Demos that need their own state
    ---------------------------------------------------------------------------------------------------------------------------- */
+
+/** Side-by-side font pairings. Each card renders in its own fonts; "Use this font" applies it to the whole app (and remembers it). */
+function FontSpecimens() {
+  const notify = useNotify();
+  const [current, setCurrent] = useState(savedFont);
+  useEffect(() => { const f = (e) => setCurrent(e.detail); window.addEventListener('ui-kit:font', f); return () => window.removeEventListener('ui-kit:font', f); }, []);
+  return (
+    <div className="grid gap-4 md:grid-cols-2">
+      {FONT_OPTIONS.map((f) => {
+        const on = f.id === current;
+        const display = { fontFamily: `"${f.display}", sans-serif`, fontWeight: f.weight, textTransform: f.transform };
+        const sans = { fontFamily: `"${f.sans}", sans-serif` };
+        const mono = { fontFamily: `"${f.mono}", monospace` };
+        return (
+          <article key={f.id} aria-label={f.name} className={`card flex flex-col p-5 ${on ? 'border-accent ring-2 ring-accent/30' : ''}`}>
+            <div className="flex items-start justify-between gap-3">
+              <div><h4 className="t-h3">{f.name}</h4><p className="t-caption mt-1 text-fg-3">{f.note}</p></div>
+              {on && <Badge variant="accent" icon={Check}>In use</Badge>}
+            </div>
+            <p className="mt-5 text-[2rem] leading-[1.05] tracking-tight" style={display}>Your placement prep, built for engineers</p>
+            <p className="mt-3 text-[0.9375rem] leading-relaxed text-fg-2" style={sans}>Learn concepts, practise problems and track readiness in one workspace. Numbers stay aligned: 1,284 · 0.75 · 2026.</p>
+            <div className="mt-4 flex items-end justify-between gap-4">
+              <p className="text-[2.5rem] leading-none tabular-nums" style={display}>184<span className="ml-1 text-[1rem] text-fg-3" style={sans}>/550</span></p>
+              <p className="text-[0.6875rem] uppercase tracking-[0.08em] text-fg-3" style={mono}>DSA progress · on track</p>
+            </div>
+            <Button className="mt-5 self-start" variant={on ? 'secondary' : 'primary'} size="sm" disabled={on} onClick={() => { applyFont(f.id); notify(`Using ${f.name}`); }}>{on ? 'Current font' : 'Use this font'}</Button>
+          </article>
+        );
+      })}
+    </div>
+  );
+}
 
 function FormsDemo() {
   const [q, setQ] = useState('');
@@ -218,6 +251,9 @@ const GAPS = [1, 2.2, 3, 1.4, 1.1, 1.5, 1, 0.4, 2.8, 0.8, 1.2, 3.1, -0.6, 0.9, 0
 const SECTIONS = [
   {
     id: 'foundations', label: 'Foundations', icon: Palette, demos: [
+      { id: 'fonts', name: 'Font pairings', kind: 'primitive', keywords: 'typography typeface font family headline display', desc: 'Six pairings of headline, body and mono faces. Pick one and the whole app switches (it is remembered in this browser).',
+        code: `/* Set these anywhere in your CSS; the Tailwind preset reads them. */\n:root {\n  --font-sans: "Inter Variable";\n  --font-display: "Bricolage Grotesque Variable";\n  --font-mono: "JetBrains Mono Variable";\n  --display-weight: 700;\n  --display-transform: none;\n}`,
+        render: FontSpecimens },
       { id: 'tokens', name: 'Colour tokens', kind: 'primitive', keywords: 'color theme surface accent semantic css variables', desc: 'Every colour is a CSS variable; switching theme or accent re-colours everything below.',
         code: `<div className="bg-surface text-fg border border-line">\n  <span className="text-fg-2">secondary</span>\n  <span className="text-accent-text">accent</span>\n  <span className="text-success">success</span>\n</div>`,
         render: () => (

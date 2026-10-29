@@ -113,6 +113,7 @@ Run the playground to see all of them live: `npm install && npm run dev` (http:/
 * Saved settings are validated on load: an unknown theme id, a malformed accent, corrupt JSON or blocked storage all fall back to the defaults instead of breaking the page.
 * Add a theme: add a `[data-theme='mine'] { --bg: …; --surface: …; --fg: …; --accent: …; --accent-fg: …; --danger-fg: … }` block (copy `dark`), then `<ThemeProvider themes={[...themes, { id: 'mine', label: 'Mine', dark: true }]}>`. `npm test` checks the contrast of the built-in themes; add yours to `themes` and it is covered too.
 * Shape: the five `--radius-*` variables and `--radius-card` set the whole product's corner style (default: tight, 3 to 8px). Card look: `--card-line`, `--card-fill`. Card accent tones: `tone-accent|purple|blue|teal|orange|red|green`.
+* Fonts: the preset reads `--font-sans`, `--font-display`, `--font-mono` (plus `--display-weight` and `--display-transform` for headlines), so any font can be set from plain CSS. The workbench's "Font pairings" demo lets you try six combinations live.
 * To avoid a flash of the wrong theme on first paint, set `<html data-theme="forest">` in your `index.html` to your default.
 
 ## Conventions

@@ -3,6 +3,9 @@ import { createRoot } from 'react-dom/client';
 import { ThemeProvider, ToastProvider } from '../src';
 import App from './App';
 import './styles.css';
+import { applyFont, savedFont } from './fontOptions';
+
+applyFont(savedFont());
 
 class Boundary extends Component {
   state = { error: null };

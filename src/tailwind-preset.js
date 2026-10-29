@@ -76,9 +76,11 @@ export default {
     transitionDuration: { DEFAULT: 'var(--dur)', fast: 'var(--dur-fast)', slow: '300ms' },
     transitionTimingFunction: { DEFAULT: 'var(--ease)' },
     fontFamily: {
-      display: ['Anton', 'Impact', 'Haettenschweiler', 'sans-serif'],
-      sans: ['"Geist Variable"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-      mono: ['"Geist Mono Variable"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+      // Each family reads a CSS variable first, so a font can be swapped at runtime (see playground/fontOptions.js) or from your own CSS:
+      //   :root { --font-sans: 'Inter Variable'; --font-display: 'Bricolage Grotesque Variable'; --font-mono: 'JetBrains Mono Variable'; }
+      display: ['var(--font-display, Anton)', 'Impact', 'Haettenschweiler', 'sans-serif'],
+      sans: ['var(--font-sans, "Geist Variable")', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      mono: ['var(--font-mono, "Geist Mono Variable")', 'ui-monospace', 'SFMono-Regular', 'monospace'],
     },
     extend: {
       maxWidth: { content: 'var(--w-content)', prose: 'var(--w-prose)' },
