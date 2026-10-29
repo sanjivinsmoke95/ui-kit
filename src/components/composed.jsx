@@ -20,7 +20,7 @@ export function PriorityBars({ level, styles = LEVEL_STYLE, className, size = 'm
   const heights = size === 'sm' ? [5, 8, 11, 14] : [6, 10, 14, 18];
   return (
     <span className={cx('inline-flex items-end gap-[2px]', className)} role="img" aria-label={`${level} priority`}>
-      {heights.map((px, i) => <span key={i} style={{ height: px }} className={cx('w-[3px] rounded-[1px]', i < s.bars ? s.bg : 'bg-line')} />)}
+      {heights.map((px, i) => <span key={i} style={{ height: px }} className={cx('w-[4px] rounded-full', i < s.bars ? s.bg : 'bg-fg/15')} />)}
     </span>
   );
 }
@@ -29,10 +29,10 @@ export function PriorityBars({ level, styles = LEVEL_STYLE, className, size = 'm
 export function LevelBadge({ level, score, note, styles = LEVEL_STYLE }) {
   const s = styles[level] || Object.values(styles).at(-1);
   return (
-    <span className={cx('inline-flex items-center gap-2 rounded-full border px-2.5 py-0.5 text-[0.8125rem]', s.ring, s.wash)}>
+    <span className={cx('inline-flex h-7 items-center gap-2 whitespace-nowrap rounded-full border px-3 text-[0.8125rem]', s.ring, s.wash)}>
       <PriorityBars level={level} styles={styles} size="sm" />
       <span className={cx('font-medium', s.text)}>{level}</span>
-      {score !== undefined && <span className="t-mono text-fg-2">{score}</span>}
+      {score !== undefined && <span className="t-mono border-l border-fg/20 pl-2 text-fg-2">{score}</span>}
       {note && <span className="t-caption text-fg-2">{note}</span>}
     </span>
   );

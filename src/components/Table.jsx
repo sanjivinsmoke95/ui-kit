@@ -15,7 +15,7 @@ export function Table({ className, caption, children }) {
   );
 }
 export const Th = ({ className, align, ...props }) => (
-  <th scope="col" className={cn('t-label h-10 whitespace-nowrap border-b border-line px-4 font-medium text-fg-3', align === 'right' && 'text-right', className)} {...props} />
+  <th scope="col" className={cn('t-eyebrow h-11 whitespace-nowrap border-b border-line px-4 text-fg-3', align === 'right' && 'text-right', className)} {...props} />
 );
 export const Td = ({ className, align, ...props }) => (
   <td className={cn('t-small border-b border-line px-4 py-3 align-middle text-fg-2', align === 'right' && 'text-right', className)} {...props} />
@@ -66,7 +66,7 @@ export function DataTable({ columns, rows, rowKey = 'id', onRowClick, renderMobi
               return (
                 <Th key={c.key} align={c.align} className={c.className} aria-sort={active ? (sort.dir === 'asc' ? 'ascending' : 'descending') : undefined}>
                   {c.sortable ? (
-                    <button type="button" onClick={() => toggle(c.key)} className="-ml-1 inline-flex items-center gap-1 rounded-sm px-1 transition hover:text-fg [@media(pointer:coarse)]:min-h-11">
+                    <button type="button" onClick={() => toggle(c.key)} className="-ml-1 inline-flex items-center gap-1 rounded-sm px-1 transition hover:text-fg [font:inherit] [letter-spacing:inherit] [text-transform:inherit] [@media(pointer:coarse)]:min-h-11">
                       {c.header}
                       <Icon className={cn('h-3 w-3', !active && 'opacity-50')} aria-hidden />
                     </button>
