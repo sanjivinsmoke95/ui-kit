@@ -5,7 +5,7 @@
 /* ==========================================================================
    DESIGN TOKENS
    Colors are space-separated RGB triplets so Tailwind can apply alpha.
-   Presets are selected with <html data-theme="forest|dark|blue|light|warm"> (see <ThemeProvider>).
+   Presets are selected with <html data-theme="forest|paper|dark|blue|light|warm"> (see <ThemeProvider>).
    The accent can be overridden at runtime (see hooks/useTheme.jsx).
    ========================================================================== */
 :root {
@@ -136,6 +136,38 @@
   --shadow-md: 0 2px 4px rgb(17 40 28 / 0.05), 0 14px 32px -14px rgb(17 40 28 / 0.2);
   --shadow-pop: 0 18px 48px -12px rgb(17 40 28 / 0.28), 0 0 0 1px rgb(17 40 28 / 0.05);
   --scrim: 17 28 22 / 0.4;
+}
+
+/* Paper: warm beige canvas, white cards with a hard black offset edge, blue + magenta for up / down. */
+[data-theme='paper'] {
+  color-scheme: light;
+  --card-line: 0.92;
+  --card-w: 1.5px;
+  --radius-card: 18px;
+  --bg: 237 232 224;
+  --surface: 255 255 255;
+  --surface-2: 246 243 238;
+  --line: 224 218 208;
+  --fg: 28 28 28;
+  --fg-2: 74 72 68;
+  --fg-3: 104 100 94;
+  --accent: 0 115 230;
+  --accent-text: 0 102 204;
+  --accent-fg: 255 255 255;
+  --accent-2: 208 30 104;
+  --success: 18 120 70;
+  --warning: 161 98 7;
+  --danger: 208 30 104;
+  --danger-fg: 255 255 255;
+  --sem-blue: 0 102 204;
+  --sem-purple: 109 40 217;
+  --sem-teal: 15 118 110;
+  --sem-orange: 194 65 12;
+  --sem-red: 208 30 104;
+  --shadow-sm: 4px 4px 0 0 rgb(0 0 0);
+  --shadow-md: 5px 5px 0 0 rgb(0 0 0);
+  --shadow-pop: 6px 6px 0 0 rgb(0 0 0), 0 0 0 1.5px rgb(0 0 0);
+  --scrim: 28 28 28 / 0.4;
 }
 
 [data-theme='light'] {
@@ -361,7 +393,7 @@
      `--tint` (set with a tone-* class) is only used for small accents: a visual inside the card, and the border on hover. */
   .card {
     border-radius: var(--radius-card);
-    border: 1px solid rgb(var(--fg) / var(--card-line));
+    border: var(--card-w, 1px) solid rgb(var(--fg) / var(--card-line));
     background: linear-gradient(rgb(var(--fg) / var(--card-fill)), rgb(var(--fg) / var(--card-fill))), rgb(var(--surface));
     box-shadow: var(--shadow-sm), inset 0 1px 0 rgb(var(--fg) / 0.04);
   }

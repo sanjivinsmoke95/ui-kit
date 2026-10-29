@@ -8,6 +8,7 @@ export { default as BurstToggle } from './components/BurstToggle';
 export { default as Button, buttonStyles } from './components/Button';
 export { Card, Pill, SectionHeader, StatCard, StatGroup } from './components/Card';
 export { default as ConfirmationDialog } from './components/ConfirmationDialog';
+export { default as MetricCard } from './components/MetricCard';
 export { default as Drawer } from './components/Drawer';
 export { default as Dropdown } from './components/Dropdown';
 export { EmptyState, ErrorState, LoadingState, Skeleton, Spinner } from './components/Feedback';
@@ -31,6 +32,7 @@ export { Banner, Chip, ConfirmDialog, LevelBadge, PriorityBars, Section, Skeleto
 export { default as ActivityTimeline } from './charts/ActivityTimeline';
 export { default as BarChart } from './charts/BarChart';
 export { default as ComparisonView } from './charts/ComparisonView';
+export { default as GapChart } from './charts/GapChart';
 export { default as DonutChart } from './charts/DonutChart';
 export { default as LineChart } from './charts/LineChart';
 export { default as ProgressChart } from './charts/ProgressChart';

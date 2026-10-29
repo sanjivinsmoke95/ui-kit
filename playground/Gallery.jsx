@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import {
   ActivityTimeline, Alert, AnimatedValue, AppShell, Avatar, Badge, Banner, BarChart, Brand, Breadcrumb, BurstToggle, Button, Card, Checkbox, Chip, CommandPaletteProvider,
-  ComparisonView, ConfirmDialog, DataTable, DonutChart, Drawer, Dropdown, EmptyState, ErrorState, Field, IconButton, Input, ItemCard, LevelBadge, LineChart, LoadingState,
+  ComparisonView, ConfirmDialog, DataTable, DonutChart, Drawer, GapChart, MetricCard, Dropdown, EmptyState, ErrorState, Field, IconButton, Input, ItemCard, LevelBadge, LineChart, LoadingState,
   Marquee, MobileNav, Modal, PageHeader, Pagination, Pill, PriorityBars, ProgressBar, ProgressChart, ProgressCircle, RevealText, RotatingText, SearchInput, Section, Segmented,
   Select, Sidebar, Skeleton, Sparkline, SpotlightCard, Spinner, StatCard, StatGroup, StatusBadge, TabPanel, Tabs, TagInput, Textarea, ThemeSwitcher, Toggle, Tooltip, Topbar,
   accentPresets, themes, useCommandPalette, useNotify, useTheme,
@@ -183,6 +183,7 @@ function TagsDemo() {
 }
 
 const SPARK = [3, 5, 4, 7, 6, 9, 8, 12, 10, 14];
+const GAPS = [1, 2.2, 3, 1.4, 1.1, 1.5, 1, 0.4, 2.8, 0.8, 1.2, 3.1, -0.6, 0.9, 0.5, 5.4, 1.6, 3.6, 12, -2.4, -9, -5.2, -5.8, -4, -1.5, -3, -4, -4.4, -2, -6, -3, -2.5, 1.2, 2.9].slice(-30);
 
 /* ----------------------------------------------------------------------------------------------------------------------------
    The catalogue. `kind`: primitive building block, or composition (several primitives wired together). `code` is the snippet shown.
@@ -271,6 +272,9 @@ const SECTIONS = [
             <StatCard label="Total solved" value={306} delta={4} hint="all time" icon={Star} />
           </StatGroup>
         ) },
+      { id: 'metric', name: 'MetricCard + GapChart', kind: 'composition', keywords: 'kpi metric gap diverging chart comparison trend', desc: 'A headline number, its comparison and a diverging daily chart: above the baseline is accent, below is danger.',
+        code: `<MetricCard label="Orders MTD (€)" value="518M"\n  compare={{ label: 'MTD LY', value: '483M' }}\n  gap={{ value: '35.4M', pct: 7.3 }}\n  series={dailyGaps} today="2.9M" />\n<GapChart data={dailyGaps} baselineLabel="MTD LY" />`,
+        render: () => <div className="max-w-2xl"><MetricCard label="Orders MTD (€)" value="518M" compare={{ label: 'MTD LY', value: '483M' }} gap={{ value: '35.4M', pct: 7.3 }} series={GAPS} today="2.9M" /></div> },
       { id: 'cards', name: 'Card, Section, ItemCard, SpotlightCard', kind: 'primitive', keywords: 'container panel surface border', desc: 'Rounded, softly shadowed panels for grouped, scannable content.',
         code: `<Card interactive><h3 className="t-h3">Title</h3></Card>\n<Section title="Section" aside={<Button size="sm" variant="ghost">Action</Button>}>…</Section>\n<ItemCard glyph={BarChart3} ext="csv" title="Quarterly report" meta={['12 pages']} to="/report" />`,
         render: () => (
