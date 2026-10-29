@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FolderKanban, Plus, Video } from 'lucide-react';
+import { CheckCircle2, Clock, FolderKanban, Loader, Plus, Video } from 'lucide-react';
 import { Avatar, BarChart, Button, Card, Field, GaugeChart, Input, Modal, PageHeader, Segmented, Select, StatCard, StatGroup, StatusBadge, TimeTracker, useNotify } from '../src';
 import AppFrame from './AppFrame';
 import { history } from './historyStore';
@@ -56,10 +56,10 @@ export default function DashboardPage() {
           actions={<><Button variant="primary" leftIcon={Plus} onClick={() => setAdding(true)}>Add project</Button><Button variant="outline" onClick={() => notify('Import started')}>Import data</Button></>} />
 
         <StatGroup fit className="mb-4">
-          <StatCard featured to="#" label="Total projects" value={projects.length} delta={5} hint="increased from last month" />
-          <StatCard to="#" label="Ended projects" value={count('ended')} delta={6} hint="increased from last month" />
-          <StatCard to="#" label="Running projects" value={count('running')} delta={2} hint="increased from last month" />
-          <StatCard to="#" label="Pending projects" value={count('pending')} hint="on discuss" />
+          <StatCard featured to="#" icon={FolderKanban} label="Total projects" value={projects.length} delta={5} hint="increased from last month" />
+          <StatCard to="#" tone="green" icon={CheckCircle2} label="Ended projects" value={count('ended')} delta={6} hint="increased from last month" />
+          <StatCard to="#" tone="blue" icon={Loader} label="Running projects" value={count('running')} delta={2} hint="increased from last month" />
+          <StatCard to="#" tone="orange" icon={Clock} label="Pending projects" value={count('pending')} hint="on discuss" />
         </StatGroup>
 
         <div className="grid gap-4 lg:grid-cols-6">

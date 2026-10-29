@@ -55,22 +55,26 @@ export function Pill({ tone = 'neutral', children, className }) {
  *   to    makes the whole card a link      tone  accent | purple | blue | teal | orange | red | green (accent colour on hover)
  *   viz   { type, ...props }               pill / aside are optional extras for cards that need a status chip or a second figure
  */
-export function StatCard({ label, value, delta, trend, icon: Icon, hint, to, tone, arrow, viz, pill, aside, featured, className }) {
+export function StatCard({ label, value, unit, delta, trend, icon: Icon, hint, to, tone, arrow, viz, pill, aside, featured, className }) {
   const positive = delta >= 0;
   const numeric = /\d/.test(String(value));
   const linked = Boolean(to) || arrow;
   const body = (
     <>
-      <div className="flex items-start justify-between gap-3">
-        <span className={cn('line-clamp-2 min-w-0 text-[0.8125rem] font-medium leading-tight', featured ? 'text-accent-fg/85' : 'text-fg-2')} title={typeof label === 'string' ? label : undefined}>{label}</span>
-        {(linked || Icon) && <span className="card-orb" aria-hidden>{linked ? <ArrowUpRight className="h-3.5 w-3.5" /> : <Icon className="h-3.5 w-3.5" />}</span>}
+      <div className="relative flex items-center gap-3">
+        {Icon && <span className="stat-tile" aria-hidden><Icon className="h-[1.15rem] w-[1.15rem]" /></span>}
+        <span className={cn('line-clamp-2 min-w-0 flex-1 text-[0.875rem] font-medium leading-tight', featured ? 'text-accent-fg/90' : 'text-fg-2')} title={typeof label === 'string' ? label : undefined}>{label}</span>
+        {linked && <span className="card-orb" aria-hidden><ArrowUpRight className="h-3.5 w-3.5" /></span>}
       </div>
-      <div className="mt-3 flex items-end justify-between gap-3">
-        <span className="font-display text-[2.25rem] font-normal leading-none tabular-nums">{numeric ? <AnimatedValue value={value} /> : value}</span>
+      <div className="relative mt-5 flex items-end justify-between gap-3">
+        <span className="flex items-baseline gap-1.5">
+          <span className="font-display text-[2.75rem] font-normal leading-none tracking-[0.01em] tabular-nums">{numeric ? <AnimatedValue value={value} /> : value}</span>
+          {unit && <span className={cn('text-[0.9375rem] font-medium', featured ? 'text-accent-fg/80' : 'text-fg-3')}>{unit}</span>}
+        </span>
         {trend && <Sparkline data={trend} className="hidden h-8 w-20 text-accent-text min-[480px]:block" />}
       </div>
       {(delta !== undefined || hint) && (
-        <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem] leading-snug text-fg-2">
+        <div className="relative mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem] leading-snug text-fg-2">
           {delta !== undefined && (
             <span className={cn('inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[0.75rem] font-medium', featured ? 'bg-accent-fg/15 text-accent-fg' : positive ? 'bg-success/10 text-success' : 'bg-danger/10 text-danger')}>
               {positive ? <ArrowUpRight className="h-3.5 w-3.5" aria-hidden /> : <ArrowDownRight className="h-3.5 w-3.5" aria-hidden />}

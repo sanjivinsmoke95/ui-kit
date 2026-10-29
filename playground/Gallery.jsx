@@ -291,11 +291,11 @@ const SECTIONS = [
         code: `<StatGroup fit>\n  <StatCard featured label="Revenue" value={48200} delta={12.5} hint="vs last month" />\n  <StatCard label="Active users" value={1280} delta={-3} hint="vs last week" icon={Activity} />\n</StatGroup>`,
         render: () => (
           <StatGroup fit>
-            <StatCard featured to="#surfaces" label="Solved today" value={7} delta={16} hint="vs yesterday" />
-            <StatCard label="Captured" value={142} delta={12} hint="vs last week" icon={Boxes} />
-            <StatCard label="Due for review" value={5} hint="4 of 5 overdue" icon={Bell} />
-            <StatCard label="Critical" value={3} delta={-8} hint="of 6 notes" icon={Activity} />
-            <StatCard label="Total solved" value={306} delta={4} hint="all time" icon={Star} />
+            <StatCard featured to="#surfaces" icon={Activity} label="Solved today" value={7} delta={16} hint="vs yesterday" />
+            <StatCard tone="blue" icon={Boxes} label="Captured" value={142} delta={12} hint="vs last week" />
+            <StatCard tone="orange" icon={Bell} label="Due for review" value={5} hint="4 of 5 overdue" />
+            <StatCard tone="red" icon={Star} label="Critical" value={3} delta={-8} hint="of 6 notes" />
+            <StatCard tone="teal" icon={Rows3} label="Focus time" value="2.5" unit="hrs" delta={9} hint="goal met" />
           </StatGroup>
         ) },
       { id: 'metric', name: 'MetricCard + GapChart', kind: 'composition', keywords: 'kpi metric gap diverging chart comparison trend', desc: 'A headline number, its comparison and a diverging daily chart: above the baseline is accent, below is danger.',

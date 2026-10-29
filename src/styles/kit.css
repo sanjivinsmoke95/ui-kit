@@ -183,6 +183,7 @@
 [data-theme='paper'] .btn-ghost { border-color: transparent; box-shadow: none; }
 [data-theme='paper'] .btn-ghost:hover:not(:disabled) { transform: none; box-shadow: none; }
 [data-theme='paper'] .stat-card-featured { background: rgb(var(--accent)); border-color: rgb(10 10 10); }
+[data-theme='paper'] .stat-tile { box-shadow: inset 0 0 0 1.5px rgb(10 10 10); }
 [data-theme='paper'] .pill, [data-theme='paper'] .card-orb { border-color: rgb(10 10 10); }
 
 [data-theme='warm'] {
@@ -401,17 +402,41 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 1.1rem 1.25rem;
+    overflow: hidden;
+    padding: 1.25rem 1.375rem 1.375rem;
     border-radius: var(--radius-card);
     color: rgb(var(--fg));
-    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
   }
-  /* Featured KPI: filled with the accent. Pass <StatCard featured />. */
+  /* Icon tile: tinted square that follows tone-* (accent by default). */
+  .stat-tile {
+    display: grid;
+    height: 2.5rem;
+    width: 2.5rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 0.875rem;
+    color: rgb(var(--tint, var(--accent-text)));
+    background: rgb(var(--tint, var(--accent-text)) / 0.12);
+    box-shadow: inset 0 0 0 1px rgb(var(--tint, var(--accent-text)) / 0.16);
+  }
+  /* Featured KPI: filled with the accent, with soft concentric rings. Pass <StatCard featured />. */
   .stat-card-featured {
     color: rgb(var(--accent-fg));
     border-color: transparent;
-    background: radial-gradient(120% 120% at 100% 0%, rgb(var(--accent-2) / 0.55), transparent 60%), rgb(var(--accent));
+    background: radial-gradient(130% 120% at 100% 0%, rgb(var(--accent-2) / 0.5), transparent 62%), linear-gradient(160deg, rgb(var(--accent)), color-mix(in srgb, rgb(var(--accent)) 78%, black));
   }
+  .stat-card-featured::before,
+  .stat-card-featured::after {
+    content: '';
+    position: absolute;
+    border-radius: 9999px;
+    border: 1px solid rgb(var(--accent-fg) / 0.16);
+    pointer-events: none;
+  }
+  .stat-card-featured::before { right: -2.5rem; top: -2.5rem; height: 9rem; width: 9rem; }
+  .stat-card-featured::after { right: 0.25rem; top: 0.25rem; height: 4.5rem; width: 4.5rem; }
+  .stat-card-featured .stat-tile { background: rgb(var(--accent-fg) / 0.18); color: rgb(var(--accent-fg)); box-shadow: inset 0 0 0 1px rgb(var(--accent-fg) / 0.22); }
   .stat-card-featured .card-orb { background: rgb(var(--accent-fg)); color: rgb(var(--accent)); border-color: transparent; }
   a.stat-card:hover {
     transform: translateY(-2px);
