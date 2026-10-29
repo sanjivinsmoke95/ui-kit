@@ -78,16 +78,17 @@ import { ThemeProvider, ToastProvider, LinkProvider, Button } from './ui-kit';  
 |---|---|
 | Actions | `Button` (variants, sizes, `loading`, `as`), `IconButton`, `BurstToggle`, `Dropdown`, `Tooltip` |
 | Forms | `Field`, `Input`, `Textarea`, `Select`, `SearchInput`, `Checkbox`, `Toggle`, `Segmented`, `TagInput` |
-| Surfaces | `Card`, `Section`, `StatCard` + `StatGroup` (KPI tiles with mini visuals), `ItemCard`, `SpotlightCard`, `Pill` |
+| Surfaces | `MetricCard`, `TimeTracker`, `Card`, `Section`, `StatCard` + `StatGroup` (KPI tiles with mini visuals), `ItemCard`, `SpotlightCard`, `Pill` |
 | Feedback | `Alert`, `Banner`, `Badge`, `StatusBadge`, `LevelBadge`, `PriorityBars`, `Chip`, `Toast` (`useNotify`), `Skeleton`, `Spinner`, `EmptyState`, `ErrorState`, `LoadingState`, `ProgressBar`, `ProgressCircle` |
 | Overlays | `Modal`, `Drawer`, `ConfirmDialog`, `CommandPaletteProvider` |
+| Site | `LandingPage`, `LandingNav`, `LandingHero`, `FeatureGrid`, `StepList`, `CompareColumns`, `PricingTable`, `FaqList`, `CtaBand`, `SiteFooter`, `AppWindow` |
 | Navigation | `Tabs`, `TabPanel`, `Breadcrumb`, `Pagination`, `Sidebar`, `Topbar`, `MobileNav`, `AppShell`, `PageHeader`, `ThemeSwitcher` |
 | Data | `Table`, `DataTable` (sortable, mobile rows), `Avatar`, `FileGlyph`, `AnimatedValue` |
-| Charts | `LineChart`, `BarChart`, `DonutChart`, `Sparkline`, `ProgressChart`, `ComparisonView`, `ActivityTimeline`, `Viz` (segments / dots / spark / bars / split) |
-| Effects | `Marquee`, `RevealText`, `RotatingText` |
+| Charts | `GaugeChart`, `GapChart`, `LineChart` (+ `ChartLegend`), `BarChart`, `DonutChart`, `Sparkline`, `ProgressChart`, `ComparisonView`, `ActivityTimeline`, `Viz` (segments / dots / spark / bars / split) |
+| Effects | `InteractiveBackground` (cursor-reactive `dots` / `network` canvas, theme-aware, reduced-motion safe), `Marquee`, `RevealText`, `RotatingText` |
 | Hooks | `useOverlay`, `useHotkey`, `useElementWidth`, `useTheme` |
 
-Run the workbench to see all of them live: `npm install && npm run dev` (http://localhost:5190). It has a searchable component catalogue, theme and accent controls, a responsive (phone / tablet) preview, and a copyable JSX snippet for every demo. `npm run build` verifies the kit compiles and `npm test` runs the unit tests (colour and contrast utilities, theme-token contrast, CLI behaviour).
+Run the playground to see all of them live: `npm install && npm run dev` (http://localhost:5190). It is one app with three connected views, switched from the pill at the bottom (or `?page=site|dashboard|components`): a **Site** (marketing page built with `LandingPage`), an interactive **Dashboard**, and the **Components** workbench. The workbench has a searchable component catalogue, theme and accent controls, a responsive (phone / tablet) preview, and a copyable JSX snippet for every demo. `npm run build` verifies the kit compiles and `npm test` runs the unit tests (colour and contrast utilities, theme-token contrast, CLI behaviour).
 
 ## Layout example
 

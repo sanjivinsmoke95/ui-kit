@@ -56,8 +56,10 @@ export function AppWindow({ title = 'app.example.com', children, className }) {
 }
 
 /** Two-column hero. badge: string. title: node (use <GradientText>). bullets: string[]. visual: node on the right. */
-export function LandingHero({ badge, title, description, actions, bullets = [], visual, className }) {
+export function LandingHero({ badge, title, description, actions, bullets = [], visual, background, className }) {
   return (
+    <div className="relative isolate overflow-hidden">
+      {background && <div className="pointer-events-none absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,#000_60%,transparent)]">{background}</div>}
     <section className={cn(container, 'grid items-center gap-12 py-14 lg:grid-cols-2 lg:py-24', className)}>
       <div>
         {badge && <Badge variant="neutral" className="mb-6 h-7 bg-surface px-3 text-[0.75rem]">{badge}</Badge>}
@@ -72,6 +74,7 @@ export function LandingHero({ badge, title, description, actions, bullets = [], 
       </div>
       {visual && <div className="min-w-0">{visual}</div>}
     </section>
+    </div>
   );
 }
 

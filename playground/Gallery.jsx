@@ -7,7 +7,7 @@ import {
   ActivityTimeline, Alert, AnimatedValue, AppShell, Avatar, Badge, Banner, BarChart, Brand, Breadcrumb, BurstToggle, Button, Card, Checkbox, Chip, CommandPaletteProvider,
   ChartLegend, ComparisonView, ConfirmDialog, DataTable, DonutChart, Drawer, GapChart, LandingPage, MetricCard, Dropdown, EmptyState, ErrorState, Field, IconButton, Input, ItemCard, LevelBadge, LineChart, LoadingState,
   Marquee, MobileNav, Modal, PageHeader, Pagination, Pill, PriorityBars, ProgressBar, ProgressChart, ProgressCircle, RevealText, RotatingText, SearchInput, Section, Segmented,
-  Select, Sidebar, Skeleton, Sparkline, SpotlightCard, Spinner, StatCard, StatGroup, StatusBadge, TabPanel, Tabs, TagInput, Textarea, ThemeSwitcher, Toggle, Tooltip, Topbar,
+  InteractiveBackground, Select, Sidebar, Skeleton, Sparkline, SpotlightCard, Spinner, StatCard, StatGroup, StatusBadge, TabPanel, Tabs, TagInput, Textarea, ThemeSwitcher, Toggle, Tooltip, Topbar,
   accentPresets, themes, useCommandPalette, useNotify, useTheme,
 } from '../src';
 import { studyvexPage } from './studyvexLanding';
@@ -360,7 +360,7 @@ const SECTIONS = [
   },
   {
     id: 'landing', label: 'Landing page', icon: LayoutDashboard, demos: [
-      { id: 'landingpage', name: 'LandingPage (StudyVex example)', kind: 'composition', bare: true, keywords: 'website marketing hero pricing faq footer nav cta', desc: 'A complete marketing site from one config: nav, hero, tracks, steps, comparison, pricing, FAQ, CTA and footer. Also available full-page at /landing.html.',
+      { id: 'landingpage', name: 'LandingPage (StudyVex example)', kind: 'composition', bare: true, keywords: 'website marketing hero pricing faq footer nav cta', desc: 'A complete marketing site from one config: nav, hero, tracks, steps, comparison, pricing, FAQ, CTA and footer. Also shown full-page under the "Site" view.',
         code: `<LandingPage brand={<Brand name="Acme" />}\n  nav={{ links, actions }} hero={{ badge, title, description, actions, bullets, visual }}\n  features={{ title, items }} steps={{ title, items }} pricing={{ title, tiers }}\n  faq={{ title, items }} cta={{ title, actions }} footer={{ groups, legal, copyright }} />\n// or compose the blocks yourself: LandingNav, LandingHero, FeatureGrid, StepList, CompareColumns, PricingTable, FaqList, CtaBand, SiteFooter`,
         render: () => <div className="max-h-[720px] overflow-y-auto rounded-b-[inherit]"><LandingPage brand={<Brand name="studyvex" />} {...studyvexPage} /></div> },
     ],
@@ -434,7 +434,7 @@ function Customize() {
 
 function ResponsivePreview({ open, onClose }) {
   const [size, setSize] = useState('mobile');
-  const src = `${window.location.pathname}?embed=1${window.location.hash}`;
+  const src = `${window.location.pathname}?page=components&embed=1${window.location.hash}`;
   return (
     <Drawer open={open} onClose={onClose} title="Responsive preview" description="The same workbench in an iframe, so real media queries apply." width={size === 'mobile' ? 'sm:max-w-[460px]' : 'sm:max-w-[860px]'}>
       <Segmented label="Preview width" value={size} onChange={setSize} options={[{ value: 'mobile', label: '375 · Phone' }, { value: 'tablet', label: '768 · Tablet' }]} className="mb-4" />
@@ -469,6 +469,7 @@ export default function Gallery() {
 
   return (
     <CommandPaletteProvider commands={commands}>
+      <InteractiveBackground className="fixed inset-0 z-0 opacity-40" />
       <Shell hash={hash} nav={NAV.filter((n) => visible.some((s) => s.id === n.id))}>
         <PageHeader title="UI Kit Workbench" description={`${SECTIONS.reduce((n, s) => n + s.demos.length, 0)} live demos built from the exported components. Try a theme, change the accent, search, then copy the JSX.`}
           actions={!EMBED && <Button className="hidden md:inline-flex" leftIcon={Smartphone} onClick={() => setPreview(true)}>Responsive preview</Button>} />
@@ -497,7 +498,7 @@ function Shell({ hash, nav, children }) {
   const palette = useCommandPalette();
   const current = NAV.find((n) => n.to === hash);
   return (
-    <AppShell
+    <AppShell className="relative z-10"
       sidebar={<Sidebar brand={<Brand name="UI Kit" />} items={nav} activePath={hash} footer={<p className="t-caption text-fg-3">Press <kbd className="kbd">⌘K</kbd> to jump anywhere.</p>} />}
       topbar={<Topbar brand={<Brand name="UI Kit" />} breadcrumbs={[{ label: 'Workbench', to: `#${SECTIONS[0].id}` }, { label: current?.label || SECTIONS[0].label }]} onSearch={palette.open} right={<ThemeSwitcher />} />}
       mobileNav={<MobileNav items={nav} activePath={hash} />}>

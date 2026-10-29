@@ -22,6 +22,7 @@ export { ProgressBar, ProgressCircle } from './components/Progress';
 export { DataTable, Table, Td, Th } from './components/Table';
 export { Segmented, TabPanel, Tabs } from './components/Tabs';
 export { ToastProvider, useToast } from './components/Toast';
+export { default as TimeTracker, formatClock } from './components/TimeTracker';
 export { default as Tooltip } from './components/Tooltip';
 export { default as Viz } from './components/Viz';
 
@@ -32,6 +33,7 @@ export { Banner, Chip, ConfirmDialog, LevelBadge, PriorityBars, Section, Skeleto
 export { default as ActivityTimeline } from './charts/ActivityTimeline';
 export { default as BarChart } from './charts/BarChart';
 export { default as ComparisonView } from './charts/ComparisonView';
+export { default as GaugeChart } from './charts/GaugeChart';
 export { default as GapChart } from './charts/GapChart';
 export { default as DonutChart } from './charts/DonutChart';
 export { default as LineChart, ChartLegend } from './charts/LineChart';
@@ -39,6 +41,7 @@ export { default as ProgressChart } from './charts/ProgressChart';
 export { default as Sparkline } from './charts/Sparkline';
 
 // ---- effects
+export { default as InteractiveBackground } from './effects/InteractiveBackground';
 export { default as Marquee } from './effects/Marquee';
 export { default as RevealText } from './effects/RevealText';
 export { default as RotatingText } from './effects/RotatingText';

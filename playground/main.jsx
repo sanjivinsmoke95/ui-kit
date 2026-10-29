@@ -1,7 +1,7 @@
 import { Component, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ThemeProvider, ToastProvider } from '../src';
-import Gallery from './Gallery';
+import App from './App';
 import './styles.css';
 
 class Boundary extends Component {
@@ -14,7 +14,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode><Boundary>
     <ThemeProvider defaultTheme="forest" storageKey="ui-kit.playground.theme">
       <ToastProvider>
-        <Gallery />
+        <App />
       </ToastProvider>
     </ThemeProvider>
   </Boundary></StrictMode>,

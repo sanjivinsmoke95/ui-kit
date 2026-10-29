@@ -10,7 +10,7 @@ export default function BarChart({ data, height = 200, valueFormat = (v) => v })
       <div className="flex items-end gap-3 border-b border-dashed border-fg-3/60" style={{ height }}>
         {data.map((d, i) => (
           <div
-            key={d.label}
+            key={`${d.label}-${i}`}
             className="group relative flex h-full flex-1 items-end justify-center"
             onPointerEnter={() => setHover(i)}
             onPointerLeave={() => setHover(null)}
@@ -28,8 +28,8 @@ export default function BarChart({ data, height = 200, valueFormat = (v) => v })
         ))}
       </div>
       <div className="mt-2 flex gap-2">
-        {data.map((d) => (
-          <span key={d.label} className="t-eyebrow flex-1 truncate text-center text-fg-3">{d.label}</span>
+        {data.map((d, i) => (
+          <span key={`${d.label}-${i}`} className="t-eyebrow flex-1 truncate text-center text-fg-3">{d.label}</span>
         ))}
       </div>
     </div>
