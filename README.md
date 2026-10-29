@@ -119,6 +119,7 @@ Run the playground to see all of them live: `npm install && npm run dev` (http:/
 
 * Class names are Tailwind utilities over the token palette (`bg-surface`, `text-fg-2`, `border-line`, `text-accent-text`, `bg-sem-purple/10`, …); see `src/tailwind-preset.js`.
 * Typography helpers: `t-display`, `t-h1`, `t-h2`, `t-h3`, `t-body`, `t-small`, `t-caption`, `t-eyebrow`, `t-mono`. Form control class: `ctl`.
+* `cn()` joins class names but does not resolve Tailwind conflicts: to override a variant's colour on a `Button`/`Badge`, use the important modifier (`className="!text-accent-fg"`), or add a variant.
 * Keep new components in `src/components`, export them from `src/index.js`, and add an entry (with a JSX snippet) to the `SECTIONS` list in `playground/Gallery.jsx`.
 * Buttons, icon buttons, segmented controls and menu items grow to a 44px touch target on touch screens (`@media (pointer: coarse)`).
 

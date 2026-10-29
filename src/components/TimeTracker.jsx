@@ -23,7 +23,7 @@ export default function TimeTracker({ label = 'Time tracker', initial = 0, autoS
 
   return (
     <section aria-label={label} className={cn('card relative overflow-hidden p-6 text-accent-fg', className)}
-      style={{ background: 'linear-gradient(160deg, rgb(var(--accent)), color-mix(in srgb, rgb(var(--accent)) 50%, black))', borderColor: 'transparent' }}>
+      style={{ background: 'linear-gradient(160deg, rgb(var(--accent)), rgb(var(--accent-deep)))', borderColor: 'transparent' }}>
       <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full border border-accent-fg/15" aria-hidden />
       <div className="pointer-events-none absolute -right-2 -top-2 h-28 w-28 rounded-full border border-accent-fg/15" aria-hidden />
       <p className="text-[0.9375rem] font-medium opacity-90">{label}</p>

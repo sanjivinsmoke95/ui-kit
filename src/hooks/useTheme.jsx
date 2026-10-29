@@ -25,12 +25,13 @@ function applyTheme(themes, theme, accent) {
   root.dataset.theme = theme;
   const derived = accent && deriveAccent(accent, themes.find((t) => t.id === theme)?.dark);
   if (!derived) {
-    ['--accent', '--accent-text', '--accent-fg'].forEach((v) => root.style.removeProperty(v));
+    ['--accent', '--accent-text', '--accent-fg', '--accent-deep'].forEach((v) => root.style.removeProperty(v));
     return;
   }
   root.style.setProperty('--accent', derived.accent.join(' '));
   root.style.setProperty('--accent-text', derived.accentText.join(' '));
   root.style.setProperty('--accent-fg', derived.accentFg.join(' '));
+  root.style.setProperty('--accent-deep', derived.accentDeep.join(' '));
 }
 
 /**

@@ -42,6 +42,7 @@ export default {
       accent: token('accent'),
       'accent-text': token('accent-text'),
       'accent-fg': token('accent-fg'),
+      'accent-deep': token('accent-deep'),
       'accent-2': token('accent-2'),
       success: token('success'),
       warning: token('warning'),

@@ -34,9 +34,11 @@ export default function App() {
       e.preventDefault();
       go(a.getAttribute('href'));
     };
+    const custom = (e) => go(e.detail);
     window.addEventListener('popstate', pop);
+    window.addEventListener('ui-kit:go', custom);
     document.addEventListener('click', click);
-    return () => { window.removeEventListener('popstate', pop); document.removeEventListener('click', click); };
+    return () => { window.removeEventListener('popstate', pop); window.removeEventListener('ui-kit:go', custom); document.removeEventListener('click', click); };
   }, [go]);
 
   useEffect(() => { document.title = TITLES[page]; }, [page]);

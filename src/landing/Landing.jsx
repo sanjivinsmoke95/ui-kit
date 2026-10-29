@@ -215,13 +215,13 @@ export function SiteFooter({ brand, description, groups = [], legal = [], copyri
         {groups.map((g) => (
           <nav key={g.title} aria-label={g.title}>
             <p className="t-eyebrow mb-4 text-fg-3">{g.title}</p>
-            <ul className="space-y-2.5">{g.links.map((l) => <li key={l.label}><Link to={l.href} className="t-small text-fg-2 hover:text-fg">{l.label}</Link></li>)}</ul>
+            <ul className="space-y-2.5">{g.links.map((l) => <li key={l.label}>{l.href ? <Link to={l.href} className="t-small text-fg-2 hover:text-fg">{l.label}</Link> : <span className="t-small text-fg-3">{l.label}</span>}</li>)}</ul>
           </nav>
         ))}
       </div>
       <div className={cn(container, 'flex flex-wrap items-center justify-between gap-3 border-t border-line py-6')}>
         <p className="t-caption text-fg-3">{copyright}</p>
-        <ul className="flex flex-wrap gap-5">{legal.map((l) => <li key={l.label}><Link to={l.href} className="t-caption text-fg-3 hover:text-fg">{l.label}</Link></li>)}</ul>
+        <ul className="flex flex-wrap gap-5">{legal.map((l) => <li key={l.label}>{l.href ? <Link to={l.href} className="t-caption text-fg-3 hover:text-fg">{l.label}</Link> : <span className="t-caption text-fg-3">{l.label}</span>}</li>)}</ul>
       </div>
     </footer>
   );

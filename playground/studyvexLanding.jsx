@@ -26,7 +26,7 @@ const Mockup = () => (
 export const studyvexPage = {
   nav: {
     links: [{ label: 'Placement Tracks', href: '#tracks' }, { label: 'How it works', href: '#how' }, { label: 'Product proof', href: '#proof' }, { label: 'Pricing', href: '#pricing' }, { label: 'FAQ', href: '#faq' }],
-    actions: <><Button variant="outline" size="sm" as="a" href="#">Log in</Button><Button variant="primary" size="sm" as="a" href="#tracks">Explore StudyVex</Button></>,
+    actions: <><Button variant="outline" size="sm" as="a" href="?page=dashboard">Log in</Button><Button variant="primary" size="sm" as="a" href="#tracks">Explore StudyVex</Button></>,
   },
   hero: {
     badge: 'The Structured Placement Workspace for Engineers',
@@ -39,12 +39,12 @@ export const studyvexPage = {
   features: {
     id: 'tracks', eyebrow: 'Structured placement tracks', title: 'Everything you need to clear technical interviews.',
     items: [
-      { icon: ListChecks, title: 'DSA Sheets & Topic Practice', description: 'Curated sheets organised by topic and difficulty, with progress you can see.', cta: { label: 'Start track', href: '#' } },
-      { icon: Braces, title: 'Algorithmic Coding Patterns', description: 'Learn the reusable patterns behind hundreds of problems instead of memorising answers.', cta: { label: 'Start track', href: '#' } },
-      { icon: BookOpen, title: 'Core CS Subjects & Quizzes', description: 'OS, DBMS, networks and OOP with focused quizzes to lock the concepts in.', cta: { label: 'Start track', href: '#' } },
-      { icon: Database, title: 'Interactive SQL Practice', description: 'Write and run queries against real datasets, from joins to window functions.', cta: { label: 'Start track', href: '#' } },
-      { icon: MessageSquare, title: 'Technical Interview Question Bank', description: 'Frequently asked questions with the reasoning interviewers look for.', cta: { label: 'Start track', href: '#' } },
-      { icon: Briefcase, title: 'HR & Behavioral Preparation', description: 'Structure your stories and rehearse answers for the non-technical rounds.', cta: { label: 'Start track', href: '#' } },
+      { icon: ListChecks, title: 'DSA Sheets & Topic Practice', description: 'Curated sheets organised by topic and difficulty, with progress you can see.', cta: { label: 'Start track', href: '?page=dashboard' } },
+      { icon: Braces, title: 'Algorithmic Coding Patterns', description: 'Learn the reusable patterns behind hundreds of problems instead of memorising answers.', cta: { label: 'Start track', href: '?page=dashboard' } },
+      { icon: BookOpen, title: 'Core CS Subjects & Quizzes', description: 'OS, DBMS, networks and OOP with focused quizzes to lock the concepts in.', cta: { label: 'Start track', href: '?page=dashboard' } },
+      { icon: Database, title: 'Interactive SQL Practice', description: 'Write and run queries against real datasets, from joins to window functions.', cta: { label: 'Start track', href: '?page=dashboard' } },
+      { icon: MessageSquare, title: 'Technical Interview Question Bank', description: 'Frequently asked questions with the reasoning interviewers look for.', cta: { label: 'Start track', href: '?page=dashboard' } },
+      { icon: Briefcase, title: 'HR & Behavioral Preparation', description: 'Structure your stories and rehearse answers for the non-technical rounds.', cta: { label: 'Start track', href: '?page=dashboard' } },
     ],
   },
   steps: {
@@ -63,9 +63,9 @@ export const studyvexPage = {
   pricing: {
     id: 'pricing', eyebrow: 'Pricing', title: 'Transparent student pricing.', description: 'Start free and upgrade only when you need more.',
     tiers: [
-      { name: 'Starter', price: '₹0', period: 'free', description: 'Core access, free forever', features: ['Core DSA problems', 'Core CS notes', 'Progress tracking'], cta: { label: 'Start preparing free', href: '#' } },
-      { name: '2-Day Sprint Pass', price: '₹9', period: 'one-time', description: 'A short, intense push', features: ['Everything in Starter', 'Full access for 2 days', 'Interview question bank'], cta: { label: 'Try for ₹9', href: '#' } },
-      { name: 'Premium Pro', price: '₹49', period: '/month', was: '₹199', discount: '75% off', popular: true, features: ['Everything, unlimited', 'Video desk & approach tiers', 'Interactive SQL practice', 'Priority support'], cta: { label: 'Unlock full access', href: '#' } },
+      { name: 'Starter', price: '₹0', period: 'free', description: 'Core access, free forever', features: ['Core DSA problems', 'Core CS notes', 'Progress tracking'], cta: { label: 'Start preparing free', href: '?page=dashboard' } },
+      { name: '2-Day Sprint Pass', price: '₹9', period: 'one-time', description: 'A short, intense push', features: ['Everything in Starter', 'Full access for 2 days', 'Interview question bank'], cta: { label: 'Try for ₹9', href: '?page=dashboard' } },
+      { name: 'Premium Pro', price: '₹49', period: '/month', was: '₹199', discount: '75% off', popular: true, features: ['Everything, unlimited', 'Video desk & approach tiers', 'Interactive SQL practice', 'Priority support'], cta: { label: 'Unlock full access', href: '?page=dashboard' } },
     ],
   },
   faq: {
@@ -77,15 +77,16 @@ export const studyvexPage = {
       { q: 'Do you cover Core CS and behavioral rounds?', a: 'Yes: Core CS subjects with quizzes, plus HR and behavioral preparation.' },
     ],
   },
-  cta: { title: 'Your preparation has a place. Make it StudyVex.', actions: <><Button as="a" href="#" size="lg" className="bg-surface text-fg">Create free account</Button><Button as="a" href="#tracks" size="lg" variant="ghost" className="text-accent-fg hover:bg-accent-fg/10 hover:text-accent-fg">Explore placement prep</Button></> },
+  cta: { title: 'Your preparation has a place. Make it StudyVex.', actions: <><Button as="a" href="?page=dashboard" size="lg" className="bg-surface text-fg">Create free account</Button><Button as="a" href="#tracks" size="lg" variant="ghost" className="!text-accent-fg hover:!bg-accent-fg/15">Explore placement prep</Button></> },
   footer: {
     description: 'The structured placement workspace for engineers.',
     groups: [
-      { title: 'Placement prep', links: [{ label: 'DSA sheets', href: '#' }, { label: 'Core CS', href: '#' }, { label: 'SQL practice', href: '#' }] },
-      { title: 'Workspace', links: [{ label: 'Dashboard', href: '#' }, { label: 'Progress', href: '#' }, { label: 'Pricing', href: '#pricing' }] },
-      { title: 'Platform & resources', links: [{ label: 'Playbooks', href: '#' }, { label: 'FAQ & support', href: '#faq' }] },
+      { title: 'Placement prep', links: [{ label: 'DSA sheets', href: '?page=search&q=table' }, { label: 'Core CS', href: '?page=search&q=accessibility' }, { label: 'SQL practice', href: '?page=dashboard' }] },
+      { title: 'Workspace', links: [{ label: 'Dashboard', href: '?page=dashboard' }, { label: 'Progress', href: '?page=history' }, { label: 'Pricing', href: '#pricing' }] },
+      { title: 'Platform & resources', links: [{ label: 'Playbooks', href: '?page=components' }, { label: 'FAQ & support', href: '#faq' }] },
     ],
-    legal: [{ label: 'Privacy & data policy', href: '#' }, { label: 'Terms of service', href: '#' }],
+    // no href yet: these render as plain text until you add your real URLs
+    legal: [{ label: 'Privacy & data policy' }, { label: 'Terms of service' }],
     copyright: '© 2026 StudyVex.',
   },
 };

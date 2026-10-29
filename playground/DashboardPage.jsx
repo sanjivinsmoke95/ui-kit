@@ -56,10 +56,10 @@ export default function DashboardPage() {
           actions={<><Button variant="primary" leftIcon={Plus} onClick={() => setAdding(true)}>Add project</Button><Button variant="outline" onClick={() => notify('Import started')}>Import data</Button></>} />
 
         <StatGroup fit className="mb-4">
-          <StatCard featured to="#" icon={FolderKanban} label="Total projects" value={projects.length} delta={5} hint="increased from last month" />
-          <StatCard to="#" tone="green" icon={CheckCircle2} label="Ended projects" value={count('ended')} delta={6} hint="increased from last month" />
-          <StatCard to="#" tone="blue" icon={Loader} label="Running projects" value={count('running')} delta={2} hint="increased from last month" />
-          <StatCard to="#" tone="orange" icon={Clock} label="Pending projects" value={count('pending')} hint="on discuss" />
+          <StatCard featured to="#projects-card" icon={FolderKanban} label="Total projects" value={projects.length} delta={5} hint="increased from last month" />
+          <StatCard to="#projects-card" tone="green" icon={CheckCircle2} label="Ended projects" value={count('ended')} delta={6} hint="increased from last month" />
+          <StatCard to="#projects-card" tone="blue" icon={Loader} label="Running projects" value={count('running')} delta={2} hint="increased from last month" />
+          <StatCard to="#projects-card" tone="orange" icon={Clock} label="Pending projects" value={count('pending')} hint="on discuss" />
         </StatGroup>
 
         <div className="grid gap-4 lg:grid-cols-6">
@@ -71,7 +71,7 @@ export default function DashboardPage() {
             <BarChart key={range} data={data} height={190} />
           </Card>
 
-          <Card className="lg:col-span-3">
+          <Card id="projects-card" className="scroll-mt-24 lg:col-span-3">
             <div className="mb-4 flex items-center justify-between"><h2 className="t-h2">Projects</h2><Button size="sm" variant="outline" leftIcon={Plus} onClick={() => setAdding(true)}>New</Button></div>
             <ul className="scrollbar-thin -mx-1 max-h-[230px] space-y-1 overflow-y-auto px-1">
               {projects.map((p) => (

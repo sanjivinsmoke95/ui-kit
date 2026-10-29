@@ -34,6 +34,7 @@ const INK = [9, 10, 12];
  *   accent      the colour itself (button fills, rings)
  *   accentFg    text on top of a filled accent: white or near-black, whichever has more contrast
  *   accentText  accent used as text/links on the page surface: lightened on dark themes, darkened on light ones
+ *   accentDeep  end colour of accent gradients: darker when the label is white, lighter when it is near-black, so the label stays readable
  * Returns null when `hex` is not a valid colour.
  */
 export function deriveAccent(hex, isDark) {
@@ -41,5 +42,6 @@ export function deriveAccent(hex, isDark) {
   if (!rgb) return null;
   const accentFg = contrast(rgb, WHITE) >= contrast(rgb, INK) ? WHITE : INK;
   const accentText = isDark ? mix(rgb, WHITE, 0.4) : mix(rgb, [0, 0, 0], 0.15);
-  return { accent: rgb, accentFg, accentText };
+  const accentDeep = accentFg === WHITE ? mix(rgb, [0, 0, 0], 0.35) : mix(rgb, WHITE, 0.3);
+  return { accent: rgb, accentFg, accentText, accentDeep };
 }

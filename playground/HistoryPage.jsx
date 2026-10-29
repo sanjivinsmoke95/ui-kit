@@ -18,7 +18,7 @@ export default function HistoryPage() {
   const today = entries.filter((e) => new Date(e.at).getTime() >= startOfToday()).length;
 
   const open = (it) => {
-    if (it.type === 'search') { window.location.assign(`?page=search&q=${encodeURIComponent(it.title)}`); return; }
+    if (it.type === 'search') { window.dispatchEvent(new CustomEvent('ui-kit:go', { detail: `?page=search&q=${encodeURIComponent(it.title)}` })); return; }
     notify(`Opened “${it.title}”`);
   };
   const remove = (it) => {

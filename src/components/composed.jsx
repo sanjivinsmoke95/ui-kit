@@ -33,7 +33,7 @@ export function LevelBadge({ level, score, note, styles = LEVEL_STYLE }) {
       <PriorityBars level={level} styles={styles} size="sm" />
       <span className={cx('font-medium', s.text)}>{level}</span>
       {score !== undefined && <span className="t-mono text-fg-2">{score}</span>}
-      {note && <span className="t-caption text-fg-3">{note}</span>}
+      {note && <span className="t-caption text-fg-2">{note}</span>}
     </span>
   );
 }

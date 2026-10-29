@@ -27,6 +27,13 @@ test('deriveAccent picks a readable foreground for light and dark accents', () =
   assert.notDeepEqual(light.accentFg, dark.accentFg);
 });
 
+test('deriveAccent keeps the label readable on the whole accent gradient', () => {
+  for (const hex of ['#22D3EE', '#4F46E5', '#E11D48', '#0D9488', '#F59E0B', '#1F6B42', '#FFFFFF', '#111111']) {
+    const d = deriveAccent(hex, true);
+    assert.ok(contrast(d.accentFg, d.accentDeep) >= contrast(d.accentFg, d.accent) - 0.01, `${hex}: gradient end must not reduce contrast`);
+  }
+});
+
 test('deriveAccent lightens text on dark themes and darkens it on light ones', () => {
   const onDark = deriveAccent('#7C3AED', true).accentText;
   const onLight = deriveAccent('#7C3AED', false).accentText;

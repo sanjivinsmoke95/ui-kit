@@ -9,7 +9,7 @@ export function Highlight({ text, query, className }) {
   return (
     <>
       {highlightParts(text, query).map((p, i) => p.match
-        ? <mark key={i} className={cn('rounded-[3px] bg-accent/20 font-semibold text-accent-text underline decoration-accent/50 decoration-2 underline-offset-2', className)}>{p.text}</mark>
+        ? <mark key={i} className={cn('rounded-[3px] bg-accent/10 font-semibold text-accent-text underline decoration-accent/50 decoration-2 underline-offset-2', className)}>{p.text}</mark>
         : <span key={i}>{p.text}</span>)}
     </>
   );
@@ -135,7 +135,7 @@ export function FilterChips({ items, value, onChange, label = 'Filter results', 
             className={cn('inline-flex h-9 items-center gap-2 rounded-full border px-4 text-[0.8125rem] font-medium transition [@media(pointer:coarse)]:h-11',
               on ? 'border-accent bg-accent text-accent-fg shadow-sm' : 'border-line bg-surface text-fg-2 hover:border-fg-3/50 hover:text-fg')}>
             {it.label}
-            {it.count !== undefined && <span className={cn('t-mono rounded-full px-1.5 text-[0.6875rem]', on ? 'bg-accent-fg/20' : 'bg-surface-2 text-fg-3')}>{it.count}</span>}
+            {it.count !== undefined && <span className={cn('t-mono rounded-full px-1.5 text-[0.6875rem]', on ? 'bg-surface text-accent-text' : 'bg-surface-2 text-fg-3')}>{it.count}</span>}
           </button>
         );
       })}

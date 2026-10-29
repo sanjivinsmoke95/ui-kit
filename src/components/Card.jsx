@@ -63,25 +63,25 @@ export function StatCard({ label, value, unit, delta, trend, icon: Icon, hint, t
     <>
       <div className="relative flex items-center gap-3">
         {Icon && <span className="stat-tile" aria-hidden><Icon className="h-[1.15rem] w-[1.15rem]" /></span>}
-        <span className={cn('line-clamp-2 min-w-0 flex-1 text-[0.875rem] font-medium leading-tight', featured ? 'text-accent-fg/90' : 'text-fg-2')} title={typeof label === 'string' ? label : undefined}>{label}</span>
+        <span className={cn('line-clamp-2 min-w-0 flex-1 text-[0.875rem] font-medium leading-tight', featured ? 'text-accent-fg' : 'text-fg-2')} title={typeof label === 'string' ? label : undefined}>{label}</span>
         {linked && <span className="card-orb" aria-hidden><ArrowUpRight className="h-3.5 w-3.5" /></span>}
       </div>
       <div className="relative mt-5 flex items-end justify-between gap-3">
         <span className="flex items-baseline gap-1.5">
           <span className="font-display text-[2.75rem] font-normal leading-none tracking-[0.01em] tabular-nums">{numeric ? <AnimatedValue value={value} /> : value}</span>
-          {unit && <span className={cn('text-[0.9375rem] font-medium', featured ? 'text-accent-fg/80' : 'text-fg-3')}>{unit}</span>}
+          {unit && <span className={cn('text-[0.9375rem] font-medium', featured ? 'text-accent-fg' : 'text-fg-3')}>{unit}</span>}
         </span>
         {trend && <Sparkline data={trend} className="hidden h-8 w-20 text-accent-text min-[480px]:block" />}
       </div>
       {(delta !== undefined || hint) && (
         <div className="relative mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem] leading-snug text-fg-2">
           {delta !== undefined && (
-            <span className={cn('inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[0.75rem] font-medium', featured ? 'bg-accent-fg/15 text-accent-fg' : positive ? 'bg-success/10 text-success' : 'bg-danger/10 text-danger')}>
+            <span className={cn('inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[0.75rem] font-medium', featured ? 'bg-[rgb(0_0_0/0.22)] text-accent-fg' : positive ? 'bg-success/10 text-success' : 'bg-danger/10 text-danger')}>
               {positive ? <ArrowUpRight className="h-3.5 w-3.5" aria-hidden /> : <ArrowDownRight className="h-3.5 w-3.5" aria-hidden />}
               {Math.abs(delta)}%
             </span>
           )}
-          <span className={cn('line-clamp-2 min-w-0', featured ? 'text-accent-fg/80' : 'text-fg-3')} title={typeof hint === 'string' ? hint : undefined}>{hint}</span>
+          <span className={cn('line-clamp-2 min-w-0', featured ? 'text-accent-fg' : 'text-fg-3')} title={typeof hint === 'string' ? hint : undefined}>{hint}</span>
         </div>
       )}
       {(viz || pill || aside) && (

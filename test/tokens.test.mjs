@@ -23,6 +23,7 @@ const PAIRS = [
   ['fg-3', 'surface', 4.5, 'tertiary text / placeholders on cards'],
   ['fg-3', 'bg', 4.5, 'tertiary text on page'],
   ['accent-fg', 'accent', 4.5, 'primary button label'],
+  ['accent-fg', 'accent-deep', 4.5, 'text on the end of accent gradients (featured KPI, time tracker)'],
   ['accent-text', 'surface', 4.5, 'accent links on cards'],
   ['accent-text', 'bg', 4.5, 'accent links on page'],
   ['danger-fg', 'danger', 4.5, 'danger button label'],
