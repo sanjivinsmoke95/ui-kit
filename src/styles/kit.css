@@ -5,7 +5,7 @@
 /* ==========================================================================
    DESIGN TOKENS
    Colors are space-separated RGB triplets so Tailwind can apply alpha.
-   Presets are selected with <html data-theme="forest|paper|dark|blue|light|warm"> (see <ThemeProvider>).
+   Presets are selected with <html data-theme="forest|paper|dark|blue|warm"> (see <ThemeProvider>).
    The accent can be overridden at runtime (see hooks/useTheme.jsx).
    ========================================================================== */
 :root {
@@ -184,36 +184,6 @@
 [data-theme='paper'] .btn-ghost:hover:not(:disabled) { transform: none; box-shadow: none; }
 [data-theme='paper'] .stat-card-featured { background: rgb(var(--accent)); border-color: rgb(10 10 10); }
 [data-theme='paper'] .pill, [data-theme='paper'] .card-orb { border-color: rgb(10 10 10); }
-
-[data-theme='light'] {
-  color-scheme: light;
-  --card-line: 0.14;
-  --bg: 250 250 250;
-  --surface: 255 255 255;
-  --surface-2: 244 244 245;
-  --line: 228 228 231;
-  --fg: 24 24 27;
-  --fg-2: 82 82 91;
-  --fg-3: 113 113 122;
-  --accent: 79 70 229;
-  --accent-text: 67 56 202;
-  --accent-fg: 255 255 255;
-  --accent-2: 8 145 178;
-  --success: 5 150 105;
-  --warning: 180 83 9;
-  --danger: 220 38 38;
-  --danger-fg: 255 255 255;
-  /* semantic data colours, deepened so they stay readable as text on light surfaces */
-  --sem-blue: 37 99 235;
-  --sem-purple: 109 40 217;
-  --sem-teal: 15 118 110;
-  --sem-orange: 194 65 12;
-  --sem-red: 185 28 28;
-  --shadow-sm: 0 1px 2px rgb(24 24 27 / 0.06);
-  --shadow-md: 0 4px 16px rgb(24 24 27 / 0.08);
-  --shadow-pop: 0 12px 40px rgb(24 24 27 / 0.14), 0 0 0 1px rgb(24 24 27 / 0.04);
-  --scrim: 24 24 27 / 0.4;
-}
 
 [data-theme='warm'] {
   color-scheme: light;

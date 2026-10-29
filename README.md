@@ -1,7 +1,7 @@
 # UI Kit
 
 A themeable **React + Tailwind** component kit, extracted from the RecallDSA app so it can be reused in any project.
-Dark / blue / light / warm themes, an accent color you can change at runtime, KPI tiles and cards, forms, overlays, tables,
+Forest / paper / dark / blue / warm themes, an accent color you can change at runtime, KPI tiles and cards, forms, overlays, tables,
 dependency-free SVG charts, an app shell (sidebar, topbar, mobile tab bar) and a ⌘K command palette.
 
 * **Design tokens, not hard-coded colors.** Every color, radius, shadow and z-index is a CSS variable (`src/styles/kit.css`), so a new theme or brand color needs no component edits.
@@ -107,7 +107,7 @@ Run the playground to see all of them live: `npm install && npm run dev` (http:/
 
 ## Theming
 
-* Themes: `forest` (**Forest Light**, the default: pale green-grey canvas, white floating panels, deep green accent), `dark` (Graphite), `blue`, `light`, `warm`. Switch with `useTheme().setTheme('light')`; list them with `themes`. Each is a `[data-theme='…']` block in `styles/kit.css`.
+* Themes: `forest` (**Forest Light**, the default: pale green-grey canvas, white floating panels, deep green accent), `paper`, `dark` (Graphite), `blue`, `warm`. Switch with `useTheme().setTheme('paper')`; list them with `themes`. Each is a `[data-theme='…']` block in `styles/kit.css`.
 * Change the brand colour at runtime: `useTheme().setAccent('#E11D48')`. The link/text shade **and the label colour on filled accents** (white or near-black, whichever is more readable) are derived for you. `setAccent(null)` resets it. Only `#rgb` / `#rrggbb` is accepted; anything else is ignored with a console warning.
 * Saved settings are validated on load: an unknown theme id, a malformed accent, corrupt JSON or blocked storage all fall back to the defaults instead of breaking the page.
 * Add a theme: add a `[data-theme='mine'] { --bg: …; --surface: …; --fg: …; --accent: …; --accent-fg: …; --danger-fg: … }` block (copy `dark`), then `<ThemeProvider themes={[...themes, { id: 'mine', label: 'Mine', dark: true }]}>`. `npm test` checks the contrast of the built-in themes; add yours to `themes` and it is covered too.

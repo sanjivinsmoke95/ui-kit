@@ -8,7 +8,6 @@ export const themes = [
   { id: 'paper', label: 'Paper Ink', description: 'Warm beige, hard black edges, blue and magenta', swatch: ['#EDE8E0', '#FFFFFF', '#0073E6'] },
   { id: 'dark', label: 'Graphite', description: 'Near-black, signal cyan', dark: true, swatch: ['#08090B', '#15181C', '#22D3EE'] },
   { id: 'blue', label: 'Blue + Dark', description: 'Deep navy, electric blue', dark: true, swatch: ['#070A10', '#111827', '#2563EB'] },
-  { id: 'light', label: 'Light Professional', description: 'Crisp and neutral', swatch: ['#FAFAFA', '#FFFFFF', '#4F46E5'] },
   { id: 'warm', label: 'Warm Human-Centered', description: 'Soft, approachable', swatch: ['#FAF7F2', '#FFFDF9', '#C2410C'] },
 ];
 
