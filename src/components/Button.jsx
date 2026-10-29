@@ -18,6 +18,7 @@ const sizes = {
 
 export const buttonStyles = ({ variant = 'secondary', size = 'md', block, className } = {}) =>
   cn(
+    variant === 'ghost' ? 'btn btn-ghost' : 'btn',
     'inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-full font-medium',
     'transition active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50',
     variants[variant] || variants.secondary,

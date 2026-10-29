@@ -140,35 +140,50 @@
 
 /* Paper: warm beige canvas, white cards with a hard black offset edge, blue + magenta for up / down. */
 [data-theme='paper'] {
+  /* Refined from neobrutalist references: flat paper canvas (~#f4f1ea), ink #0a0a0a, 2px ink borders, zero-blur offset shadows
+     that collapse on press. Blue / magenta kept from the original palette. */
   color-scheme: light;
-  --card-line: 0.92;
-  --card-w: 1.5px;
+  --card-line: 1;
+  --card-w: 2px;
   --radius-card: 18px;
-  --bg: 237 232 224;
+  --bg: 242 238 229;
   --surface: 255 255 255;
-  --surface-2: 246 243 238;
-  --line: 224 218 208;
-  --fg: 28 28 28;
-  --fg-2: 74 72 68;
-  --fg-3: 104 100 94;
+  --surface-2: 248 245 239;
+  --line: 222 215 202;
+  --fg: 10 10 10;
+  --fg-2: 66 64 60;
+  --fg-3: 99 95 88;
+  --ink: 10 10 10;
   --accent: 0 115 230;
-  --accent-text: 0 102 204;
+  --accent-text: 0 98 196;
   --accent-fg: 255 255 255;
   --accent-2: 208 30 104;
   --success: 18 120 70;
   --warning: 161 98 7;
   --danger: 208 30 104;
   --danger-fg: 255 255 255;
-  --sem-blue: 0 102 204;
+  --sem-blue: 0 98 196;
   --sem-purple: 109 40 217;
   --sem-teal: 15 118 110;
   --sem-orange: 194 65 12;
   --sem-red: 208 30 104;
-  --shadow-sm: 4px 4px 0 0 rgb(0 0 0);
-  --shadow-md: 5px 5px 0 0 rgb(0 0 0);
-  --shadow-pop: 6px 6px 0 0 rgb(0 0 0), 0 0 0 1.5px rgb(0 0 0);
-  --scrim: 28 28 28 / 0.4;
+  --shadow-sm: 3px 3px 0 0 rgb(10 10 10);
+  --shadow-md: 5px 5px 0 0 rgb(10 10 10);
+  --shadow-pop: 6px 6px 0 0 rgb(10 10 10), 0 0 0 2px rgb(10 10 10);
+  --scrim: 10 10 10 / 0.45;
 }
+
+/* Paper: ink borders on controls, pressable buttons, inked badges. */
+[data-theme='paper'] .control { border-width: 2px; border-color: rgb(10 10 10); }
+[data-theme='paper'] .control:focus { box-shadow: 3px 3px 0 0 rgb(var(--accent)); --tw-ring-shadow: 0 0 #0000; border-color: rgb(10 10 10); }
+[data-theme='paper'] .btn { border: 2px solid rgb(10 10 10); box-shadow: 3px 3px 0 0 rgb(10 10 10); transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background-color var(--dur-fast); }
+[data-theme='paper'] .btn:hover:not(:disabled):not([aria-disabled='true']) { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 0 rgb(10 10 10); }
+[data-theme='paper'] .btn:active:not(:disabled):not([aria-disabled='true']) { transform: translate(3px, 3px); box-shadow: 0 0 0 0 rgb(10 10 10); }
+[data-theme='paper'] .btn:disabled, [data-theme='paper'] .btn[aria-disabled='true'] { box-shadow: none; opacity: 0.55; }
+[data-theme='paper'] .btn-ghost { border-color: transparent; box-shadow: none; }
+[data-theme='paper'] .btn-ghost:hover:not(:disabled) { transform: none; box-shadow: none; }
+[data-theme='paper'] .stat-card-featured { background: rgb(var(--accent)); border-color: rgb(10 10 10); }
+[data-theme='paper'] .pill, [data-theme='paper'] .card-orb { border-color: rgb(10 10 10); }
 
 [data-theme='light'] {
   color-scheme: light;
