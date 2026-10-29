@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import {
   ActivityTimeline, Alert, AnimatedValue, AppShell, Avatar, Badge, Banner, BarChart, Brand, Breadcrumb, BurstToggle, Button, Card, Checkbox, Chip, CommandPaletteProvider,
-  ComparisonView, ConfirmDialog, DataTable, DonutChart, Drawer, GapChart, MetricCard, Dropdown, EmptyState, ErrorState, Field, IconButton, Input, ItemCard, LevelBadge, LineChart, LoadingState,
+  ChartLegend, ComparisonView, ConfirmDialog, DataTable, DonutChart, Drawer, GapChart, LandingPage, MetricCard, Dropdown, EmptyState, ErrorState, Field, IconButton, Input, ItemCard, LevelBadge, LineChart, LoadingState,
   Marquee, MobileNav, Modal, PageHeader, Pagination, Pill, PriorityBars, ProgressBar, ProgressChart, ProgressCircle, RevealText, RotatingText, SearchInput, Section, Segmented,
   Select, Sidebar, Skeleton, Sparkline, SpotlightCard, Spinner, StatCard, StatGroup, StatusBadge, TabPanel, Tabs, TagInput, Textarea, ThemeSwitcher, Toggle, Tooltip, Topbar,
   accentPresets, themes, useCommandPalette, useNotify, useTheme,
@@ -344,10 +344,11 @@ const SECTIONS = [
         code: `<DataTable caption="Problems" rows={rows} initialSort={{ key: 'score', dir: 'desc' }}\n  columns={[{ key: 'name', header: 'Problem', sortable: true }, { key: 'score', header: 'Score', sortable: true, align: 'right' }]}\n  empty={<EmptyState title="No problems" />}\n  renderMobileRow={(r) => <div className="p-3">{r.name}</div>} />\n<Pagination page={page} pageCount={4} onChange={setPage} />`,
         render: TableDemo },
       { id: 'charts', name: 'Charts', kind: 'composition', keywords: 'line bar donut sparkline progress timeline comparison graph', desc: 'Dependency-free SVG charts; colours come from the tokens.',
-        code: `<LineChart data={[{ label: 'D1', value: 3 }, …]} />\n<BarChart data={[{ label: 'Mon', value: 4 }, …]} />\n<DonutChart data={[{ label: 'Easy', value: 99 }, …]} centerLabel="Solved" />\n<ProgressBar value={0.6} label="Upload" showValue />`,
+        code: `<LineChart data={[{ label: 'D1', value: 3 }, …]} average={5} />\n<LineChart baseline={0} data={gaps} />   // blue above the baseline, magenta below\n<BarChart data={[{ label: 'Mon', value: 4 }, …]} />\n<DonutChart data={[{ label: 'Easy', value: 99 }, …]} centerLabel="Solved" />\n<ProgressBar value={0.6} label="Upload" showValue />`,
         render: () => (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <Card><p className="t-h3 mb-3">Line</p><LineChart data={SPARK.map((v, i) => ({ label: `D${i + 1}`, value: v }))} /></Card>
+            <Card><div className="mb-3 flex flex-wrap items-center justify-between gap-2"><p className="t-eyebrow text-fg-3">Daily value</p><ChartLegend items={[{ label: 'Daily', kind: 'dot' }, { label: '3D avg', kind: 'line' }]} /></div><LineChart average={3} data={SPARK.map((v, i) => ({ label: `D${i + 1}`, value: v }))} /></Card>
+            <Card><div className="mb-3 flex flex-wrap items-center justify-between gap-2"><p className="t-eyebrow text-fg-3">Gap vs last year</p><ChartLegend items={[{ label: 'Daily gap', kind: 'dot' }, { label: '5D avg', kind: 'line' }]} /></div><LineChart baseline={0} zeroBased data={GAPS.map((v, i) => ({ label: `D${i + 1}`, value: v }))} /></Card>
             <Card><p className="t-h3 mb-3">Bars</p><BarChart data={[{ label: 'Mon', value: 4 }, { label: 'Tue', value: 7 }, { label: 'Wed', value: 3 }, { label: 'Thu', value: 9 }, { label: 'Fri', value: 5 }]} /></Card>
             <Card className="flex items-center gap-6"><DonutChart data={[{ label: 'Easy', value: 99 }, { label: 'Medium', value: 99 }, { label: 'Hard', value: 5 }]} centerLabel="Solved" /><div className="space-y-3"><ProgressCircle value={72}><span className="t-h3">72%</span></ProgressCircle><Sparkline data={SPARK} className="h-8 w-28 text-accent-text" /></div></Card>
             <Card className="space-y-4"><ProgressChart items={[{ label: 'Arrays', value: 0.8 }, { label: 'Graphs', value: 0.45, tone: 'orange' }, { label: 'DP', value: 0.2, tone: 'red' }]} /><ProgressBar value={0.6} label="Upload" showValue /></Card>

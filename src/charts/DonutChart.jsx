@@ -8,7 +8,7 @@ const palette = [
 ];
 
 /** data: [{ label, value }] — centre shows `centerLabel` + total. */
-export default function DonutChart({ data, size = 160, stroke = 14, centerLabel = 'Total', className }) {
+export default function DonutChart({ data, size = 160, stroke = 10, centerLabel = 'Total', className }) {
   const total = data.reduce((s, d) => s + d.value, 0);
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
@@ -41,13 +41,13 @@ export default function DonutChart({ data, size = 160, stroke = 14, centerLabel 
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <span className="text-[1.375rem] font-semibold leading-none tabular-nums">{total}</span>
-          <span className="t-caption mt-1 text-fg-3">{centerLabel}</span>
+          <span className="t-eyebrow mt-1.5 text-fg-3">{centerLabel}</span>
         </div>
       </div>
       <ul className="min-w-[140px] flex-1 space-y-2.5">
         {data.map((d, i) => (
           <li key={d.label} className="flex items-center justify-between gap-4">
-            <span className="t-small flex items-center gap-2 text-fg-2">
+            <span className="t-eyebrow flex items-center gap-2 text-fg-2">
               <span className={cn('h-2 w-2 rounded-full', palette[i % palette.length].dot)} aria-hidden />
               {d.label}
             </span>

@@ -1,24 +1,10 @@
 import { useId } from 'react';
 import { cn } from '../utils/cn';
+import { linePath, movingAverage, smoothPath } from '../utils/chart';
 
 const W = 600;
 const H = 150;
 const PAD = 10;
-
-/** Centered moving average over `window` points. */
-const movingAverage = (data, window) => data.map((_, i) => {
-  const slice = data.slice(Math.max(0, i - window + 1), i + 1);
-  return slice.reduce((a, b) => a + b, 0) / slice.length;
-});
-
-/** Smooth path through points (Catmull-Rom to Bezier). */
-const smooth = (pts) => pts.map(([x, y], i) => {
-  if (i === 0) return `M${x},${y}`;
-  const [x0, y0] = pts[i - 2] || pts[i - 1];
-  const [x1, y1] = pts[i - 1];
-  const [x3, y3] = pts[i + 1] || [x, y];
-  return `C${x1 + (x - x0) / 6},${y1 + (y - y0) / 6} ${x - (x3 - x1) / 6},${y - (y3 - y1) / 6} ${x},${y}`;
-}).join(' ');
 
 /**
  * Diverging line chart: values above the baseline are drawn in the accent colour, below it in the danger colour, so the sign is
@@ -32,9 +18,9 @@ export default function GapChart({ data, average = 5, baselineLabel, label = 'Da
   const x = (i) => PAD + (i / Math.max(data.length - 1, 1)) * (W - PAD * 2);
   const y = (v) => H / 2 - (v / max) * (H / 2 - PAD);
   const pts = data.map((v, i) => [x(i), y(v)]);
-  const line = pts.map(([px, py], i) => `${i ? 'L' : 'M'}${px},${py}`).join(' ');
+  const line = linePath(pts);
   const area = `${line} L${pts.at(-1)[0]},${H / 2} L${pts[0][0]},${H / 2} Z`;
-  const trend = average > 1 ? smooth(movingAverage(data, average).map((v, i) => [x(i), y(v)])) : null;
+  const trend = average > 1 ? smoothPath(movingAverage(data, average).map((v, i) => [x(i), y(v)])) : null;
   const up = data.filter((v) => v >= 0).length;
 
   return (

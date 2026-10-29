@@ -34,7 +34,7 @@ export { default as BarChart } from './charts/BarChart';
 export { default as ComparisonView } from './charts/ComparisonView';
 export { default as GapChart } from './charts/GapChart';
 export { default as DonutChart } from './charts/DonutChart';
-export { default as LineChart } from './charts/LineChart';
+export { default as LineChart, ChartLegend } from './charts/LineChart';
 export { default as ProgressChart } from './charts/ProgressChart';
 export { default as Sparkline } from './charts/Sparkline';
 

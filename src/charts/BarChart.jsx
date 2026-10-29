@@ -7,7 +7,7 @@ export default function BarChart({ data, height = 200, valueFormat = (v) => v })
   const max = Math.max(...data.map((d) => d.value));
   return (
     <div role="img" aria-label="Bar chart" className="w-full">
-      <div className="flex items-end gap-3" style={{ height }}>
+      <div className="flex items-end gap-3 border-b border-dashed border-fg-3/60" style={{ height }}>
         {data.map((d, i) => (
           <div
             key={d.label}
@@ -29,7 +29,7 @@ export default function BarChart({ data, height = 200, valueFormat = (v) => v })
       </div>
       <div className="mt-2 flex gap-2">
         {data.map((d) => (
-          <span key={d.label} className="t-caption flex-1 truncate text-center text-fg-3">{d.label}</span>
+          <span key={d.label} className="t-eyebrow flex-1 truncate text-center text-fg-3">{d.label}</span>
         ))}
       </div>
     </div>
