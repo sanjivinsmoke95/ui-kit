@@ -15,7 +15,7 @@ function StateBlock({ icon: Icon, tone = 'text-fg-3', title, description, action
   return (
     <div className={cn('flex flex-col items-center px-6 py-14 text-center', className)}>
       {Icon && (
-        <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-line bg-surface-2">
+        <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-surface-2">
           <Icon className={cn('h-5 w-5', tone)} aria-hidden />
         </div>
       )}

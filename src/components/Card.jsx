@@ -13,7 +13,7 @@ export function Card({ as: Tag = 'div', interactive, padded = true, className, c
       className={cn(
         'card',
         padded && 'p-6',
-        interactive && 'transition hover:-translate-y-0.5 hover:shadow-md',
+        interactive && 'transition hover:-translate-y-0.5 hover:border-fg-3/30 hover:shadow-md',
         className,
       )}
       {...props}
@@ -62,26 +62,26 @@ export function StatCard({ label, value, delta, trend, icon: Icon, hint, to, ton
   const body = (
     <>
       <div className="flex items-start justify-between gap-3">
-        <span className="line-clamp-2 min-w-0 text-[12.5px] font-medium leading-tight text-fg-2" title={typeof label === 'string' ? label : undefined}>{label}</span>
+        <span className="line-clamp-2 min-w-0 text-[0.8125rem] font-medium leading-tight text-fg-2" title={typeof label === 'string' ? label : undefined}>{label}</span>
         {(linked || Icon) && <span className="card-orb" aria-hidden>{linked ? <ArrowUpRight className="h-3.5 w-3.5" /> : <Icon className="h-3.5 w-3.5" />}</span>}
       </div>
-      <div className="mt-0.5 flex items-end justify-between gap-3">
-        <span className="font-display text-[1.9rem] font-normal leading-none tabular-nums">{numeric ? <AnimatedValue value={value} /> : value}</span>
+      <div className="mt-3 flex items-end justify-between gap-3">
+        <span className="font-display text-[2.25rem] font-normal leading-none tabular-nums">{numeric ? <AnimatedValue value={value} /> : value}</span>
         {trend && <Sparkline data={trend} className="hidden h-8 w-20 text-accent-text min-[480px]:block" />}
       </div>
       {(delta !== undefined || hint) && (
-        <div className="mt-0.5 flex items-start gap-1.5 text-[12px] leading-snug text-fg-2">
+        <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem] leading-snug text-fg-2">
           {delta !== undefined && (
-            <span className={cn('inline-flex items-center font-medium', positive ? 'text-success' : 'text-danger')}>
+            <span className={cn('inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[0.75rem] font-medium', positive ? 'bg-success/10 text-success' : 'bg-danger/10 text-danger')}>
               {positive ? <ArrowUpRight className="h-3.5 w-3.5" aria-hidden /> : <ArrowDownRight className="h-3.5 w-3.5" aria-hidden />}
               {Math.abs(delta)}%
             </span>
           )}
-          <span className="line-clamp-2 min-w-0" title={typeof hint === 'string' ? hint : undefined}>{hint}</span>
+          <span className="line-clamp-2 min-w-0 text-fg-3" title={typeof hint === 'string' ? hint : undefined}>{hint}</span>
         </div>
       )}
       {(viz || pill || aside) && (
-        <div className="mt-auto pt-2">
+        <div className="mt-auto pt-4">
           {viz && <Viz {...viz} />}
           {(pill || aside) && (
             <div className={cn('flex flex-wrap items-end justify-between gap-x-3 gap-y-2', viz && 'mt-3')}>

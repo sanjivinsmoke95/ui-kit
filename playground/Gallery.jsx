@@ -260,15 +260,15 @@ const SECTIONS = [
   },
   {
     id: 'surfaces', label: 'Cards & KPIs', icon: PanelsTopLeft, demos: [
-      { id: 'statcard', name: 'StatCard + StatGroup', kind: 'composition', keywords: 'kpi metric number tile viz sparkline', desc: 'KPI tiles with a built-in mini visual (spark, bars, segments, dots, split).',
-        code: `<StatGroup fit>\n  <StatCard tone="teal" label="Solved today" value={7} hint="3 yesterday" viz={{ type: 'spark', data, tone: 'teal' }} />\n  <StatCard tone="red" label="Due" value={5} viz={{ type: 'segments', filled: 4, total: 5, tone: 'red' }} />\n</StatGroup>`,
+      { id: 'statcard', name: 'StatCard + StatGroup', kind: 'composition', keywords: 'kpi metric number tile delta trend', desc: 'Clean KPI tiles: label, big number, delta pill and a hint. A mini chart (`viz`) is available but optional.',
+        code: `<StatGroup fit>\n  <StatCard label="Revenue" value={48200} delta={12.5} hint="vs last month" />\n  <StatCard label="Active users" value={1280} delta={-3} hint="vs last week" icon={Activity} />\n</StatGroup>`,
         render: () => (
           <StatGroup fit>
-            <StatCard to="#surfaces" tone="teal" label="Solved today" value={7} hint="3 yesterday · 21 this week" viz={{ type: 'spark', data: SPARK, tone: 'teal' }} />
-            <StatCard tone="blue" label="Captured" value={142} delta={12} hint="vs last week" viz={{ type: 'bars', data: [4, 6, 3, 8, 5, 9, 7], tone: 'blue' }} />
-            <StatCard tone="red" label="Due for review" value={5} hint="4 of 5 overdue" viz={{ type: 'segments', filled: 4, total: 5, tone: 'red' }} />
-            <StatCard tone="purple" label="Critical" value={3} delta={-8} hint="of 6 notes" viz={{ type: 'dots', active: 3, total: 6, tone: 'purple' }} />
-            <StatCard tone="accent" label="Total solved" value={306} hint="by difficulty" viz={{ type: 'split', parts: [{ label: 'Easy', value: 99, tone: 'green' }, { label: 'Medium', value: 99, tone: 'orange' }, { label: 'Hard', value: 5, tone: 'red' }] }} />
+            <StatCard to="#surfaces" label="Solved today" value={7} delta={16} hint="vs yesterday" />
+            <StatCard label="Captured" value={142} delta={12} hint="vs last week" icon={Boxes} />
+            <StatCard label="Due for review" value={5} hint="4 of 5 overdue" icon={Bell} />
+            <StatCard label="Critical" value={3} delta={-8} hint="of 6 notes" icon={Activity} />
+            <StatCard label="Total solved" value={306} delta={4} hint="all time" icon={Star} />
           </StatGroup>
         ) },
       { id: 'cards', name: 'Card, Section, ItemCard, SpotlightCard', kind: 'primitive', keywords: 'container panel surface border', desc: 'Hairline-bordered containers. Prefer open layouts with dividers; use cards for grouped, scannable content.',

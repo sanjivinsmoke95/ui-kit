@@ -46,7 +46,7 @@ export function ToastProvider({ children }) {
               key={t.id}
               layout
               role={t.type === 'error' ? 'alert' : 'status'}
-              className="pointer-events-auto flex items-start gap-3 rounded-md border border-line bg-surface p-4 shadow-pop"
+              className="pointer-events-auto flex items-start gap-3 rounded-xl border border-line bg-surface p-4 shadow-pop"
               initial={{ opacity: 0, y: 12, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, x: 24 }}

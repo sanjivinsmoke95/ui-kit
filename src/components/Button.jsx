@@ -3,7 +3,7 @@ import { Loader2 } from 'lucide-react';
 import { cn } from '../utils/cn';
 
 const variants = {
-  primary: 'bg-accent text-accent-fg hover:bg-accent/90 active:bg-accent/80',
+  primary: 'bg-accent text-accent-fg shadow-sm hover:bg-accent/90 active:bg-accent/80',
   secondary: 'border border-line bg-surface-2 text-fg hover:border-fg-3/50 hover:bg-surface-2/70',
   outline: 'border border-line text-fg hover:border-fg-3/50 hover:bg-surface-2',
   ghost: 'text-fg-2 hover:bg-surface-2 hover:text-fg',
@@ -11,9 +11,9 @@ const variants = {
 };
 // On touch screens every size grows to a 44px hit area (WCAG 2.5.5); desktop keeps the compact heights.
 const sizes = {
-  sm: 'h-8 gap-1.5 px-3 text-[0.8125rem] [@media(pointer:coarse)]:h-10',
-  md: 'h-9 gap-2 px-4 text-[0.875rem] [@media(pointer:coarse)]:h-11',
-  lg: 'h-11 gap-2 px-6 text-[0.9375rem]',
+  sm: 'h-9 gap-1.5 px-3.5 text-[0.8125rem] [@media(pointer:coarse)]:h-10',
+  md: 'h-10 gap-2 px-5 text-[0.875rem] [@media(pointer:coarse)]:h-11',
+  lg: 'h-12 gap-2 px-6 text-[0.9375rem]',
 };
 
 export const buttonStyles = ({ variant = 'secondary', size = 'md', block, className } = {}) =>

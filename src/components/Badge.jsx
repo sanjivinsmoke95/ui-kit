@@ -12,7 +12,7 @@ const variants = {
 /** variant: neutral | accent | info | success | warning | danger. Always pair color with text (or an icon), never color alone. */
 export function Badge({ variant = 'neutral', icon: Icon, className, children }) {
   return (
-    <span className={cn('inline-flex h-5 shrink-0 items-center gap-1 whitespace-nowrap rounded-sm border px-1.5 text-[0.6875rem] font-medium', variants[variant] || variants.neutral, className)}>
+    <span className={cn('inline-flex h-5 shrink-0 items-center gap-1 whitespace-nowrap rounded-full border px-2 text-[0.6875rem] font-medium', variants[variant] || variants.neutral, className)}>
       {Icon && <Icon className="h-3 w-3" aria-hidden />}
       {children}
     </span>

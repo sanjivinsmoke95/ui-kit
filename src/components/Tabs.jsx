@@ -91,7 +91,7 @@ export function Segmented({ items, options, value, onChange, label, size = 'md',
   };
 
   return (
-    <div role="radiogroup" aria-label={label} onKeyDown={onKeyDown} className={cn('inline-flex flex-wrap rounded-md border border-line bg-surface p-0.5', className)}>
+    <div role="radiogroup" aria-label={label} onKeyDown={onKeyDown} className={cn('inline-flex flex-wrap gap-0.5 rounded-lg border border-line bg-surface-2/60 p-1', className)}>
       {list.map((t) => {
         const active = value === t.id;
         return (
@@ -104,9 +104,9 @@ export function Segmented({ items, options, value, onChange, label, size = 'md',
             tabIndex={t.id === tabStop ? 0 : -1}
             onClick={() => onChange(active && t.toggle ? null : t.id)}
             className={cn(
-              'rounded-sm font-medium transition',
-              size === 'sm' ? 'h-6 px-2.5 text-[0.75rem] [@media(pointer:coarse)]:h-9' : 'h-7 px-3 text-[0.8125rem] [@media(pointer:coarse)]:h-10',
-              active ? 'bg-surface-2 text-fg shadow-sm ring-1 ring-line' : 'text-fg-3 hover:text-fg-2',
+              'rounded-md font-medium transition',
+              size === 'sm' ? 'h-6 px-2.5 text-[0.75rem] [@media(pointer:coarse)]:h-9' : 'h-8 px-3.5 text-[0.8125rem] [@media(pointer:coarse)]:h-10',
+              active ? 'bg-surface text-fg shadow-sm ring-1 ring-line' : 'text-fg-3 hover:text-fg-2',
             )}
           >
             {t.label}

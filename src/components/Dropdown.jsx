@@ -57,7 +57,7 @@ export default function Dropdown({ trigger, items = [], align = 'right', width =
             aria-label={label}
             onKeyDown={children ? undefined : onMenuKey}
             className={cn(
-              'absolute top-full z-overlay mt-2 origin-top overflow-hidden rounded-md border border-line bg-surface p-1 shadow-pop',
+              'absolute top-full z-overlay mt-2 origin-top overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-pop',
               align === 'right' ? 'right-0 origin-top-right' : 'left-0 origin-top-left',
               width,
             )}
@@ -82,7 +82,7 @@ export default function Dropdown({ trigger, items = [], align = 'right', width =
                     close();
                   }}
                   className={cn(
-                    'flex min-h-9 w-full items-center gap-2.5 rounded-sm px-2.5 py-2 text-left [@media(pointer:coarse)]:min-h-11 text-[0.8125rem] transition-colors focus:bg-surface-2 focus:outline-none hover:bg-surface-2',
+                    'flex min-h-9 w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-left [@media(pointer:coarse)]:min-h-11 text-[0.8125rem] transition-colors focus:bg-surface-2 focus:outline-none hover:bg-surface-2',
                     item.danger ? 'text-danger' : 'text-fg-2 hover:text-fg focus:text-fg',
                   )}
                 >

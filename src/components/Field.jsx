@@ -37,11 +37,11 @@ export function Field({ label, hint, error, optional, className, children }) {
 /** `invalid` sets aria-invalid (red border + ring). `icon` adds a leading lucide icon. Takes every native input prop. */
 export const Input = forwardRef(function Input({ className, icon: Icon, invalid, ...props }, ref) {
   const aria = invalid ? { 'aria-invalid': true } : null;
-  if (!Icon) return <input ref={ref} className={cn('control h-9', className)} {...aria} {...props} />;
+  if (!Icon) return <input ref={ref} className={cn('control h-10', className)} {...aria} {...props} />;
   return (
     <div className="relative">
       <Icon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-fg-3" aria-hidden />
-      <input ref={ref} className={cn('control h-9 pl-9', className)} {...aria} {...props} />
+      <input ref={ref} className={cn('control h-10 pl-9', className)} {...aria} {...props} />
     </div>
   );
 });
@@ -54,7 +54,7 @@ export const Textarea = forwardRef(function Textarea({ className, invalid, ...pr
 export const Select = forwardRef(function Select({ className, options = [], invalid, children, ...props }, ref) {
   return (
     <div className="relative">
-      <select ref={ref} className={cn('control h-9 cursor-pointer appearance-none pr-9', className)} {...(invalid ? { 'aria-invalid': true } : null)} {...props}>
+      <select ref={ref} className={cn('control h-10 cursor-pointer appearance-none pr-9', className)} {...(invalid ? { 'aria-invalid': true } : null)} {...props}>
         {children ||
           options.map((o) => {
             const opt = typeof o === 'string' ? { value: o, label: o } : o;      // options: strings or { value, label }
@@ -77,7 +77,7 @@ export const SearchInput = forwardRef(function SearchInput({ value, onChange, on
         onChange={onChange}
         placeholder={placeholder}
         aria-label={props['aria-label'] || placeholder}
-        className="control h-9 pl-9 pr-8 [&::-webkit-search-cancel-button]:hidden"
+        className="control h-10 pl-9 pr-8 [&::-webkit-search-cancel-button]:hidden"
         {...props}
       />
       {value && (

@@ -7,8 +7,8 @@ const variants = {
   outline: 'border border-line text-fg-2 hover:border-fg-3/50 hover:bg-surface-2 hover:text-fg',
 };
 const sizes = {
-  sm: 'h-8 w-8 [@media(pointer:coarse)]:h-10 [@media(pointer:coarse)]:w-10',
-  md: 'h-9 w-9 [@media(pointer:coarse)]:h-11 [@media(pointer:coarse)]:w-11',
+  sm: 'h-9 w-9 [@media(pointer:coarse)]:h-10 [@media(pointer:coarse)]:w-10',
+  md: 'h-10 w-10 [@media(pointer:coarse)]:h-11 [@media(pointer:coarse)]:w-11',
 };
 
 /** Icon-only button. `label` is required: it powers aria-label and the tooltip. variant: ghost | outline, size: sm | md. */

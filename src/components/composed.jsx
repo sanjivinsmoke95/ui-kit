@@ -46,7 +46,7 @@ export function Chip({ children, tone = 'default', onRemove }) {
     tag: 'bg-accent/10 text-accent-text border-accent/25',
   };
   return (
-    <span className={cx('inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 text-[0.75rem]', tones[tone])}>
+    <span className={cx('inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[0.75rem]', tones[tone])}>
       {children}
       {onRemove && (
         <button type="button" onClick={onRemove} aria-label={`Remove ${children}`} className="-mr-0.5 opacity-70 hover:opacity-100">

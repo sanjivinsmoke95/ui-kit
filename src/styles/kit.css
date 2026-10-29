@@ -9,13 +9,13 @@
    The accent can be overridden at runtime (see hooks/useTheme.jsx).
    ========================================================================== */
 :root {
-  /* Radius — Precision Futurism: tight, engineered corners. Raise these five values for a softer product. */
-  --radius-sm: 3px;
-  --radius-md: 5px;
-  --radius-lg: 6px;
-  --radius-xl: 8px;
-  --radius-card: 8px;           /* cards */
-  --card-line: 0.11;            /* card border: this much of the text colour */
+  /* Radius — soft, modern corners (shadcn / 21st.dev feel). Lower these values for a sharper product. */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-card: 16px;          /* cards */
+  --card-line: 0.09;            /* card border: this much of the text colour */
   --card-fill: 0;               /* extra card fill: this much of the text colour, on top of --surface */
 
   /* Pastel card tones (theme-independent; always paired with --ink text) */
@@ -328,6 +328,7 @@
     border-radius: var(--radius-card);
     border: 1px solid rgb(var(--fg) / var(--card-line));
     background: linear-gradient(rgb(var(--fg) / var(--card-fill)), rgb(var(--fg) / var(--card-fill))), rgb(var(--surface));
+    box-shadow: var(--shadow-sm), inset 0 1px 0 rgb(var(--fg) / 0.04);
   }
   .tone-accent { --tint: var(--accent-text); }
   .tone-purple { --tint: var(--sem-purple); }
@@ -342,7 +343,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 0.8rem 0.95rem;
+    padding: 1.1rem 1.25rem;
     border-radius: var(--radius-card);
     color: rgb(var(--fg));
     transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
@@ -358,7 +359,7 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    border-radius: var(--radius-sm);
+    border-radius: 9999px;
     border: 1px solid rgb(var(--fg) / 0.2);
     background: transparent;
     color: rgb(var(--fg) / 0.85);
@@ -370,7 +371,7 @@
     height: 1.75rem;
     align-items: center;
     gap: 0.5rem;
-    border-radius: var(--radius-sm);
+    border-radius: 9999px;
     border: 1px solid rgb(var(--fg) / 0.14);
     background: transparent;
     padding: 0 0.75rem;
@@ -379,7 +380,7 @@
     color: rgb(var(--fg) / 0.85);
     white-space: nowrap;
   }
-  .ctl { @apply control h-9; }
+  .ctl { @apply control h-10; }
   textarea.ctl { @apply h-auto min-h-[96px] py-2.5 leading-relaxed; }
   .ctl-error { @apply border-danger focus:border-danger focus:ring-danger/25; }
   .label { @apply mb-1.5 block text-[0.8125rem] font-medium text-fg-2; }
