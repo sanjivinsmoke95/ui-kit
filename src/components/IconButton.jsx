@@ -4,11 +4,14 @@ import Tooltip from './Tooltip';
 
 const variants = {
   ghost: 'text-fg-2 hover:bg-surface-2 hover:text-fg',
-  outline: 'border border-line text-fg-2 hover:bg-surface-2 hover:text-fg',
+  outline: 'border border-line text-fg-2 hover:border-fg-3/50 hover:bg-surface-2 hover:text-fg',
 };
-const sizes = { sm: 'h-8 w-8', md: 'h-9 w-9' };
+const sizes = {
+  sm: 'h-8 w-8 [@media(pointer:coarse)]:h-10 [@media(pointer:coarse)]:w-10',
+  md: 'h-9 w-9 [@media(pointer:coarse)]:h-11 [@media(pointer:coarse)]:w-11',
+};
 
-/** Icon-only button. `label` is required: it powers aria-label and the tooltip. */
+/** Icon-only button. `label` is required: it powers aria-label and the tooltip. variant: ghost | outline, size: sm | md. */
 const IconButton = forwardRef(function IconButton(
   { icon: Icon, label, variant = 'ghost', size = 'md', tooltip = true, className, children, ...props },
   ref,
@@ -21,8 +24,8 @@ const IconButton = forwardRef(function IconButton(
       className={cn(
         'relative inline-flex shrink-0 items-center justify-center rounded-md transition active:scale-95',
         'disabled:pointer-events-none disabled:opacity-50',
-        variants[variant],
-        sizes[size],
+        variants[variant] || variants.ghost,
+        sizes[size] || sizes.md,
         className,
       )}
       {...props}

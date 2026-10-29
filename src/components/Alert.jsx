@@ -9,9 +9,9 @@ const variants = {
 };
 
 export default function Alert({ variant = 'info', title, children, action, className }) {
-  const { icon: Icon, box, tone } = variants[variant];
+  const { icon: Icon, box, tone } = variants[variant] || variants.info;
   return (
-    <div role={variant === 'danger' ? 'alert' : 'status'} className={cn('flex items-start gap-3 rounded-lg border p-4', box, className)}>
+    <div role={variant === 'danger' ? 'alert' : 'status'} className={cn('flex items-start gap-3 rounded-md border p-4', box, className)}>
       <Icon className={cn('mt-0.5 h-4 w-4 shrink-0', tone)} aria-hidden />
       <div className="min-w-0 flex-1">
         {title && <p className="t-small font-medium">{title}</p>}

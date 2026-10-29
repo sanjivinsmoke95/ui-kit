@@ -1,46 +1,54 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { themes as defaultThemes } from '../config/themes';
+import { deriveAccent, parseHex } from '../utils/color';
 
 const ThemeContext = createContext(null);
 
-const hexToRgb = (hex) => {
-  const n = parseInt(hex.replace('#', ''), 16);
-  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
-};
-const mix = (rgb, target, amount) => rgb.map((c, i) => Math.round(c + (target[i] - c) * amount));
+const isPlainObject = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
 
+/** Reads { theme, accent } from localStorage. Never throws: missing, corrupt, or blocked storage all yield {}. */
 function readStored(key) {
   try {
-    return JSON.parse(localStorage.getItem(key) || '{}');
+    const parsed = JSON.parse(localStorage.getItem(key) || '{}');
+    return isPlainObject(parsed) ? parsed : {};
   } catch {
     return {};
   }
 }
 
+const knownTheme = (themes, id) => (typeof id === 'string' && themes.some((t) => t.id === id) ? id : null);
+const validAccent = (value) => (value && parseHex(value) ? value : null);
+
 /** Writes the theme (and an optional accent override) onto <html>. Colors live in styles/kit.css under [data-theme]. */
 function applyTheme(themes, theme, accent) {
   const root = document.documentElement;
   root.dataset.theme = theme;
-  if (!accent) {
-    ['--accent', '--accent-text'].forEach((v) => root.style.removeProperty(v));
+  const derived = accent && deriveAccent(accent, themes.find((t) => t.id === theme)?.dark);
+  if (!derived) {
+    ['--accent', '--accent-text', '--accent-fg'].forEach((v) => root.style.removeProperty(v));
     return;
   }
-  const rgb = hexToRgb(accent);
-  const isDark = themes.find((t) => t.id === theme)?.dark;          // on dark surfaces the raw accent is too dim for text, so lighten it
-  const text = isDark ? mix(rgb, [255, 255, 255], 0.4) : mix(rgb, [0, 0, 0], 0.15);
-  root.style.setProperty('--accent', rgb.join(' '));
-  root.style.setProperty('--accent-text', text.join(' '));
+  root.style.setProperty('--accent', derived.accent.join(' '));
+  root.style.setProperty('--accent-text', derived.accentText.join(' '));
+  root.style.setProperty('--accent-fg', derived.accentFg.join(' '));
 }
 
 /**
  * Theme + accent state, remembered in localStorage.
- *   <ThemeProvider defaultTheme="blue" storageKey="my-app.theme">…</ThemeProvider>
+ *   <ThemeProvider defaultTheme="dark" storageKey="my-app.theme">…</ThemeProvider>
  * Pass `themes` to replace the preset list (each: { id, label, dark?, swatch? }; define matching [data-theme] blocks in your CSS).
+ * Saved values are validated: an unknown theme id or a malformed accent falls back to the defaults instead of being applied.
+ * `setAccent(null)` clears the override.
  */
-export function ThemeProvider({ children, defaultTheme = 'blue', defaultAccent = null, storageKey = 'ui-kit.theme', themes = defaultThemes }) {
-  const stored = useMemo(() => readStored(storageKey), [storageKey]);
-  const [theme, setTheme] = useState(stored.theme || defaultTheme);
-  const [accent, setAccent] = useState(stored.accent ?? defaultAccent);
+export function ThemeProvider({ children, defaultTheme = 'dark', defaultAccent = null, storageKey = 'ui-kit.theme', themes = defaultThemes }) {
+  const [theme, setThemeState] = useState(() => {
+    const stored = readStored(storageKey);
+    return knownTheme(themes, stored.theme) || knownTheme(themes, defaultTheme) || themes[0]?.id;
+  });
+  const [accent, setAccentState] = useState(() => {
+    const stored = readStored(storageKey);
+    return 'accent' in stored ? validAccent(stored.accent) : validAccent(defaultAccent);
+  });
 
   useEffect(() => {
     applyTheme(themes, theme, accent);
@@ -51,10 +59,23 @@ export function ThemeProvider({ children, defaultTheme = 'blue', defaultAccent =
     }
   }, [theme, accent, storageKey, themes]);
 
-  const set = useCallback((t) => setTheme(t), []);
-  const setAcc = useCallback((a) => setAccent(a), []);
-  const value = useMemo(() => ({ theme, accent, setTheme: set, setAccent: setAcc, themes }), [theme, accent, set, setAcc, themes]);
+  const setTheme = useCallback((id) => {
+    const ok = knownTheme(themes, id);
+    if (ok) setThemeState(ok);
+    else if (typeof console !== 'undefined') console.warn(`[ui-kit] Unknown theme "${id}". Available: ${themes.map((t) => t.id).join(', ')}`);
+  }, [themes]);
+  const setAccent = useCallback((value) => {
+    if (value == null || value === '') setAccentState(null);
+    else if (parseHex(value)) setAccentState(value);
+    else if (typeof console !== 'undefined') console.warn(`[ui-kit] Ignored invalid accent "${value}". Use a hex colour such as #E11D48.`);
+  }, []);
+
+  const value = useMemo(() => ({ theme, accent, setTheme, setAccent, themes }), [theme, accent, setTheme, setAccent, themes]);
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
-export const useTheme = () => useContext(ThemeContext);
+export function useTheme() {
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error('useTheme() must be used inside <ThemeProvider>. Wrap your app: <ThemeProvider><App /></ThemeProvider>.');
+  return ctx;
+}

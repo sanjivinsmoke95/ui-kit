@@ -3,7 +3,7 @@
  * titled section, skeleton rows, priority bars and a level badge. They are separate from the primitives so you can ignore
  * them without losing anything.
  */
-import { useId, useState } from 'react';
+import { useCallback, useId, useState } from 'react';
 import { X } from 'lucide-react';
 import { LEVEL_STYLE } from '../config/levels';
 import { cn } from '../utils/cn';
@@ -129,7 +129,8 @@ export function ConfirmDialog({ open, title, children, confirmLabel = 'Confirm',
 /** `const notify = useNotify(); notify('Saved'); notify('Could not save', 'error')`. Needs <ToastProvider> above it. */
 export function useNotify() {
   const toast = useToast();
-  return (message, tone = 'ok') => toast({ title: message, type: tone === 'error' ? 'error' : 'success' });
+  if (!toast) throw new Error('useNotify() must be used inside <ToastProvider>.');
+  return useCallback((message, tone = 'ok') => toast({ title: message, type: tone === 'error' ? 'error' : 'success' }), [toast]);
 }
 
 /** Titled bordered block with an optional right-aligned aside. */
